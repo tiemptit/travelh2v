@@ -11,7 +11,31 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int icon=0x7f020000;
+        public static final int btn_selector_tab_all=0x7f020000;
+        public static final int btn_selector_tab_context=0x7f020001;
+        public static final int btn_selector_tab_favorites=0x7f020002;
+        public static final int btn_selector_tab_profile=0x7f020003;
+        public static final int btn_selector_tab_suggestions=0x7f020004;
+        public static final int icon=0x7f020005;
+        public static final int tab_item_all=0x7f020006;
+        public static final int tab_item_all_focus=0x7f020007;
+        public static final int tab_item_context=0x7f020008;
+        public static final int tab_item_context_focus=0x7f020009;
+        public static final int tab_item_favorites=0x7f02000a;
+        public static final int tab_item_favorites_focus=0x7f02000b;
+        public static final int tab_item_profile=0x7f02000c;
+        public static final int tab_item_profile_focus=0x7f02000d;
+        public static final int tab_item_suggestions=0x7f02000e;
+        public static final int tab_item_suggestions_focus=0x7f02000f;
+    }
+    public static final class id {
+        public static final int first=0x7f050001;
+        public static final int states=0x7f050000;
+        public static final int tab_all=0x7f050002;
+        public static final int tab_context=0x7f050005;
+        public static final int tab_favorites=0x7f050004;
+        public static final int tab_profile=0x7f050006;
+        public static final int tab_suggestions=0x7f050003;
     }
     public static final class layout {
         public static final int main=0x7f030000;

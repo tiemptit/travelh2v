@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/hello"
-    />
-</LinearLayout>
+
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@android:id/tabhost" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<LinearLayout android:orientation="vertical"
+		android:layout_width="fill_parent" android:layout_height="fill_parent">
+		<FrameLayout android:id="@android:id/tabcontent"
+			android:layout_width="fill_parent" android:layout_height="0dip"
+			android:layout_weight="1" />
+
+		<RadioGroup android:id="@+id/states" android:layout_width="fill_parent"
+			android:layout_height="64dip" android:orientation="horizontal"
+			android:checkedButton="@+id/first">
+			<RadioButton android:id="@+id/tab_all" android:background="@drawable/btn_selector_tab_all"
+				android:layout_width="64dp" />
+			<RadioButton android:id="@+id/tab_suggestions"
+				android:background="@drawable/btn_selector_tab_suggestions"
+				android:layout_width="64dp" />
+			<RadioButton android:id="@+id/tab_favorites"
+				android:background="@drawable/btn_selector_tab_favorites"
+				android:layout_width="64dp" />
+			<RadioButton android:id="@+id/tab_context"
+				android:background="@drawable/btn_selector_tab_context"
+				android:layout_width="64dp" />
+			<RadioButton android:id="@+id/tab_profile"
+				android:background="@drawable/btn_selector_tab_profile"
+				android:layout_width="64dp" />
+		</RadioGroup>
+
+		<TabWidget android:id="@android:id/tabs"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"
+			android:layout_weight="0" android:visibility="gone" />
+	</LinearLayout>
+</TabHost>
