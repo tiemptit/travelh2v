@@ -27,23 +27,41 @@ public final class R {
         public static final int tab_item_profile_focus=0x7f02000d;
         public static final int tab_item_suggestions=0x7f02000e;
         public static final int tab_item_suggestions_focus=0x7f02000f;
+        public static final int title_allplaces=0x7f020010;
+        public static final int title_context=0x7f020011;
+        public static final int title_details=0x7f020012;
+        public static final int title_favorites=0x7f020013;
+        public static final int title_map=0x7f020014;
+        public static final int title_profile=0x7f020015;
+        public static final int title_rate=0x7f020016;
+        public static final int title_suggestions=0x7f020017;
     }
     public static final class id {
-        public static final int states=0x7f050000;
-        public static final int tab_all=0x7f050001;
-        public static final int tab_context=0x7f050004;
-        public static final int tab_favorites=0x7f050003;
-        public static final int tab_profile=0x7f050005;
-        public static final int tab_suggestions=0x7f050002;
-        public static final int textView1=0x7f050006;
+        public static final int states=0x7f050001;
+        public static final int tab_all=0x7f050002;
+        public static final int tab_context=0x7f050005;
+        public static final int tab_favorites=0x7f050004;
+        public static final int tab_profile=0x7f050006;
+        public static final int tab_suggestions=0x7f050003;
+        public static final int title_allplaces=0x7f050009;
+        public static final int title_context=0x7f05000a;
+        public static final int title_details=0x7f050000;
+        public static final int title_favorites=0x7f05000b;
+        public static final int title_map=0x7f050007;
+        public static final int title_profile=0x7f05000c;
+        public static final int title_rate=0x7f050008;
+        public static final int title_suggestions=0x7f05000d;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
-        public static final int tab_all=0x7f030001;
-        public static final int tab_context=0x7f030002;
-        public static final int tab_favorites=0x7f030003;
-        public static final int tab_profile=0x7f030004;
-        public static final int tab_suggestions=0x7f030005;
+        public static final int details=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int map=0x7f030002;
+        public static final int rate=0x7f030003;
+        public static final int tab_all=0x7f030004;
+        public static final int tab_context=0x7f030005;
+        public static final int tab_favorites=0x7f030006;
+        public static final int tab_profile=0x7f030007;
+        public static final int tab_suggestions=0x7f030008;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
