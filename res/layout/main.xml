@@ -10,22 +10,24 @@
 			android:layout_weight="1" />
 
 		<RadioGroup android:id="@+id/states" android:layout_width="fill_parent"
-			android:layout_height="64dip" android:orientation="horizontal"
-			android:checkedButton="@+id/first">
-			<RadioButton android:id="@+id/tab_all" android:background="@drawable/btn_selector_tab_all"
-				android:layout_width="64dp" />
+			android:layout_height="67dip" android:orientation="horizontal"
+			android:clipChildren="true"
+			android:checkedButton="@+id/tab_all">
+			<RadioButton android:id="@+id/tab_all" 
+				android:button="@drawable/btn_selector_tab_all"
+				android:layout_width="64dip" android:layout_height="67dip"/>
 			<RadioButton android:id="@+id/tab_suggestions"
-				android:background="@drawable/btn_selector_tab_suggestions"
-				android:layout_width="64dp" />
+				android:button="@drawable/btn_selector_tab_suggestions"
+				android:layout_width="64dip" android:layout_height="67dip"/>
 			<RadioButton android:id="@+id/tab_favorites"
-				android:background="@drawable/btn_selector_tab_favorites"
-				android:layout_width="64dp" />
+				android:button="@drawable/btn_selector_tab_favorites"
+				android:layout_width="64dip" android:layout_height="67dip"/>
 			<RadioButton android:id="@+id/tab_context"
-				android:background="@drawable/btn_selector_tab_context"
-				android:layout_width="64dp" />
+				android:button="@drawable/btn_selector_tab_context"
+				android:layout_width="64dip" android:layout_height="67dip"/>
 			<RadioButton android:id="@+id/tab_profile"
-				android:background="@drawable/btn_selector_tab_profile"
-				android:layout_width="64dp" />
+				android:button="@drawable/btn_selector_tab_profile"
+				android:layout_width="64dip" android:layout_height="67dip"/>
 		</RadioGroup>
 
 		<TabWidget android:id="@android:id/tabs"
