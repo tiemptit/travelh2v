@@ -69,18 +69,21 @@ public final class R {
         public static final int title_suggestions=0x7f020037;
     }
     public static final class id {
-        public static final int btnChange=0x7f05001b;
-        public static final int btnLogin=0x7f050018;
-        public static final int btnRegister=0x7f050017;
+        public static final int btnChange=0x7f05001e;
+        public static final int btnLogin=0x7f05001b;
+        public static final int btnPickDate=0x7f050016;
+        public static final int btnPickTime=0x7f050017;
+        public static final int btnRegister=0x7f05001a;
         public static final int btnReset=0x7f05000b;
         public static final int btnSave=0x7f05000c;
+        public static final int imgContext=0x7f050015;
+        public static final int imgTravelLength=0x7f050013;
         public static final int spinner_budget=0x7f050012;
         public static final int spinner_companion=0x7f05000f;
         public static final int spinner_familiarity=0x7f050011;
         public static final int spinner_mood=0x7f050010;
         public static final int spinner_temperature=0x7f05000d;
-        public static final int spinner_time=0x7f050014;
-        public static final int spinner_travel_length=0x7f050013;
+        public static final int spinner_travel_length=0x7f050014;
         public static final int spinner_weather=0x7f05000e;
         public static final int states=0x7f050001;
         public static final int tab_all=0x7f050002;
@@ -91,16 +94,16 @@ public final class R {
         public static final int title_allplaces=0x7f050009;
         public static final int title_context=0x7f05000a;
         public static final int title_details=0x7f050000;
-        public static final int title_favorites=0x7f050015;
+        public static final int title_favorites=0x7f050018;
         public static final int title_map=0x7f050007;
-        public static final int title_profile=0x7f050016;
+        public static final int title_profile=0x7f050019;
         public static final int title_rate=0x7f050008;
-        public static final int title_suggestions=0x7f05001f;
-        public static final int txtNewPassword=0x7f05001e;
-        public static final int txtOldPassword=0x7f05001d;
-        public static final int txtPassword=0x7f05001a;
-        public static final int txtUserChange=0x7f05001c;
-        public static final int txtUserLogin=0x7f050019;
+        public static final int title_suggestions=0x7f050022;
+        public static final int txtNewPassword=0x7f050021;
+        public static final int txtOldPassword=0x7f050020;
+        public static final int txtPassword=0x7f05001d;
+        public static final int txtUserChange=0x7f05001f;
+        public static final int txtUserLogin=0x7f05001c;
     }
     public static final class layout {
         public static final int details=0x7f030000;
