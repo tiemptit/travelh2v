@@ -22,8 +22,8 @@
 		<TableRow>
 			<ImageView android:src="@drawable/lb_profile_user"
 				android:layout_width="160dip" android:layout_height="46dip" />
-			<EditText android:id="@+id/txtUserLogin" android:layout_width="160dip"
-				android:layout_height="46dp" android:background="@drawable/profile_textbox"
+			<EditText android:id="@+id/txtUserLogin"
+				android:layout_width="160dip" android:layout_height="46dp"
 				android:padding="2dip" android:hint="Enter keyword"
 				android:textColorHint="#252525" android:textColor="#252525"
 				android:textSize="17sp" />
@@ -33,9 +33,9 @@
 				android:layout_width="160dip" android:layout_height="46dip" />
 			<EditText android:id="@+id/txtPassword"
 				android:layout_width="160dip" android:layout_height="46dp"
-				android:background="@drawable/profile_textbox" android:padding="2dip"
-				android:hint="Enter keyword" android:textColorHint="#252525"
-				android:textColor="#252525" android:textSize="17sp" />
+				android:padding="2dip" android:hint="Enter keyword"
+				android:textColorHint="#252525" android:textColor="#252525"
+				android:textSize="17sp" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:background="@android:color/transparent"
@@ -52,27 +52,27 @@
 				android:layout_width="160dip" android:layout_height="46dip" />
 			<EditText android:id="@+id/txtUserChange"
 				android:layout_width="160dip" android:layout_height="46dp"
-				android:background="@drawable/profile_textbox" android:padding="2dip"
-				android:hint="Enter keyword" android:textColorHint="#252525"
-				android:textColor="#252525" android:textSize="17sp" />
+				android:padding="2dip" android:hint="Enter keyword"
+				android:textColorHint="#252525" android:textColor="#252525"
+				android:textSize="17sp" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_profile_old_pass"
 				android:layout_width="160dip" android:layout_height="46dip" />
 			<EditText android:id="@+id/txtOldPassword"
 				android:layout_width="160dip" android:layout_height="46dp"
-				android:background="@drawable/profile_textbox" android:padding="2dip"
-				android:hint="Enter keyword" android:textColorHint="#252525"
-				android:textColor="#252525" android:textSize="17sp" />
+				android:padding="2dip" android:hint="Enter keyword"
+				android:textColorHint="#252525" android:textColor="#252525"
+				android:textSize="17sp" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_profile_new_pass"
 				android:layout_width="160dip" android:layout_height="46dip" />
 			<EditText android:id="@+id/txtNewPassword"
 				android:layout_width="160dip" android:layout_height="46dp"
-				android:background="@drawable/profile_textbox" android:padding="2dip"
-				android:hint="Enter keyword" android:textColorHint="#252525"
-				android:textColor="#252525" android:textSize="17sp" />
+				android:padding="2dip" android:hint="Enter keyword"
+				android:textColorHint="#252525" android:textColor="#252525"
+				android:textSize="17sp" />
 		</TableRow>
 	</TableLayout>
 
