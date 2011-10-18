@@ -3,7 +3,7 @@
 <!-- Wrapper -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="@android:color/black">
+	android:orientation="vertical" android:background="@android:color/white">
 
 	<!-- Title -->
 	<ImageView android:id="@+id/title_context"
@@ -11,9 +11,70 @@
 		android:src="@drawable/title_context" />
 
 	<!-- body -->
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_height="wrap_content" android:layout_width="fill_parent">
-
-	</RelativeLayout>
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_height="fill_parent" android:layout_width="fill_parent">
+		<TableRow>
+			<Button android:id="@+id/btnReset" android:layout_width="160dip"
+				android:layout_height="33dip" android:background="@drawable/btn_selector_reset" />
+			<Button android:id="@+id/btnSave" android:layout_width="160dip"
+				android:layout_height="33dip" android:background="@drawable/btn_selector_save" />
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_temperature"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_temperature"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_weather"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_weather"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_companion"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_companion"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_mood"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_mood"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_familiarity"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_familiarity"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_budget"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_budget"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_travel_length"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_travel_length"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+		<TableRow>
+			<ImageView android:src="@drawable/lb_context_time"
+				android:layout_width="160dip" android:layout_height="45dip" />
+			<Spinner android:id="@+id/spinner_time"
+				android:layout_width="160dip" android:layout_height="45dip"
+				android:drawSelectorOnTop="true"/>
+		</TableRow>
+	</TableLayout>
 
 </LinearLayout>
