@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Wrapper -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="@android:color/black">
+	android:background="@drawable/bg">
 
 	<!-- Title -->
 	<ImageView android:id="@+id/title_allplaces"
@@ -11,9 +11,17 @@
 		android:src="@drawable/title_allplaces" />
 
 	<!-- body -->
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_height="wrap_content" android:layout_width="fill_parent">
-
-	</RelativeLayout>
-
-</LinearLayout>
+	<Button android:id="@+id/btnAz" android:layout_width="80dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_col_az"
+		android:layout_below="@+id/title_allplaces" />
+	<Button android:id="@+id/btnRating" android:layout_width="80dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_col_rating"
+		android:layout_toRightOf="@+id/btnAz" android:layout_below="@+id/title_allplaces" />
+	<Button android:id="@+id/btnDistance" android:layout_width="80dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_col_distance"
+		android:layout_toRightOf="@+id/btnRating" android:layout_below="@+id/title_allplaces" />
+	<Button android:id="@+id/btnType" android:layout_width="80dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_col_type"
+		android:layout_toRightOf="@+id/btnDistance" android:layout_below="@+id/title_allplaces" />
+	
+</RelativeLayout>

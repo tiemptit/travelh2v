@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Wrapper -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="@android:color/black">
+	android:background="@drawable/bg">
 
 	<!-- Title -->
-	<ImageView android:id="@+id/title_map"
-		android:layout_width="fill_parent" android:layout_height="46dip"
-		android:src="@drawable/title_map" />
+	<ImageView android:id="@+id/title_map" android:layout_width="fill_parent"
+		android:layout_height="46dip" android:src="@drawable/title_map" />
+	<Button android:id="@+id/btnBack" android:layout_width="46dip"
+		android:layout_height="46dip" android:background="@drawable/btn_selector_back" />
 
 	<!-- body -->
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_height="wrap_content" android:layout_width="fill_parent">
 
-	</RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
