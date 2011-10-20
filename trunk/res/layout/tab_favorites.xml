@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Wrapper -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="@android:color/black">
+	android:background="@drawable/bg">
 
 	<!-- Title -->
 	<ImageView android:id="@+id/title_favorites"
@@ -11,9 +11,24 @@
 		android:src="@drawable/title_favorites" />
 
 	<!-- body -->
-	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:layout_height="wrap_content" android:layout_width="fill_parent">
+	<Button android:id="@+id/btnPrev" android:layout_width="33dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_prev"
+		android:layout_below="@+id/title_favorites" />
+	<Button android:id="@+id/btnCheckAll" android:layout_width="126dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_checkall"
+		android:layout_toRightOf="@+id/btnPrev" android:layout_below="@+id/title_favorites" />
+	<Button android:id="@+id/btnDelete" android:layout_width="126dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_delete"
+		android:layout_toRightOf="@+id/btnCheckAll" android:layout_below="@+id/title_favorites" />
+	<Button android:id="@+id/btnNext" android:layout_width="33dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_next"
+		android:layout_toRightOf="@+id/btnDelete" android:layout_below="@+id/title_favorites" />
+	<EditText android:id="@+id/txtSearch" android:layout_width="287dip"
+		android:layout_height="38dip" android:layout_below="@+id/btnPrev"
+		android:hint="Enter keyword" android:textColorHint="#8c8c8c"
+		android:textColor="#252525" android:textSize="12sp" />
+	<Button android:id="@+id/btnSearch" android:layout_width="33dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_search"
+		android:layout_toRightOf="@+id/txtSearch" android:layout_below="@+id/btnNext" />
 
-	</RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
