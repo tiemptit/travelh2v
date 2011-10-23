@@ -1,7 +1,7 @@
 /**
  * 
  */
-package uit.is.thesis.travel.webservices;
+package uit.is.thesis.travel.InternetHelper;
 
 /**
  * @author LEHIEU
