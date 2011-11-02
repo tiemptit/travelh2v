@@ -99,6 +99,15 @@ namespace RecommenderSystem.Core.Helper
             string sp_Name = storeProcName;
             try
             {
+                
+                //Fix datetime
+                for (int i = 0; i < parameterList.Count(); i++)
+                {
+                    if (typeList[i] == DbType.DateTime)
+                        //valueList[i] = Convert.ToDateTime(Convert.ToDouble(valueList[i]));
+                        valueList[i] = DateTime.FromOADate(Convert.ToDouble(valueList[i]));
+                }
+
                 Database db = DatabaseFactory.CreateDatabase("Connection String");
                 DbCommand command = db.GetStoredProcCommand(sp_Name);
                 command.CommandTimeout = 0;

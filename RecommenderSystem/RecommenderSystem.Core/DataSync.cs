@@ -75,6 +75,11 @@ namespace RecommenderSystem.Core
                 result = result && ImportExcelSheetData(path, sheetName, "users", "pr_insertNewUser");
             }
 
+            foreach (string sheetName in ExcelHelper.findSheets(path, realRatingSheet))
+            {
+                result = result && ImportExcelSheetData(path, sheetName, "Real_Ratings", "pr_insertNewRating");
+            }
+
             return result;
         }
 
@@ -111,7 +116,10 @@ namespace RecommenderSystem.Core
                 for (int i = 0; i < data.Columns.Count; i++)
                 {
                     headerList.Add("@" + data.Columns[i].ColumnName);
-                    typeList.Add(DbType.String);
+                    if(data.Columns[i].ColumnName == "time")
+                        typeList.Add(DbType.DateTime);
+                    else
+                        typeList.Add(DbType.String);
                 }
 
                 //insert new
