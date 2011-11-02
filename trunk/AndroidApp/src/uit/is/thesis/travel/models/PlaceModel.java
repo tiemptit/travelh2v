@@ -3,12 +3,16 @@
  */
 package uit.is.thesis.travel.models;
 
+import java.io.Serializable;
+
 /**
  * @author LEHIEU
  *
  */
-public class PlaceModel {
-	
+
+@SuppressWarnings("serial")
+public class PlaceModel implements Serializable{
+	//Properties from Database table
 	public int id;
 	public PlaceCategoryModel place_category_obj;
     public String name;
@@ -31,7 +35,10 @@ public class PlaceModel {
     public double general_rating;
     public double general_count_rating;
     public double general_sum_rating;
-
+    
+    // more Properties
+    public double distance; // distance between current location of user and location of place
+    private int id_itemOnListView; // id of item on listView
 	
     /**
 	 * @return the id
@@ -296,6 +303,34 @@ public class PlaceModel {
 	 */
 	public void setGeneral_sum_rating(double general_sum_rating) {
 		this.general_sum_rating = general_sum_rating;
+	}
+	/** Return round distance */
+	public double getDistance() {
+		double d = Math.pow(10, 3) ;
+		return Math.round( this.distance * d ) / d;
+	}
+	/** Compute distance from current location of user to location of place use Haverine formula */
+	public void setDistance(double latitude, double longitude) {
+		// Haversine formula
+		double deltaLatitude = Math.toRadians(Math.abs(this.lat - latitude));
+		double deltaLongitude = Math.toRadians(Math.abs(this.lng - longitude));
+		double a = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) + 
+				   Math.cos(Math.toRadians(this.lat)) * Math.cos(Math.toRadians(latitude)) * 
+				   Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2);
+		double c =  2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		this.distance = 6371 * c;
+	}
+	/**
+	 * @return the id_listView
+	 */
+	public int getId_itemOnListView() {
+		return id_itemOnListView;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId_itemOnListView(int id) {
+		this.id_itemOnListView = id;
 	}
 	
 }

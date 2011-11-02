@@ -47,19 +47,20 @@ public class JsonUtil {
 		}
 	}
 
-	public static List<PlaceModel> GetAllPlaces(String url) {
+	public static List<PlaceModel> GetAllPlaces(String url, double current_lat, double current_lng) {
 		List<PlaceModel> ListAllPlaces = new ArrayList<PlaceModel>();
 		InputStream inputStream = null;
 		String strResults = null;
 		Log.i("test", "start ----------");
 		try {
 			// Get data from web service
-			URL feedUrl = new URL(url);
+/*			URL feedUrl = new URL(url);
 			Log.i("test", "feedUrl ----------");
 			inputStream = feedUrl.openConnection().getInputStream();
-			Log.i("test", "inputStream: " + inputStream);
-			strResults = convertStreamToString(inputStream);
-			//strResults ="{\"responseData\":[{\"id\":1,\"place_category_obj\":{\"id\":1,\"place_category\":\"Market\"},\"name\":\"Da Lat Market\",\"imgurl\":\"http://www.google.com/maps/place?source=uds&q=hotel&cid=6565492984366607731\",\"lat\":108.1111,\"lng\":108.1115,\"house_number\":201,\"street\":\"Nguyen Thi Minh Khai\",\"ward\":\"6\",\"district\":\"10\",\"city\":\"Da Lat\",\"province\":\"Lam Dong\",\"country\":\"Viet Nam\",\"phone_number\":\"0909090909\",\"email\":\"abc@yahoo.com\",\"website\":\"www.google.com\",\"history\":\"history ...\",\"details\":\"details ...\",\"sources\":\"www.google.com.vn\",\"general_rating\":5,\"general_count_rating\":100,\"general_sum_rating\":500},{\"id\":1,\"place_category_obj\":{\"id\":1,\"place_category\":\"Market\"},\"name\":\"Da Lat Market\",\"imgurl\":\"http://www.google.com/maps/place?source=uds&q=hotel&cid=6565492984366607731\",\"lat\":108.1111,\"lng\":108.1115,\"house_number\":201,\"street\":\"Nguyen Thi Minh Khai\",\"ward\":\"6\",\"district\":\"10\",\"city\":\"Da Lat\",\"province\":\"Lam Dong\",\"country\":\"Viet Nam\",\"phone_number\":\"0909090909\",\"email\":\"abc@yahoo.com\",\"website\":\"www.google.com\",\"history\":\"history ...\",\"details\":\"details ...\",\"sources\":\"www.google.com.vn\",\"general_rating\":5,\"general_count_rating\":100,\"general_sum_rating\":500},{\"id\":1,\"place_category_obj\":{\"id\":1,\"place_category\":\"Market\"},\"name\":\"Da Lat Market\",\"imgurl\":\"http://www.google.com/maps/place?source=uds&q=hotel&cid=6565492984366607731\",\"lat\":108.1111,\"lng\":108.1115,\"house_number\":201,\"street\":\"Nguyen Thi Minh Khai\",\"ward\":\"6\",\"district\":\"10\",\"city\":\"Da Lat\",\"province\":\"Lam Dong\",\"country\":\"Viet Nam\",\"phone_number\":\"0909090909\",\"email\":\"abc@yahoo.com\",\"website\":\"www.google.com\",\"history\":\"history ...\",\"details\":\"details ...\",\"sources\":\"www.google.com.vn\",\"general_rating\":5,\"general_count_rating\":100,\"general_sum_rating\":500}]}";
+			Log.i("test", "inputStream: " + inputStream);*/
+			
+			//strResults = JsonUtil.convertStreamToString(inputStream);
+			strResults ="{\"responseData\":[{\"id\":1,\"place_category_obj\":{\"id\":1,\"place_category\":\"Market\"},\"name\":\"Da Lat Market 1\",\"imgurl\":\"http://www.google.com/maps/place?source=uds&q=hotel&cid=6565492984366607731\",\"lat\":108.1111,\"lng\":108.1115,\"house_number\":201,\"street\":\"Nguyen Thi Minh Khai\",\"ward\":\"6\",\"district\":\"10\",\"city\":\"Da Lat\",\"province\":\"Lam Dong\",\"country\":\"Viet Nam\",\"phone_number\":\"0909090909\",\"email\":\"abc@yahoo.com\",\"website\":\"www.google.com\",\"history\":\"history ...\",\"details\":\"details ...\",\"sources\":\"www.google.com.vn\",\"general_rating\":3.5,\"general_count_rating\":100,\"general_sum_rating\":500},{\"id\":1,\"place_category_obj\":{\"id\":1,\"place_category\":\"Market\"},\"name\":\"Da Lat Market 2\",\"imgurl\":\"http://www.google.com/maps/place?source=uds&q=hotel&cid=6565492984366607731\",\"lat\":108.1111,\"lng\":108.1115,\"house_number\":201,\"street\":\"Nguyen Thi Minh Khai\",\"ward\":\"6\",\"district\":\"10\",\"city\":\"Da Lat\",\"province\":\"Lam Dong\",\"country\":\"Viet Nam\",\"phone_number\":\"0909090909\",\"email\":\"abc@yahoo.com\",\"website\":\"www.google.com\",\"history\":\"history ...\",\"details\":\"details ...\",\"sources\":\"www.google.com.vn\",\"general_rating\":4.5,\"general_count_rating\":100,\"general_sum_rating\":500},{\"id\":1,\"place_category_obj\":{\"id\":1,\"place_category\":\"Market\"},\"name\":\"Da Lat Market 3\",\"imgurl\":\"http://www.google.com/maps/place?source=uds&q=hotel&cid=6565492984366607731\",\"lat\":108.1111,\"lng\":108.1115,\"house_number\":201,\"street\":\"Nguyen Thi Minh Khai\",\"ward\":\"6\",\"district\":\"10\",\"city\":\"Da Lat\",\"province\":\"Lam Dong\",\"country\":\"Viet Nam\",\"phone_number\":\"0909090909\",\"email\":\"abc@yahoo.com\",\"website\":\"www.google.com\",\"history\":\"history ...\",\"details\":\"details ...\",\"sources\":\"www.google.com.vn\",\"general_rating\":5,\"general_count_rating\":100,\"general_sum_rating\":500}]}";
 			Log.i("test", "JSON string: " + strResults);
 			
 			// Parse JSON string
@@ -133,7 +134,10 @@ public class JsonUtil {
 				Log.i("test", "place: " + i + "general_count_rating = " +place_obj.general_count_rating);
 				place_obj.general_sum_rating = obj.getDouble("general_sum_rating");
 				Log.i("test", "place: " + i + "general_sum_rating = " +place_obj.general_sum_rating);
-				
+				place_obj.setDistance(current_lat, current_lng);
+				Log.i("test", "place: " + i + "distance = " +place_obj.getDistance());
+				place_obj.setId_itemOnListView(i);
+				Log.i("test", "place: " + i + "Id_itemOnListView = " +place_obj.getId_itemOnListView());
 				//add to Array List Places
 				ListAllPlaces.add(place_obj);
 			}
