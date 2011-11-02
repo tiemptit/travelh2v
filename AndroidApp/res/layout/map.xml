@@ -8,7 +8,7 @@
 	<!-- Title -->
 	<ImageView android:id="@+id/title_map" android:layout_width="fill_parent"
 		android:layout_height="46dip" android:src="@drawable/title_map" />
-	<Button android:id="@+id/btnBack" android:layout_width="46dip"
+	<Button android:id="@+id/btnBackMap" android:layout_width="46dip"
 		android:layout_height="46dip" android:background="@drawable/btn_selector_back" />
 
 	<!-- body -->

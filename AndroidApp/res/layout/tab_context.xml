@@ -15,7 +15,7 @@
 		android:layout_height="fill_parent" android:layout_width="fill_parent"
 		android:layout_below="@+id/title_context">
 		<TableRow>
-			<Button android:id="@+id/btnReset" android:layout_width="160dip"
+			<Button android:id="@+id/btnReset1" android:layout_width="160dip"
 				android:layout_height="33dip" android:background="@drawable/btn_selector_reset"/>
 			<Button android:id="@+id/btnSave" android:layout_width="160dip"
 				android:layout_height="33dip" android:background="@drawable/btn_selector_save" />

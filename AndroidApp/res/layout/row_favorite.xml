@@ -11,7 +11,7 @@
 		android:focusable="false" />
 
 	<!-- Row address -->
-	<TextView android:id="@+id/txtViewAddress"
+	<TextView android:id="@+id/txtViewAddress1"
 		android:layout_width="190dp" android:layout_height="33dp"
 		android:layout_alignParentBottom="true" android:layout_marginLeft="40dip"
 		android:singleLine="true" android:gravity="center_vertical"
@@ -20,31 +20,31 @@
 		android:textSize="12sp" android:textColor="#252525" />
 
 	<!-- Row name -->
-	<TextView android:id="@+id/txtViewName" android:layout_width="190dp"
+	<TextView android:id="@+id/txtViewName1" android:layout_width="190dp"
 		android:layout_height="33dp" android:layout_alignParentTop="true"
-		android:layout_above="@id/txtViewAddress" android:layout_marginLeft="40dip"
+		android:layout_above="@id/txtViewAddress1" android:layout_marginLeft="40dip"
 		android:layout_alignWithParentIfMissing="true" android:singleLine="true"
 		android:gravity="center_vertical" android:layout_toRightOf="@+android:id/checkboxItem"
 		android:text="Ngan Hang Sacombank11111111111111111111111111111111111"
 		android:textColor="#252525" android:textSize="18sp" android:textStyle="bold" />
 
 	<!-- Arrow -->
-	<ImageView android:id="@+id/icArrow" android:layout_width="17dip"
+	<ImageView android:id="@+id/icArrow1" android:layout_width="17dip"
 		android:layout_height="66dip" android:layout_alignParentTop="true"
 		android:layout_alignParentBottom="true" android:layout_marginRight="8dip"
 		android:layout_alignParentRight="true" android:src="@drawable/arrow" />
 
 	<!-- Rating Bar -->
-	<RatingBar android:id="@+id/ratingBar" android:layout_width="60dip"
+	<RatingBar android:id="@+id/ratingBar1" android:layout_width="60dip"
 		android:layout_height="23dip" android:numStars="5" android:rating="4.5"
 		android:focusable="false" android:layout_marginTop="10dip"
-		android:layout_toRightOf="@+id/txtViewName" style="?android:attr/ratingBarStyleSmall" />
+		android:layout_toRightOf="@+id/txtViewName1" style="?android:attr/ratingBarStyleSmall" />
 
 	<!-- Distance -->
-	<TextView android:id="@+id/txtViewDistance"
+	<TextView android:id="@+id/txtViewDistance1"
 		android:layout_width="60dip" android:layout_height="fill_parent"
-		android:layout_toRightOf="@+id/txtViewAddress"
-		android:layout_marginTop="6dp" android:layout_below="@+id/ratingBar"
+		android:layout_toRightOf="@+id/txtViewAddress1"
+		android:layout_marginTop="6dp" android:layout_below="@+id/ratingBar1"
 		android:singleLine="true" android:textSize="12sp" android:text="1000 km"
 		android:textColor="#797979" android:textStyle="bold" android:gravity="right" />
 </RelativeLayout>

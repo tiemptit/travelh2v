@@ -23,5 +23,12 @@
 	<Button android:id="@+id/btnType" android:layout_width="80dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_col_type"
 		android:layout_toRightOf="@+id/btnDistance" android:layout_below="@+id/title_allplaces" />
+	<!-- ListView -->
+	<ListView android:id="@+id/listViewResult" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:layout_marginBottom="66dip" android:divider="@android:color/transparent"
+			android:paddingBottom="2dip" android:dividerHeight="2dp"
+			android:layout_below="@+id/btnAz">
+	</ListView>
 	
 </RelativeLayout>

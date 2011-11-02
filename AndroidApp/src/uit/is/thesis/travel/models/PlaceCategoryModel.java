@@ -3,11 +3,14 @@
  */
 package uit.is.thesis.travel.models;
 
+import java.io.Serializable;
+
 /**
  * @author LEHIEU
  *
  */
-public class PlaceCategoryModel {
+@SuppressWarnings("serial")
+public class PlaceCategoryModel implements Serializable{
 
 	public int id;
 	public String place_category;

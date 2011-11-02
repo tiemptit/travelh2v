@@ -1,17 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- Wrapper -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:background="@drawable/bg">
 
 	<!-- Title -->
-	<ImageView android:id="@+id/title_details" android:layout_width="fill_parent"
-		android:layout_height="46dip" android:src="@drawable/title_details" />
-	<Button android:id="@+id/btnBack" android:layout_width="46dip"
-		android:layout_height="46dip" android:background="@drawable/btn_selector_back" />
+	<ImageView android:id="@+id/title_details"
+		android:layout_width="fill_parent" android:layout_height="46dip"
+		android:src="@drawable/title_details" />
+	<Button android:id="@+id/btnBackDetails" android:layout_width="33dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_back" />
 
 	<!-- body -->
+	<Button android:id="@+id/btnRateDetails" android:layout_width="160dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_rate"
+		android:layout_centerHorizontal="true" android:layout_below="@+id/title_details" />
 
-
+	<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/ScrollViewDetails" android:layout_width="fill_parent"
+		android:layout_height="397dip" android:layout_below="@+id/btnRateDetails">
+		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent" android:layout_height="fill_parent">
+			<TextView android:id="@+id/txtViewBasicInfo"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_margin="10dip" android:layout_below="@+id/title_details"
+				android:textColor="#ffffff" android:textSize="16sp"
+				android:textStyle="bold" android:lineSpacingMultiplier="1.5"
+				android:text="BASIC INFO" />
+			<ToggleButton android:id="@+id/ToggleBtnBasicInfo"
+				android:layout_width="wrap_content" android:layout_height="40dip"
+				android:textSize="9sp" android:layout_marginRight="5dip"
+				android:layout_alignParentRight="true" android:textOff="Hide"
+				android:textOn="Show" />
+			<TextView android:id="@+id/txtViewRequire2"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_margin="10dip" android:layout_below="@+id/txtViewBasicInfo"
+				android:textColor="#ffffff" android:textSize="16sp"
+				android:textStyle="bold" android:lineSpacingMultiplier="1.5"
+				android:text="2 We want to know which circumstances influence your decision. Imagine you are visiting this place under circumtances that you provided in the Context settings. How likely is that you will visit this?" />
+			<TextView android:id="@+id/txtViewRequire3"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_margin="10dip" android:layout_below="@+id/txtViewRequire2"
+				android:textColor="#ffffff" android:textSize="16sp"
+				android:lineSpacingMultiplier="1.5"
+				android:text="3 We want to know which circumstances influence your decision. Imagine you are visiting this place under circumtances that you provided in the Context settings. How likely is that you will visit this?" />
+			<TextView android:id="@+id/txtViewRequire4"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_margin="10dip" android:layout_below="@+id/txtViewRequire3"
+				android:textColor="#ffffff" android:textSize="16sp"
+				android:lineSpacingMultiplier="1.5"
+				android:text="4 We want to know which circumstances influence your decision. Imagine you are visiting this place under circumtances that you provided in the Context settings. How likely is that you will visit this?" />
+			<TextView android:id="@+id/txtViewRequire5"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_margin="10dip" android:layout_below="@+id/txtViewRequire4"
+				android:textColor="#ffffff" android:textSize="16sp"
+				android:lineSpacingMultiplier="1.5"
+				android:text="5 We want to know which circumstances influence your decision. Imagine you are visiting this place under circumtances that you provided in the Context settings. How likely is that you will visit this?" />
+		</RelativeLayout>
+	</ScrollView>
+	<Button android:id="@+id/btnShowOnMap" android:layout_width="160dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_show_on_map"
+		android:layout_alignParentLeft="true" android:layout_below="@+id/ScrollViewDetails" />
+	<Button android:id="@+id/btnAddFavorite" android:layout_width="160dip"
+		android:layout_height="33dip" android:background="@drawable/btn_selector_add_favorite"
+		android:layout_alignParentRight="true" android:layout_toRightOf="@+id/btnShowOnMap"
+		android:layout_below="@+id/ScrollViewDetails" />
 </RelativeLayout>
