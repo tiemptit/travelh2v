@@ -16,3 +16,21 @@ D:\Learning\Luan van TN\In process\Recommender system\Recommender system\obj\x86
 D:\Learning\Luan van TN\In process\Recommender system\Recommender system\obj\x86\Debug\GenerateResource.write.1.tlog
 D:\Learning\Luan van TN\In process\Recommender system\Recommender system\obj\x86\Debug\Recommender system.exe
 D:\Learning\Luan van TN\In process\Recommender system\Recommender system\obj\x86\Debug\Recommender system.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Recommender system.exe.config
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender system.exe
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender system.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Recommender system.exe
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Recommender system.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\RecommenderSystem.Core.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\bin\Debug\RecommenderSystem.Core.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender_system.Form1.resources
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender_system.Properties.Resources.resources
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\GenerateResource.write.1.tlog
