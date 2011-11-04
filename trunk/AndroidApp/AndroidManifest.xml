@@ -7,6 +7,7 @@
 
     <application android:icon="@drawable/icon" android:label="@string/app_name"
     android:theme="@android:style/Theme.NoTitleBar">
+    <uses-library android:name="com.google.android.maps" />
         <activity android:name=".MainActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"
@@ -46,12 +47,12 @@
         		  android:screenOrientation="portrait"
         		  android:windowSoftInputMode="adjustPan"> 			  
         </activity>
-        <activity android:name="MapActivity"
+        <activity android:name="MyMapActivity"
         		  android:label="@string/app_name"
         		  android:screenOrientation="portrait"
         		  android:windowSoftInputMode="adjustPan"> 			  
         </activity>
-        <activity android:name=".RateActivity"
+        <activity android:name="RateActivity"
         		  android:label="@string/app_name"
         		  android:screenOrientation="portrait"
         		  android:windowSoftInputMode="adjustPan"> 			  
