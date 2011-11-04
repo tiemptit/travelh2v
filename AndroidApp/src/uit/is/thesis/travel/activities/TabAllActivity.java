@@ -81,8 +81,38 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			// get current location of user
 			getLatitudeLongitude();
 			// get Result List of All Places
-			getSearchResultList();
+			//getSearchResultList();
+			//displayListView();
+			searchResultList = SortListUtil.SortListByName(searchResultList);
 			displayListView();
+			//Log.i("Sort List", "1 -" + searchResultList.get(0).getName() + searchResultList.get(0).getGeneral_rating() + searchResultList.get(0).getDistance());
+			//Log.i("Sort List", "2 -" + searchResultList.get(1).getName() + searchResultList.get(1).getGeneral_rating() + searchResultList.get(1).getDistance());
+			//Log.i("Sort List", "3 -" + searchResultList.get(2).getName() + searchResultList.get(2).getGeneral_rating() + searchResultList.get(2).getDistance());
+		}break;
+		case R.id.btnRating: {
+			// JsonUtil.GetAllPlaces("http://routes.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/api/0.3/11.956372,108.4444,11.947283,108.443080/car.js?lang=en");
+			// get current location of user
+			getLatitudeLongitude();
+			// get Result List of All Places
+			searchResultList = SortListUtil.SortListByRating(searchResultList);
+			displayListView();
+			//Log.i("Sort List", "1 -" + searchResultList.get(0).getName() + searchResultList.get(0).getGeneral_rating() + searchResultList.get(0).getDistance());
+			//Log.i("Sort List", "2 -" + searchResultList.get(1).getName() + searchResultList.get(1).getGeneral_rating() + searchResultList.get(1).getDistance());
+			//Log.i("Sort List", "3 -" + searchResultList.get(2).getName() + searchResultList.get(2).getGeneral_rating() + searchResultList.get(2).getDistance());
+			//displayListView();
+		}break;
+		case R.id.btnDistance: {
+			// JsonUtil.GetAllPlaces("http://routes.cloudmade.com/8ee2a50541944fb9bcedded5165f09d9/api/0.3/11.956372,108.4444,11.947283,108.443080/car.js?lang=en");
+			// get current location of user
+			getLatitudeLongitude();
+			// get Result List of All Places
+			searchResultList = SortListUtil.SortListByDistance(searchResultList);
+			displayListView();
+			//myCustomListViewAdapter.notifyDataSetChanged();
+			//Log.i("Sort List", "1 -" + searchResultList.get(0).getName() + searchResultList.get(0).getGeneral_rating() + searchResultList.get(0).getDistance());
+			//Log.i("Sort List", "2 -" + searchResultList.get(1).getName() + searchResultList.get(1).getGeneral_rating() + searchResultList.get(1).getDistance());
+			//Log.i("Sort List", "3 -" + searchResultList.get(2).getName() + searchResultList.get(2).getGeneral_rating() + searchResultList.get(2).getDistance());
+			//displayListView();
 		}break;
 		}
 	}
@@ -115,6 +145,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	// Display ListView with parameters
 	private void displayListView() {
 		try {
+			
 			listViewResult = (ListView) findViewById(R.id.listViewResult);
 			// Prepare for ListView
 			ArrayList<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
@@ -158,6 +189,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			Log.i("listViewAll", "before setAdapter");
 			CustomBaseAdapter myCustomListViewAdapter = new CustomBaseAdapter(
 					resultList, this.getApplicationContext());
+			
 			listViewResult.setAdapter(myCustomListViewAdapter);
 			Log.i("listViewAll", "after setAdapter");
 
