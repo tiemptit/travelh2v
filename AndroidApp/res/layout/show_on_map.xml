@@ -2,8 +2,7 @@
 
 <!-- Wrapper -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:background="@drawable/bg">
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
 
 	<!-- Title -->
 	<ImageView android:id="@+id/title_map" android:layout_width="fill_parent"
@@ -12,6 +11,10 @@
 		android:layout_height="46dip" android:background="@drawable/btn_selector_back" />
 
 	<!-- body -->
-
+	<!-- MapAPI key of Le Hieu -->
+	<com.google.android.maps.MapView
+		android:id="@+id/map" android:layout_width="fill_parent"
+		android:layout_height="463dip" android:layout_below="@+id/title_map"
+		android:clickable="true" android:apiKey="0iuwQQ9eDAyv8fvWGlNvCmjFolZZVgYHtWgx0Jw" />
 
 </RelativeLayout>

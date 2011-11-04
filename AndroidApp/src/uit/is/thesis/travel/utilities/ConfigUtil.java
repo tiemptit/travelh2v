@@ -10,6 +10,6 @@ package uit.is.thesis.travel.utilities;
 public class ConfigUtil {
 
 	// current location of user
-	public static double LATITUDE = 10.7783;
-	public static double LONGITUDE = 106.6962;	
+	public static double LATITUDE = 10.759723;
+	public static double LONGITUDE = 106.661217;	
 }
