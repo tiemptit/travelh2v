@@ -40,3 +40,25 @@ D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\De
 D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
 D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\DocumentFormat.OpenXml.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
+D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb
