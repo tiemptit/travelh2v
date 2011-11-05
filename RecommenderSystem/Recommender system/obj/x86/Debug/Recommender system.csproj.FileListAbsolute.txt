@@ -34,3 +34,22 @@ D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\De
 D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender_system.Properties.Resources.resources
 D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\GenerateResource.read.1.tlog
 D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Recommender system.exe.config
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender system.exe
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender system.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Recommender system.exe
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Recommender system.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\RecommenderSystem.Core.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\DocumentFormat.OpenXml.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Microsoft.Practices.Unity.dll
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\RecommenderSystem.Core.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender_system.Form1.resources
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender_system.Properties.Resources.resources
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\GenerateResource.write.1.tlog
