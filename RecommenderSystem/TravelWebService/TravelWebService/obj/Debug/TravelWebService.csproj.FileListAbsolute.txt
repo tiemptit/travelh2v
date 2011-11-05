@@ -1,0 +1,33 @@
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\TravelWebService\TravelWebService\bin\TravelWebService.dll
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\TravelWebService\TravelWebService\bin\TravelWebService.pdb
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\TravelWebService\TravelWebService\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\TravelWebService\TravelWebService\obj\Debug\TravelWebService.dll
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\TravelWebService\TravelWebService\obj\Debug\TravelWebService.pdb
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\TravelWebService.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\TravelWebService.pdb
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\obj\Debug\ResolveAssemblyReference.cache
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\obj\Debug\TravelWebService.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\obj\Debug\TravelWebService.pdb
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\RecommenderSystem.Core.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\DocumentFormat.OpenXml.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\Microsoft.Practices.Unity.Interception.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\Microsoft.Practices.ServiceLocation.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\Microsoft.Practices.Unity.dll
+D:\thesisproj\travelh2v\TravelWebService\TravelWebService\bin\RecommenderSystem.Core.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\TravelWebService.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\TravelWebService.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\RecommenderSystem.Core.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\DocumentFormat.OpenXml.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.Unity.Interception.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.ServiceLocation.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.Unity.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\RecommenderSystem.Core.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\ResolveAssemblyReference.cache
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\TravelWebService.dll
+D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\TravelWebService.pdb
