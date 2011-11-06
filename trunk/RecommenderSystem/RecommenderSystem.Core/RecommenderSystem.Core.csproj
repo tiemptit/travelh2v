@@ -46,6 +46,7 @@
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\ModelSet.cs" />
+    <Compile Include="Model\Rating.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="RS Core\CollaborativeFiltering.cs" />
     <Compile Include="RS Core\Evaluation.cs" />
