@@ -30,5 +30,14 @@
 	<Button android:id="@+id/btnSearch" android:layout_width="33dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_search"
 		android:layout_toRightOf="@+id/txtSearch" android:layout_below="@+id/btnNext" />
-
+	<ListView android:id="@id/android:list" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_marginTop="0dip"
+		android:layout_marginBottom="100dip" android:divider="@android:color/transparent"
+		android:layout_below="@+id/txtSearch">
+	</ListView>
+	<TextView android:text="Page 10/10" android:id="@+id/txtViewPage"
+		android:layout_alignParentBottom="true" android:layout_height="wrap_content"
+		android:layout_width="wrap_content" android:layout_centerHorizontal="true"
+		android:layout_marginBottom="5dip" android:textSize="12sp"
+		android:textStyle="bold" android:textColor="#ffffff"></TextView>
 </RelativeLayout>
