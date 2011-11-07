@@ -42,7 +42,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	String provider;
 	// current Latitude - Longitude of user
 	public double latitude, longitude;
-
 	// buttons on screen
 	Button btnAz, btnRating, btnDistance, btnType;
 
