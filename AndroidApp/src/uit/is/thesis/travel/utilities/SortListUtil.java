@@ -17,18 +17,24 @@ public class SortListUtil {
 	public static List<PlaceModel> SortListByName(List<PlaceModel> original)
 	{	
 		Collections.sort(original, new NameComparator());
+		for (int i =0; i< original.size();i++)
+			original.get(i).setId_itemOnListView(i);
 		return original;	
 	}
 	
 	public static List<PlaceModel> SortListByDistance(List<PlaceModel> original)
 	{
 		Collections.sort(original, new DistanceComparator());
+		for (int i =0; i< original.size();i++)
+			original.get(i).setId_itemOnListView(i);
 		return original;			
 	}
 	
 	public static List<PlaceModel> SortListByRating(List<PlaceModel> original)
 	{
 		Collections.sort(original, new RatingComparator());
+		for (int i =0; i< original.size();i++)
+			original.get(i).setId_itemOnListView(i);
 		return original;
 	}
 

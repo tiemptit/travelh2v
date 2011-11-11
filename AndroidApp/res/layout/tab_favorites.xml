@@ -9,6 +9,11 @@
 	<ImageView android:id="@+id/title_favorites"
 		android:layout_width="fill_parent" android:layout_height="46dip"
 		android:src="@drawable/title_favorites" />
+	<TextView android:text="Page 10/10" android:id="@+id/txtViewPage"
+		android:layout_height="wrap_content" android:layout_width="wrap_content"
+		android:textSize="12sp" android:layout_alignParentRight="true"
+		android:layout_marginTop="20dip" android:layout_marginRight="5dip"
+		android:textStyle="bold" android:textColor="#ffffff"></TextView>
 
 	<!-- body -->
 	<Button android:id="@+id/btnPrev" android:layout_width="33dip"
@@ -31,13 +36,9 @@
 		android:layout_height="33dip" android:background="@drawable/btn_selector_search"
 		android:layout_toRightOf="@+id/txtSearch" android:layout_below="@+id/btnNext" />
 	<ListView android:id="@id/android:list" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:layout_marginTop="0dip"
-		android:layout_marginBottom="100dip" android:divider="@android:color/transparent"
+		android:layout_height="wrap_content" android:divider="@android:color/transparent"
+		android:isScrollContainer="false" android:scrollbars="none" android:layout_marginBottom="0dip"
 		android:layout_below="@+id/txtSearch">
 	</ListView>
-	<TextView android:text="Page 10/10" android:id="@+id/txtViewPage"
-		android:layout_alignParentBottom="true" android:layout_height="wrap_content"
-		android:layout_width="wrap_content" android:layout_centerHorizontal="true"
-		android:layout_marginBottom="5dip" android:textSize="12sp"
-		android:textStyle="bold" android:textColor="#ffffff"></TextView>
+
 </RelativeLayout>

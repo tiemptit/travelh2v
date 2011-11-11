@@ -41,11 +41,8 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.details);
 
 		// Get intent and receive data from the parent activity
-		Log.i("startDetails", "before get intent");
 		Intent intent = getIntent();
-		Log.i("startDetails", "before get bundle");
 		Bundle bundle = intent.getExtras();
-		Log.i("startDetails", "before  getSerializable");
 		place = (PlaceModel) bundle.getSerializable("currentplace");
 
 		// get layouts id
@@ -70,23 +67,36 @@ public class DetailsActivity extends Activity implements OnClickListener {
 
 		txtViewPlaceName = (TextView) findViewById(R.id.txtViewPlaceName);
 		txtViewPlaceNameContent = (TextView) findViewById(R.id.txtViewPlaceNameContent);
+		txtViewPlaceNameContent.setText(place.getName());
 		txtViewPhone = (TextView) findViewById(R.id.txtViewPhone);
 		txtViewPhoneContent = (TextView) findViewById(R.id.txtViewPhoneContent);
+		txtViewPhoneContent.setText(place.getPhone_number());
 		txtViewAddress = (TextView) findViewById(R.id.txtViewAddress);
 		txtViewAddressContent = (TextView) findViewById(R.id.txtViewAddressContent);
+		String address = "";
+		address += place.getHouse_number() + ", "
+				+ place.getStreet() + ", "
+				+ place.getWard() + ", "
+				+ place.getDistrict() + ", "
+				+ place.getCity();
+		txtViewAddressContent.setText(address);
 		txtViewEmail = (TextView) findViewById(R.id.txtViewEmail);
 		txtViewEmailContent = (TextView) findViewById(R.id.txtViewEmailContent);
+		txtViewEmailContent.setText(place.getEmail());
 		txtViewWebsite = (TextView) findViewById(R.id.txtViewWebsite);
 		txtViewWebsiteContent = (TextView) findViewById(R.id.txtViewWebsiteContent);
+		txtViewWebsiteContent.setText(place.getWebsite());
 		txtViewHistoryContent = (TextView) findViewById(R.id.txtViewHistoryContent);
+		txtViewHistoryContent.setText(place.getHistory());
 		txtViewMoreDetailsContent = (TextView) findViewById(R.id.txtViewMoreDetailsContent);
+		txtViewMoreDetailsContent.setText(place.getDetails());
 		txtViewSourceContent = (TextView) findViewById(R.id.txtViewSourceContent);
+		txtViewSourceContent.setText(place.getSources());
 
 		// open SQLite DB connection
 		if (this.mDbAdapter == null) {
 			this.mDbAdapter = new SQLiteDBAdapter(this);
 			mDbAdapter.open();
-			Log.i("InsertFavorites", "DetailsActivity - mDbAdapter.open()");
 		}
 	}
 
@@ -165,35 +175,27 @@ public class DetailsActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btnShowOnMap: {
 			try {
-				Log.i("ShowOnMap", "click btnShowOnMap");
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("currentplace", place);
-				Log.i("ShowOnMap", "after putSerializable ");
 				Intent intent = new Intent(DetailsActivity.this,
 						MyMapActivity.class);
-				Log.i("ShowOnMap", "after create intent ");
 				intent.putExtras(bundle);
-				Log.i("ShowOnMap", "before start activity");
 				startActivity(intent);
 			} catch (Exception e) {
-				Log.i("ShowOnMap",
-						"click btnShowOnMap exception" + e.toString());
 			}
 		}
 			break;
 		case R.id.btnAddFavorite: { // Click on button Favourite
 			if (place != null) {
 				try {
-					Log.i("InsertFavorites", " DetailsActivity - click btnAddFavorites");
-					String id = Double.toString(place.getId());
-					String id_place_category = Double.toString(place
+					String id_place = String.valueOf(place.getId());
+					String id_place_category = String.valueOf(place
 							.getPlace_category_obj().getId());
 					String name = place.getName();
 					String imgurl = place.getImgurl();
 					String lat = Double.toString(place.getLat());
 					String lng = Double.toString(place.getLng());
-					String house_number = Double.toString(place
-							.getHouse_number());
+					String house_number = place.getHouse_number();
 					String street = place.getStreet();
 					String ward = place.getWard();
 					String district = place.getDistrict();
@@ -216,8 +218,7 @@ public class DetailsActivity extends Activity implements OnClickListener {
 					// check if it exists in db, if not then insert, else do
 					// nothing
 					if (mDbAdapter.checkIfExist(lat, lng, name) == false) {
-						Log.i("InsertFavorites", " DetailsActivity - checkIfExist false");
-						mDbAdapter.insertItem(id, id_place_category, name,
+						mDbAdapter.insertItem(id_place, id_place_category, name,
 								imgurl, lat, lng, house_number, street, ward,
 								district, city, province, country,
 								phone_number, email, website, history, details,
@@ -229,14 +230,10 @@ public class DetailsActivity extends Activity implements OnClickListener {
 
 					} else {
 						// show Toast place existed
-						Log.i("InsertFavorites", " Details - checkIfExist true");
 						Toast.makeText(getApplicationContext(),
 								"This place existed!", Toast.LENGTH_SHORT).show();
 					}
 				} catch (Exception e) {
-					Log.i("InsertFavorites",
-							" DetailActivity - mClickbtnFavourite - exception"
-									+ e.toString());
 				}
 			}
 		}

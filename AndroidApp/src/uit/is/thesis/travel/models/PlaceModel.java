@@ -19,7 +19,7 @@ public class PlaceModel implements Serializable{
     public String imgurl;
     public double lat; 
     public double lng; 
-    public int house_number;
+    public String house_number;
     public String street;
     public String ward;
     public String district;
@@ -115,13 +115,13 @@ public class PlaceModel implements Serializable{
 	/**
 	 * @return the house_number
 	 */
-	public int getHouse_number() {
+	public String getHouse_number() {
 		return house_number;
 	}
 	/**
 	 * @param house_number the house_number to set
 	 */
-	public void setHouse_number(int house_number) {
+	public void setHouse_number(String house_number) {
 		this.house_number = house_number;
 	}
 	/**
