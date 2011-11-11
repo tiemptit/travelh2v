@@ -64,8 +64,8 @@
   <ItemGroup>
     <Compile Include="PlaceCategoryModel.cs" />
     <Compile Include="PlaceModel.cs" />
+    <Compile Include="RatingModel.cs" />
     <Compile Include="Service.cs" />
-    <Compile Include="SampleItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

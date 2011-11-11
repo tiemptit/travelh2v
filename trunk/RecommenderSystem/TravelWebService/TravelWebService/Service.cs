@@ -23,97 +23,39 @@ namespace TravelWebService
     public class Service
     {
         // TODO: Implement the collection resource that will contain the SampleItem instances
-
-        [WebGet(UriTemplate = "")]
-        public List<SampleItem> GetCollection()
-        {
-            // TODO: Replace the current implementation to return a collection of SampleItem instances
-            return new List<SampleItem>() { new SampleItem() { Id = 1, StringValue = "Hello" } };
-        }
-
-        [WebInvoke(UriTemplate = "", Method = "POST")]
-        public SampleItem Create(SampleItem instance)
-        {
-            // TODO: Add the new instance of SampleItem to the collection
-            throw new NotImplementedException();
-        }
-
-        [WebGet(UriTemplate = "{id}")]
-        public SampleItem Get(string id)
-        {
-            // TODO: Return the instance of SampleItem with the given id
-            throw new NotImplementedException();
-        }
-
-        [WebInvoke(UriTemplate = "{id}", Method = "PUT")]
-        public SampleItem Update(string id, SampleItem instance)
-        {
-            // TODO: Update the given instance of SampleItem in the collection
-            throw new NotImplementedException();
-        }
-
-        [WebInvoke(UriTemplate = "{id}", Method = "DELETE")]
-        public void Delete(string id)
-        {
-            // TODO: Remove the instance of SampleItem with the given id from the collection
-            throw new NotImplementedException();
-        }
-
-
-        ////////////////////////////////////////////////////////////////////////////////////
-
-        // List All Places
-        [WebGet(UriTemplate = "ListAllPlaces", ResponseFormat = WebMessageFormat.Json)]
+        // Get All Places
+        [WebGet(UriTemplate = "GetAllPlaces", ResponseFormat = WebMessageFormat.Json)]
         [Description("list operation.")]
         public Stream  GetAllPlaces()
         {
-            /*
-            PlaceCategoryModel place_category_obj = new PlaceCategoryModel();
-            place_category_obj.id = 1;
-            place_category_obj.place_category = "Market";
-            
-            PlaceModel place_obj = new PlaceModel();
-            place_obj.id = 1;
-            place_obj.place_category_obj = place_category_obj;
-            place_obj.name = "Da Lat Market";
-            place_obj.imgurl = "http://www.google.com/maps/place?source=uds&q=hotel&cid=6565492984366607731";
-            place_obj.lat = 11.943115;
-            place_obj.lng = 108.436554;
-            place_obj.house_number = 201;
-            place_obj.street = "Nguyen Thi Minh Khai";
-            place_obj.ward = "6";
-            place_obj.district = "10";
-            place_obj.city = "Da Lat";
-            place_obj.province = "Lam Dong";
-            place_obj.country = "Viet Nam";
-            place_obj.phone_number = "0909090909";
-            place_obj.email = "abc@yahoo.com";
-            place_obj.website = "www.google.com";
-            place_obj.history = "history ...";
-            place_obj.details = "details ...";
-            place_obj.sources = "www.google.com.vn";
-            place_obj.general_rating = 5;
-            place_obj.general_count_rating = 100;
-            place_obj.general_sum_rating = 500;
-            List<PlaceModel> places = new List<PlaceModel>();
-            places.Add(place_obj);
-            places.Add(place_obj);
-            places.Add(place_obj);
-            */
-
             List<PlaceModel> places = PlaceModel.GetAllPlaces();
-
             var javaScriptSerializer = new JavaScriptSerializer();
             string jsonStringMultiple = "{\"responseData\":" + javaScriptSerializer.Serialize(places.Select(x => new { x.id, x.place_category_obj, x.name, x.imgurl, x.lat, x.lng, x.house_number, x.street, x.ward, x.district, x.city, x.province, x.country, x.phone_number, x.email, x.website, x.history, x.details, x.sources, x.general_rating, x.general_count_rating, x.general_sum_rating })) + "}";
             var json = Encoding.UTF8.GetBytes(jsonStringMultiple);
-            WebOperationContext.Current.OutgoingResponse.ContentType = "application/javascript; charset=utf-8";
-            
-            
+            WebOperationContext.Current.OutgoingResponse.ContentType = "application/javascript; charset=utf-8";                
             var memoryStream = new MemoryStream(json);
             return memoryStream;
-            //javaScriptSerializer.Serialize(places.Select(x => new { x.id, x.place_category_obj, x.name,x.imgurl, x.lat, x.lng, x.house_number, x.street, x.ward,x.district, x.city,x.province,x.country, x.phone_number, x.email, x.website, x.history, x.details, x.sources, x.general_rating, x.general_count_rating, x.general_sum_rating}));
-            //return "{\"responseData\":" + jsonStringMultiple + "}";
         }
-
+        
+        // Rate a place
+        [WebInvoke(UriTemplate = "Rate?user={id_user}&place={id_place}&temperature={temperature}&weather={weather}&companion={companion}&familiarity={familiarity}&mood={mood}&budget={budget}&travellength={travellength}&time={time}&rating={rating}", Method = "GET")]
+        public bool Rate(int id_user, int id_place, int temperature,int weather,int companion,int familiarity,int mood, int budget, int travellength, string time, float rating)
+        {
+            // TODO: Add the new instance of SampleItem to the collection
+            //throw new NotImplementedException();
+            RatingModel r = new RatingModel();
+            r.id_user = id_user;
+            r.id_place = id_place;
+            r.id_temperature = temperature;
+            r.id_weather = weather;
+            r.id_companion = companion;
+            r.id_farmiliarity = familiarity;
+            r.id_mood = mood;
+            r.id_budget = budget;
+            r.id_travel_length = travellength;
+            r.time = time;
+            r.rating = rating;
+            return r.Rate();
+        }
     }
 }
