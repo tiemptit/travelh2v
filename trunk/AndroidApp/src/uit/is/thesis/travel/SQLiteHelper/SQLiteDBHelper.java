@@ -54,7 +54,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 
 	private static final String CREATE_TABLE_CONTEXT_CONFIG = "CREATE TABLE CONTEXT_CONFIG("
 			+ "_id 				 INTEGER primary key autoincrement,"
-			+ "type                 TEXT," + "value			     TEXT" + ");";
+			+ "type                 TEXT," + "current_value			     TEXT" + ");";
 
 	// constructor
 	public SQLiteDBHelper(Context context) {
@@ -82,14 +82,14 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 			db.execSQL("insert into PLACE_CATEGORIES values (3,3,'Restaurant');");
 			db.execSQL("insert into PLACE_CATEGORIES values (4,4,'Market');");
 			
-			db.execSQL("insert into CONTEXT_CONFIG values (1,'Temperature','Cold');");
-			db.execSQL("insert into CONTEXT_CONFIG values (2,'Weather','Sunny');");
-			db.execSQL("insert into CONTEXT_CONFIG values (3,'Companion','Alone');");
-			db.execSQL("insert into CONTEXT_CONFIG values (4,'Familiarity','New to city');");
-			db.execSQL("insert into CONTEXT_CONFIG values (5,'Mood','Happy');");
-			db.execSQL("insert into CONTEXT_CONFIG values (6,'Budget','High');");
-			db.execSQL("insert into CONTEXT_CONFIG values (7,'Travel length','1 day');");
-			db.execSQL("insert into CONTEXT_CONFIG values (8,'Time','2011-11-04 09:09:09');");
+			db.execSQL("insert into CONTEXT_CONFIG values (1,'Temperature','0');");
+			db.execSQL("insert into CONTEXT_CONFIG values (2,'Weather','1');");
+			db.execSQL("insert into CONTEXT_CONFIG values (3,'Companion','2');");
+			db.execSQL("insert into CONTEXT_CONFIG values (4,'Familiarity','0');");
+			db.execSQL("insert into CONTEXT_CONFIG values (5,'Mood','1');");
+			db.execSQL("insert into CONTEXT_CONFIG values (6,'Budget','2');");
+			db.execSQL("insert into CONTEXT_CONFIG values (7,'Travel length','0');");
+			db.execSQL("insert into CONTEXT_CONFIG values (8,'Time','2011-11-04and09:09:09');");
 		}
 	}
 

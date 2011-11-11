@@ -15,55 +15,55 @@
 		android:layout_height="fill_parent" android:layout_width="fill_parent"
 		android:layout_below="@+id/title_context">
 		<TableRow>
-			<Button android:id="@+id/btnReset1" android:layout_width="160dip"
+			<Button android:id="@+id/btnResetC" android:layout_width="160dip"
 				android:layout_height="33dip" android:background="@drawable/btn_selector_reset"/>
-			<Button android:id="@+id/btnSave" android:layout_width="160dip"
+			<Button android:id="@+id/btnSaveC" android:layout_width="160dip"
 				android:layout_height="33dip" android:background="@drawable/btn_selector_save" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_context_temperature"
 				android:layout_width="160dip" android:layout_height="44dip" />
-			<Spinner android:id="@+id/spinner_temperature"
+			<Spinner android:id="@+id/spinner_temperature" android:prompt="@string/temperature_prompt"
 				android:layout_width="160dip" android:layout_height="44dip"></Spinner>
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_context_weather"
 				android:layout_width="160dip" android:layout_height="44dip" />
-			<Spinner android:id="@+id/spinner_weather"
+			<Spinner android:id="@+id/spinner_weather" android:prompt="@string/weather_prompt"
 				android:layout_width="160dip" android:layout_height="44dip"
 				android:drawSelectorOnTop="true" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_context_companion"
 				android:layout_width="160dip" android:layout_height="44dip" />
-			<Spinner android:id="@+id/spinner_companion"
+			<Spinner android:id="@+id/spinner_companion" android:prompt="@string/companion_prompt"
 				android:layout_width="160dip" android:layout_height="44dip"
 				android:drawSelectorOnTop="true" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_context_mood"
 				android:layout_width="160dip" android:layout_height="44dip" />
-			<Spinner android:id="@+id/spinner_mood" android:layout_width="160dip"
+			<Spinner android:id="@+id/spinner_mood" android:layout_width="160dip" android:prompt="@string/mood_prompt"
 				android:layout_height="44dip" android:drawSelectorOnTop="true" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_context_familiarity"
 				android:layout_width="160dip" android:layout_height="44dip" />
-			<Spinner android:id="@+id/spinner_familiarity"
+			<Spinner android:id="@+id/spinner_familiarity" android:prompt="@string/familiarity_prompt"
 				android:layout_width="160dip" android:layout_height="44dip"
 				android:drawSelectorOnTop="true" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:src="@drawable/lb_context_budget"
 				android:layout_width="160dip" android:layout_height="44dip" />
-			<Spinner android:id="@+id/spinner_budget"
+			<Spinner android:id="@+id/spinner_budget" android:prompt="@string/budget_prompt"
 				android:layout_width="160dip" android:layout_height="44dip"
 				android:drawSelectorOnTop="true" />
 		</TableRow>
 		<TableRow>
 			<ImageView android:id="@+id/imgTravelLength" android:src="@drawable/lb_context_travel_length"
 				android:layout_width="160dip" android:layout_height="44dip" />
-			<Spinner android:id="@+id/spinner_travel_length"
+			<Spinner android:id="@+id/spinner_travel_length" android:prompt="@string/travel_length_prompt"
 				android:layout_width="160dip" android:layout_height="44dip"
 				android:drawSelectorOnTop="true" />
 		</TableRow>
@@ -72,11 +72,11 @@
 		android:layout_height="44dip" android:layout_width="160dip"
 		android:layout_marginTop="387dip" android:layout_alignParentLeft="true" />
 	<Button android:id="@+id/btnPickDate" android:layout_height="44dip"
-		android:layout_width="100dip" android:layout_toRightOf="@+id/imgContext"
+		android:layout_width="80dip" android:layout_toRightOf="@+id/imgContext"
 		android:layout_marginTop="387dip" android:hint="Pick a date"
 		android:textColorHint="#8c8c8c" android:textSize="11sp" />
 	<Button android:id="@+id/btnPickTime" android:layout_height="44dip"
-		android:layout_width="60dip" android:layout_toRightOf="@+id/btnPickDate"
+		android:layout_width="80dip" android:layout_toRightOf="@+id/btnPickDate"
 		android:layout_marginTop="387dip" android:hint="Pick    a time"
 		android:textColorHint="#8c8c8c" android:textSize="11sp" />
 </RelativeLayout>

@@ -1,5 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">Travel H2V</string>
+	<string name="hello">Hello World, MainActivity!</string>
+	<string name="app_name">Travel H2V</string>
+	<string name="temperature_prompt">Choose a temperature</string>
+	<string-array name="temperature_array">
+		<item>Cold</item>
+		<item>Warm</item>
+		<item>Hot</item>
+	</string-array>
+	<string name="weather_prompt">Choose a weather</string>
+	<string-array name="weather_array">
+		<item>Sunny</item>
+		<item>Clear sky</item>
+		<item>Rainy</item>
+	</string-array>
+	<string name="companion_prompt">Choose a companion</string>
+	<string-array name="companion_array">
+		<item>Alone</item>
+		<item>Friends / Colleagues</item>
+		<item>Family</item>
+		<item>Girlfriend / Boyfriend</item>
+		<item>Children</item>
+	</string-array>
+	<string name="mood_prompt">Choose a mood</string>
+	<string-array name="mood_array">
+		<item>Happy</item>
+		<item>Sad</item>
+		<item>Active</item>
+		<item>Lazy</item>
+	</string-array>
+	<string name="familiarity_prompt">Choose a familiarity</string>
+	<string-array name="familiarity_array">
+		<item>New to city</item>
+		<item>Returning visitor</item>
+		<item>Citizen</item>
+	</string-array>
+	<string name="budget_prompt">Choose a budget</string>
+	<string-array name="budget_array">
+		<item>Average</item>
+		<item>Well</item>
+		<item>High</item>
+	</string-array>
+	<string name="travel_length_prompt">Choose a travel length</string>
+	<string-array name="travel_length_array">
+		<item>1 day</item>
+		<item>2/3 days</item>
+		<item>Over 3 days</item>
+	</string-array>
 </resources>

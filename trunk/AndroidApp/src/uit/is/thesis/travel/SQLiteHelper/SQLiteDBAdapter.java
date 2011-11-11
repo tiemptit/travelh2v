@@ -135,4 +135,33 @@ public class SQLiteDBAdapter {
 				"name" + " like " + "'%" + keyWord + "%'", null, null, null,
 				null).getCount();
 	}
+
+	// get current context config from DB
+	public Cursor getContextConfig() {
+		return mDb.rawQuery("SELECT * FROM CONTEXT_CONFIG", null);
+	}
+
+	// update current context config
+	public void updateContextConfig(int Temperature, int Weather,
+			int Companion, int Familiarity, int Mood, int Budget,
+			int Travel_length, String Time) {
+		Log.i("Context", "update context start");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Temperature
+				+ "' where CONTEXT_CONFIG._id = 1");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set  current_value= '" + Weather
+				+ "' where CONTEXT_CONFIG._id = 2");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Companion
+				+ "' where CONTEXT_CONFIG._id = 3");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Familiarity
+				+ "' where CONTEXT_CONFIG._id = 4");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Mood
+				+ "' where CONTEXT_CONFIG._id = 5");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Budget
+				+ "' where CONTEXT_CONFIG._id = 6");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Travel_length
+				+ "' where CONTEXT_CONFIG._id = 7");
+		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Time
+				+ "' where CONTEXT_CONFIG._id = 8");
+		Log.i("Context", "update context end");
+	}
 }
