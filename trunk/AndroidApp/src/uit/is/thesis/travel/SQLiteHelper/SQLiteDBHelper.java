@@ -22,18 +22,18 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 1;
 	private static final String CREATE_TABLE_PLACE_CATEGORIES = "CREATE TABLE PLACE_CATEGORIES("
 			+ "_id 				 INTEGER primary key autoincrement,"
-			+ "id                   INTEGER, "
+			+ "id_cate                   INTEGER, "
 			+ "place_category	     TEXT "
 			+ ");";
 
 	private static final String CREATE_TABLE_PLACES = "CREATE TABLE PLACES("
 			+ "_id 				 INTEGER primary key autoincrement,"
-			+ "id                   INTEGER,"
+			+ "id_place                   INTEGER,"
 			+ "id_place_category    INTEGER,"
 			+ "name                 TEXT,"
 			+ "imgurl               TEXT,"
-			+ "lat                  REAL,"
-			+ "lng                  REAL,"
+			+ "lat                  TEXT,"
+			+ "lng                  TEXT,"
 			+ "house_number         TEXT,"
 			+ "street               TEXT,"
 			+ "ward                 TEXT,"
@@ -47,9 +47,9 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 			+ "history              TEXT,"
 			+ "details              TEXT,"
 			+ "sources              TEXT,"
-			+ "general_rating       REAL,"
-			+ "general_count_rating REAL,"
-			+ "general_sum_rating   REAL,"
+			+ "general_rating       TEXT,"
+			+ "general_count_rating TEXT,"
+			+ "general_sum_rating   TEXT,"
 			+ "FOREIGN KEY(id_place_category) REFERENCES PLACE_CATEGORIES(id) );";
 
 	private static final String CREATE_TABLE_CONTEXT_CONFIG = "CREATE TABLE CONTEXT_CONFIG("

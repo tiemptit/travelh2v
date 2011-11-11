@@ -66,7 +66,6 @@ public class TabFavoritesActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_favorites);
-		Log.i("TabFavorites", "onCreate - start");
 		// get current location of user
 		getLatitudeLongitude();
 		// get layout id
@@ -82,7 +81,7 @@ public class TabFavoritesActivity extends ListActivity {
 		btnCheckAll = (Button) findViewById(R.id.btnCheckAll);	
 		btnCheckAll.setOnClickListener(mCheckAllListener);
 		txtViewPage = (TextView) findViewById(R.id.txtViewPage);
-		txtViewPage.setText("Page" + curPage + "/" + sumPage);
+		
 		
 		if (this.mDBAdapter == null) {
 			this.mDBAdapter = new SQLiteDBAdapter(this);
@@ -98,10 +97,9 @@ public class TabFavoritesActivity extends ListActivity {
 			listView.setOnItemClickListener(listViewItemListener);
 		}
 		try {
-			Log.i("TabFavorites", "onCreate - Search");
 			Search(keyWord, limit_from, limit_count);
+			txtViewPage.setText("Page" + curPage + "/" + sumPage);
 		} catch (Exception e) {
-			Log.i("TabFavorites", "onCreate - Exception" + e.toString());
 		}
 	}
 
@@ -110,12 +108,14 @@ public class TabFavoritesActivity extends ListActivity {
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
 			try {
-				long itemId = listView.getItemIdAtPosition(arg2);
+				ViewGroup row = (ViewGroup) listView.getChildAt(arg2);
+				CheckBox check = (CheckBox) row.findViewById(R.id.checkboxItem);
+				long itemId = Long.parseLong(check.getText().toString());
 				Cursor c = mDBAdapter.getItem(itemId);
 				startManagingCursor(c);
 				c.moveToFirst(); // move to the 1st row
 				// get data
-				int id = Integer.parseInt(c.getString(c
+				int id_place = Integer.parseInt(c.getString(c
 						.getColumnIndex("id_place")));
 				int id_place_category = Integer.parseInt(c.getString(c
 						.getColumnIndex("id_place_category")));
@@ -148,10 +148,9 @@ public class TabFavoritesActivity extends ListActivity {
 						.getColumnIndex("general_count_rating"));
 				double general_sum_rating = c.getDouble(c
 						.getColumnIndex("general_sum_rating"));
-
 				// create PlaceModel obj
 				PlaceModel place = new PlaceModel();
-				place.setId(id);
+				place.setId(id_place);
 				place.place_category_obj = new PlaceCategoryModel();
 				place.place_category_obj.setId(id_place_category);
 				place.place_category_obj.setPlace_category(place_category);
@@ -159,7 +158,7 @@ public class TabFavoritesActivity extends ListActivity {
 				place.setImgurl(imgurl);
 				place.setLat(lat);
 				place.setLng(lng);
-				place.setHouse_number(Integer.parseInt(house_number));
+				place.setHouse_number(house_number);
 				place.setStreet(street);
 				place.setWard(ward);
 				place.setDistrict(district);
@@ -177,7 +176,7 @@ public class TabFavoritesActivity extends ListActivity {
 				place.setGeneral_sum_rating(general_sum_rating);
 				place.setId_itemOnListView(-1);
 				place.setDistance(currentLatitude, currentLongitude);
-
+				
 				// send them to Details Activity
 				Bundle bundle = new Bundle();
 				bundle.putDouble("currentLatitude", currentLatitude);
@@ -323,34 +322,25 @@ public class TabFavoritesActivity extends ListActivity {
 
 	private void Search(String keyWord, int lm_from, int lm_count) {
 		try {
-			Log.i("TabFavorites", "Search - start");
 			//mDBAdapter.deleteDatabase();
-			//Log.i("TabFavorites", "select places = " + mDBAdapter.getAllPlaces());
 			this.currentCursor = mDBAdapter.getItemsLikeThisFromTo(keyWord,
 					lm_from, lm_count);
-			Log.i("TabFavorites", "Search - getItemsLikeThisFromTo = " + currentCursor.getCount());
 			rowReturnsCount = mDBAdapter.getRowReturnCount(keyWord);
-			Log.i("TabFavorites", "Search - rowReturnsCount = " + rowReturnsCount);
 			if (rowReturnsCount % limit_count > 0) {
 				sumPage = rowReturnsCount / limit_count + 1;
 			} else {
 				sumPage = rowReturnsCount / limit_count;
 			}
 			startManagingCursor(currentCursor);
-			Log.i("TabFavorites", "Search - startManagingCursor");
-			String[] from = new String[] { "_id", "name", "house_number",
+			String[] from = new String[] { "id_place", "name", "house_number",
 					"street", "ward", "district", "city", "lat", "lng", "general_rating"};
 			int[] to = new int[] { R.id.checkboxItem, R.id.txtViewNameF,
 					R.id.txtViewAddressF, R.id.txtViewDistanceF, R.id.ratingBarF };
-			Log.i("TabFavorites", "Search - after set from to");
 			// create an array adapter and set it to display using our row
 			this.mSQLiteCursorAdapter = new SQLiteCursorAdapter(this,
 					R.layout.row_favorite, currentCursor, from, to, mDBHelper, currentLatitude, currentLongitude);
-			Log.i("TabFavorites", "Search - after set SQLiteCursorAdapter");
 			setListAdapter(mSQLiteCursorAdapter);
-			Log.i("TabFavorites", "Search - after setListAdapter");
 		} catch (Exception e) {
-			Log.i("TabFavorites", "Search - Exception" + e.toString());
 		}
 	}
 

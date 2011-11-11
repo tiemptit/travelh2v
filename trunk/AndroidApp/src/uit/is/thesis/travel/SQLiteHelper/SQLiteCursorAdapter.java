@@ -6,7 +6,6 @@ package uit.is.thesis.travel.SQLiteHelper;
 import uit.is.thesis.travel.activities.R;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,16 +69,13 @@ public class SQLiteCursorAdapter extends SimpleCursorAdapter {
 	// Bind an existing view to the data pointed to by cursor
 	@Override
 	public void bindView(View v, Context context, Cursor c) {
-		Log.i("TabFavorites", "SQLiteCursorAdapter - bindView - start");
 		final int[] to = mTo;
-		
-		String _id = c.getString(mFrom[0]);
+		String id = c.getString(mFrom[0]);
 		String name = c.getString(mFrom[1]);
 		String address = c.getString(mFrom[2]) + " " + c.getString(mFrom[3]) + " " + c.getString(mFrom[4]) + " " + c.getString(mFrom[5]) + " " + c.getString(mFrom[6]);
 		double lat = Double.parseDouble(c.getString(mFrom[7]));
 		double lng = Double.parseDouble(c.getString(mFrom[8]));
 		float rating =  Float.parseFloat(c.getString(mFrom[9]));		
-		Log.i("TabFavorites", "SQLiteCursorAdapter - lat lng place = " + lat + "-" + lng);
 		// Haversine formula
 		double deltaLatitude = Math.toRadians(Math.abs(lat - currentLat));
 		double deltaLongitude = Math.toRadians(Math.abs(lng - currentLng));
@@ -90,7 +86,7 @@ public class SQLiteCursorAdapter extends SimpleCursorAdapter {
 		double distance = 6371 * temp;
 			
 		CheckBox checkbox = (CheckBox) v.findViewById(to[0]);
-		checkbox.setText(_id);
+		checkbox.setText(id);
 		TextView txtViewName = (TextView) v.findViewById(to[1]);
 		txtViewName.setText(name);
 		TextView txtViewAddress = (TextView) v.findViewById(to[2]);

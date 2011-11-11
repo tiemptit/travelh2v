@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:background="@drawable/item_place_small2" android:layout_width="fill_parent"
+	android:background="@drawable/item_place_small" android:layout_width="fill_parent"
 	android:layout_height="66dip">
 
 	<CheckBox android:id="@+android:id/checkboxItem"

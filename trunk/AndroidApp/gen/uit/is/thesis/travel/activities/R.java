@@ -130,15 +130,15 @@ public final class R {
         public static final int btnBackMap=0x7f05002f;
         public static final int btnBackRate=0x7f050022;
         public static final int btnChange=0x7f050053;
-        public static final int btnCheckAll=0x7f050047;
-        public static final int btnDelete=0x7f050048;
+        public static final int btnCheckAll=0x7f050048;
+        public static final int btnDelete=0x7f050049;
         public static final int btnDistance=0x7f050034;
         public static final int btnDistance1=0x7f05005a;
         public static final int btnLogin=0x7f05004f;
-        public static final int btnNext=0x7f050049;
+        public static final int btnNext=0x7f05004a;
         public static final int btnPickDate=0x7f050043;
         public static final int btnPickTime=0x7f050044;
-        public static final int btnPrev=0x7f050046;
+        public static final int btnPrev=0x7f050047;
         public static final int btnRate=0x7f050025;
         public static final int btnRateDetails=0x7f050002;
         public static final int btnRating=0x7f050033;
@@ -147,7 +147,7 @@ public final class R {
         public static final int btnReset=0x7f050052;
         public static final int btnReset1=0x7f050038;
         public static final int btnSave=0x7f050039;
-        public static final int btnSearch=0x7f05004b;
+        public static final int btnSearch=0x7f05004c;
         public static final int btnShowOnMap=0x7f050019;
         public static final int btnType=0x7f050035;
         public static final int btnType1=0x7f05005b;
@@ -184,7 +184,7 @@ public final class R {
         public static final int txtNewPassword=0x7f050056;
         public static final int txtOldPassword=0x7f050055;
         public static final int txtPassword=0x7f050051;
-        public static final int txtSearch=0x7f05004a;
+        public static final int txtSearch=0x7f05004b;
         public static final int txtUserChange=0x7f050054;
         public static final int txtUserLogin=0x7f050050;
         public static final int txtViewAddress=0x7f05000a;
@@ -201,7 +201,7 @@ public final class R {
         public static final int txtViewMoreDetailsContent=0x7f050015;
         public static final int txtViewName=0x7f05002b;
         public static final int txtViewNameF=0x7f050027;
-        public static final int txtViewPage=0x7f05004c;
+        public static final int txtViewPage=0x7f050046;
         public static final int txtViewPhone=0x7f050008;
         public static final int txtViewPhoneContent=0x7f050009;
         public static final int txtViewPlaceName=0x7f050006;
