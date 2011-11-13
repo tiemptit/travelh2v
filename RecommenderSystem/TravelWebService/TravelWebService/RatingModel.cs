@@ -8,7 +8,7 @@ namespace TravelWebService
 {
     public class RatingModel
     {
-        public int id_user { get; set; }
+        public string username { get; set; }
         public int id_place { get; set; }
         public int id_temperature { get; set; }
         public int id_companion { get; set; }
@@ -23,7 +23,8 @@ namespace TravelWebService
         // insert a rate into DB
         public bool Rate()
         {
-            return DbHelper.RunScripts("insert into real_ratings values ('',id_user,id_place,id_temperature,id_companion,id_farmiliarity,id_mood,id_budget,id_budget,id_weather,id_travel_length,time,rating)");
+            //return DbHelper.RunScripts("insert into real_ratings values ('',id_user,id_place,id_temperature,id_companion,id_farmiliarity,id_mood,id_budget,id_budget,id_weather,id_travel_length,time,rating)");
+            return false;
         }
     }
 }

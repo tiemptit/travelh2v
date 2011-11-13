@@ -38,13 +38,13 @@ namespace TravelWebService
         }
         
         // Rate a place
-        [WebInvoke(UriTemplate = "Rate?user={id_user}&place={id_place}&temperature={temperature}&weather={weather}&companion={companion}&familiarity={familiarity}&mood={mood}&budget={budget}&travellength={travellength}&time={time}&rating={rating}", Method = "GET")]
-        public bool Rate(int id_user, int id_place, int temperature,int weather,int companion,int familiarity,int mood, int budget, int travellength, string time, float rating)
+        [WebInvoke(UriTemplate = "Rate?username={username}&place={id_place}&temperature={temperature}&weather={weather}&companion={companion}&familiarity={familiarity}&mood={mood}&budget={budget}&travellength={travellength}&time={time}&rating={rating}", Method = "GET")]
+        public bool Rate(string username, int id_place, int temperature, int weather, int companion, int familiarity, int mood, int budget, int travellength, string time, float rating)
         {
             // TODO: Add the new instance of SampleItem to the collection
             //throw new NotImplementedException();
             RatingModel r = new RatingModel();
-            r.id_user = id_user;
+            r.username = username;
             r.id_place = id_place;
             r.id_temperature = temperature;
             r.id_weather = weather;
