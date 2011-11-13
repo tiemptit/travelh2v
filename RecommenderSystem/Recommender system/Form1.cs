@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using RecommenderSystem.Core;
 using RecommenderSystem.Core.Helper;
+using RecommenderSystem.Core.RS_Core;
+using RecommenderSystem.Core.Model;
 
 namespace Recommender_system
 {
@@ -45,6 +47,15 @@ namespace Recommender_system
                     MessageBox.Show("Problem import Excel data, please check log file for details");
                 }
             }
+        }
+
+        private void btnEstimate_Click(object sender, EventArgs e)
+        {
+            int user_id = Convert.ToInt32(txtUser.Text);
+            int item_id = Convert.ToInt32(txtItem.Text);
+            DataTable FullSegment = Rating.GetFullSegment();
+            double estimate = CollaborativeFiltering.EstimateRating(new Item(item_id), new User(user_id), FullSegment);
+            MessageBox.Show(estimate.ToString());
         }
     }
 }

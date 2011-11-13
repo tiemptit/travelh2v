@@ -1,0 +1,97 @@
+﻿<Project xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <ProductVersion>10.50.1600.1</ProductVersion>
+  <SchemaVersion>9.0.2.10</SchemaVersion>
+  <State>$base64$PFNvdXJjZUNvbnRyb2xJbmZvIHhtbG5zOnhzZD0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEiIHhtbG5zOnhzaT0iaHR0cDovL3d3dy53My5vcmcvMjAwMS9YTUxTY2hlbWEtaW5zdGFuY2UiIHhtbG5zOmRkbDI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDAzL2VuZ2luZS8yIiB4bWxuczpkZGwyXzI9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDAzL2VuZ2luZS8yLzIiIHhtbG5zOmRkbDEwMF8xMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDA4L2VuZ2luZS8xMDAvMTAwIiB4bWxuczpkZGwyMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDEwL2VuZ2luZS8yMDAiIHhtbG5zOmRkbDIwMF8yMDA9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vYW5hbHlzaXNzZXJ2aWNlcy8yMDEwL2VuZ2luZS8yMDAvMjAwIiB4bWxuczpkd2Q9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vRGF0YVdhcmVob3VzZS9EZXNpZ25lci8xLjAiPg0KICA8RW5hYmxlZD5mYWxzZTwvRW5hYmxlZD4NCiAgPFByb2plY3ROYW1lPjwvUHJvamVjdE5hbWU+DQogIDxBdXhQYXRoPjwvQXV4UGF0aD4NCiAgPExvY2FsUGF0aD48L0xvY2FsUGF0aD4NCiAgPFByb3ZpZGVyPjwvUHJvdmlkZXI+DQo8L1NvdXJjZUNvbnRyb2xJbmZvPg==</State>
+  <Database>
+    <Name>TravelCube.database</Name>
+    <FullPath>TravelCube.database</FullPath>
+  </Database>
+  <Cubes>
+    <ProjectItem>
+      <Name>Travel H2V DW.cube</Name>
+      <FullPath>Travel H2V DW.cube</FullPath>
+      <Dependencies>
+        <ProjectItem>
+          <Name>Travel H2V DW.partitions</Name>
+          <FullPath>Travel H2V DW.partitions</FullPath>
+        </ProjectItem>
+      </Dependencies>
+    </ProjectItem>
+  </Cubes>
+  <Dimensions>
+    <ProjectItem>
+      <Name>Dim Budget.dim</Name>
+      <FullPath>Dim Budget.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Temperature.dim</Name>
+      <FullPath>Dim Temperature.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Datetime.dim</Name>
+      <FullPath>Dim Datetime.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim User.dim</Name>
+      <FullPath>Dim User.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Companion.dim</Name>
+      <FullPath>Dim Companion.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Travel Length.dim</Name>
+      <FullPath>Dim Travel Length.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Mood.dim</Name>
+      <FullPath>Dim Mood.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Familiarity.dim</Name>
+      <FullPath>Dim Familiarity.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Weather.dim</Name>
+      <FullPath>Dim Weather.dim</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Dim Place.dim</Name>
+      <FullPath>Dim Place.dim</FullPath>
+    </ProjectItem>
+  </Dimensions>
+  <DataSources>
+    <ProjectItem>
+      <Name>Travel H2V DW.ds</Name>
+      <FullPath>Travel H2V DW.ds</FullPath>
+    </ProjectItem>
+  </DataSources>
+  <DataSourceViews>
+    <ProjectItem>
+      <Name>Travel H2V DW.dsv</Name>
+      <FullPath>Travel H2V DW.dsv</FullPath>
+    </ProjectItem>
+  </DataSourceViews>
+  <Configurations>
+    <Configuration>
+      <Name>Development</Name>
+      <Options>
+        <ConnectionMappings>
+          <ConfigurationSetting>
+            <Id>Travel H2V DW</Id>
+            <Name>Travel H2V DW</Name>
+            <Value xsi:type="xsd:string">Provider=SQLNCLI10.1;Data Source=.\S2K8R2;Password=;User ID=;Initial Catalog=TravelH2V_DW</Value>
+          </ConfigurationSetting>
+        </ConnectionMappings>
+        <ConnectionSecurityMappings>
+          <ConfigurationSetting>
+            <Id>Travel H2V DW</Id>
+            <Name>Travel H2V DW</Name>
+            <Value xsi:type="xsd:int">1</Value>
+          </ConfigurationSetting>
+        </ConnectionSecurityMappings>
+        <DeploymentServerEdition>Enterprise</DeploymentServerEdition>
+      </Options>
+    </Configuration>
+  </Configurations>
+</Project>

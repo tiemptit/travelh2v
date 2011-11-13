@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
+using System.Windows.Forms;
 
 namespace RecommenderSystem.Core.Helper
 {
@@ -13,7 +14,8 @@ namespace RecommenderSystem.Core.Helper
         {
             LogEntry log = new LogEntry();
             log.Message = message;
-            Logger.Write(log);
+            MessageBox.Show(message);
+            //Logger.Write(log);
         }
 
         public static string GetConfigValue(string keyName)
