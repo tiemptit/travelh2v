@@ -2,7 +2,6 @@
  * 
  */
 package uit.is.thesis.travel.models;
-
 import java.io.Serializable;
 
 /**

@@ -227,7 +227,6 @@ public class DetailsActivity extends Activity implements OnClickListener {
 						// show Toast successful
 						Toast.makeText(getApplicationContext(),
 								"Add successfully!", Toast.LENGTH_SHORT).show();
-
 					} else {
 						// show Toast place existed
 						Toast.makeText(getApplicationContext(),
