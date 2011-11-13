@@ -19,14 +19,14 @@
 		android:lineSpacingMultiplier="1.5"
 		android:text="We want to know which circumstances influence your decision. Imagine you are visiting this place under circumtances that you provided in the Context settings. How likely is that you will visit this?" />
 
-	<RatingBar android:id="@+id/ratingBar" android:layout_width="wrap_content"
+	<RatingBar android:id="@+id/ratingBarR" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" android:numStars="5"
 		android:rating="4.5" android:layout_centerHorizontal="true"
 		android:layout_below="@+id/txtViewRequire" />
 
-	<Button android:id="@+id/btnRate" android:layout_width="160dip"
+	<Button android:id="@+id/btnRateR" android:layout_width="160dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_rate" 
-		android:layout_below="@+id/ratingBar" android:layout_centerHorizontal="true"
+		android:layout_below="@+id/ratingBarR" android:layout_centerHorizontal="true"
 		android:layout_marginTop="10dip"/>
 
 </RelativeLayout>

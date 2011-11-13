@@ -6,11 +6,8 @@ package uit.is.thesis.travel.activities;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import uit.is.thesis.travel.models.PlaceModel;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -74,10 +71,8 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		txtViewAddress = (TextView) findViewById(R.id.txtViewAddress);
 		txtViewAddressContent = (TextView) findViewById(R.id.txtViewAddressContent);
 		String address = "";
-		address += place.getHouse_number() + ", "
-				+ place.getStreet() + ", "
-				+ place.getWard() + ", "
-				+ place.getDistrict() + ", "
+		address += place.getHouse_number() + ", " + place.getStreet() + ", "
+				+ place.getWard() + ", " + place.getDistrict() + ", "
 				+ place.getCity();
 		txtViewAddressContent.setText(address);
 		txtViewEmail = (TextView) findViewById(R.id.txtViewEmail);
@@ -168,7 +163,12 @@ public class DetailsActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btnRateDetails: {
 			try {
-
+				Bundle bundle = new Bundle();
+				bundle.putInt("id_place", place.getId());
+				Intent intent = new Intent(DetailsActivity.this,
+						RateActivity.class);
+				intent.putExtras(bundle);
+				startActivity(intent);
 			} catch (Exception e) {
 			}
 		}
@@ -218,9 +218,9 @@ public class DetailsActivity extends Activity implements OnClickListener {
 					// check if it exists in db, if not then insert, else do
 					// nothing
 					if (mDbAdapter.checkIfExist(lat, lng, name) == false) {
-						mDbAdapter.insertItem(id_place, id_place_category, name,
-								imgurl, lat, lng, house_number, street, ward,
-								district, city, province, country,
+						mDbAdapter.insertItem(id_place, id_place_category,
+								name, imgurl, lat, lng, house_number, street,
+								ward, district, city, province, country,
 								phone_number, email, website, history, details,
 								sources, general_rating, general_count_rating,
 								general_sum_rating);
@@ -231,7 +231,8 @@ public class DetailsActivity extends Activity implements OnClickListener {
 					} else {
 						// show Toast place existed
 						Toast.makeText(getApplicationContext(),
-								"This place existed!", Toast.LENGTH_SHORT).show();
+								"This place existed!", Toast.LENGTH_SHORT)
+								.show();
 					}
 				} catch (Exception e) {
 				}

@@ -8,7 +8,6 @@ package uit.is.thesis.travel.activities;
  *
  */
 import java.util.Date;
-
 import uit.is.thesis.travel.SQLiteHelper.SQLiteCursorAdapter;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBHelper;
@@ -23,7 +22,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 public class TabContextActivity extends Activity implements OnClickListener {
-	SQLiteCursorAdapter mSQLiteCursorAdapter = null;
 	SQLiteDBAdapter mDBAdapter = null;
 	SQLiteDBHelper mDBHelper = null;
 	Spinner spinner_temperature, spinner_weather, spinner_companion,
@@ -129,6 +127,7 @@ public class TabContextActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btnSaveC: {
 			try {
+				// update current context config
 				mDBAdapter.updateContextConfig(
 						spinner_temperature.getSelectedItemPosition(),
 						spinner_weather.getSelectedItemPosition(),
