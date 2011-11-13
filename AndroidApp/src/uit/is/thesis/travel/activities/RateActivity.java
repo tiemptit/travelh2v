@@ -6,7 +6,8 @@ package uit.is.thesis.travel.activities;
 import uit.is.thesis.travel.InternetHelper.RateService;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBHelper;
-import uit.is.thesis.travel.utilities.ConfigUtil;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,6 +29,8 @@ public class RateActivity extends Activity implements OnClickListener {
 	SQLiteDBHelper mDBHelper = null;
 	RatingBar ratingBar;
 	int id_place;
+	// username and pass of Google Account on the phone
+	String username;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,13 +65,13 @@ public class RateActivity extends Activity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btnRateR: {
 			try {
-				if (ConfigUtil.status_login == true) { // login successful
+				if (checkAccount() == true) { // login successful
 					RateService r = new RateService();
 					// get context config from DB
 					Cursor c = mDBAdapter.getContextConfig();
 					startManagingCursor(c);
 					int value; // context value
-					r.setUsername(ConfigUtil.username);
+					r.setUsername(username);
 					r.setId_place(id_place);
 					c.moveToPosition(0); // set current Temperature
 					value = Integer.parseInt(c.getString(c
@@ -118,13 +121,12 @@ public class RateActivity extends Activity implements OnClickListener {
 								"Rate successfully!", Toast.LENGTH_SHORT)
 								.show();
 					} else {
-						Toast.makeText(getApplicationContext(),
-								"Rate fail!", Toast.LENGTH_SHORT)
-								.show();
-					}	
+						Toast.makeText(getApplicationContext(), "Rate fail!",
+								Toast.LENGTH_SHORT).show();
+					}
 				} else { // not login
 					Toast.makeText(getApplicationContext(),
-							"Please login first!", Toast.LENGTH_LONG).show();
+							"Please setup a Google account in your Android smartphone first! (Home --> Settings --> Accounts and sync)", Toast.LENGTH_LONG).show();
 				}
 
 			} catch (Exception e) {
@@ -139,5 +141,22 @@ public class RateActivity extends Activity implements OnClickListener {
 		}
 			break;
 		}
+	}
+
+	public boolean checkAccount() {
+		// get google account on the android phone (Settings --> Accounts and sync)
+		AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+		Account[] list = manager.getAccounts();
+		for (Account account : list) {
+			if (account.type.equalsIgnoreCase("com.google")) {
+				username = account.name;
+				Log.i("Rate", "username = " + username);
+				break;
+			}
+		}
+		if (username != null)
+			return true;
+		else
+			return false;
 	}
 }
