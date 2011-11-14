@@ -57,5 +57,16 @@ namespace Recommender_system
             double estimate = CollaborativeFiltering.EstimateRating(new Item(item_id), new User(user_id), FullSegment);
             MessageBox.Show(estimate.ToString());
         }
+
+        private void btnTestAdomd_Click(object sender, EventArgs e)
+        {
+            //if (DbHelper.TestADOMD())
+            //    MessageBox.Show("OK");
+            //else
+            //    MessageBox.Show("Oops!");
+            string mdx = "select ([Dim Budget].[Budget].Members, [Dim Companion].[Companion].Members, [Dim User].[Email].Members) ON COLUMNS, [Dim Place].[Name].Members ON ROWS from [Travel H2V DW]";
+
+            DbHelper.RunMDX(mdx);
+        }
     }
 }

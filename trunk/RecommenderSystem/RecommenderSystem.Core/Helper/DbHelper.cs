@@ -5,7 +5,9 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
+using System.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.Data;
+using Microsoft.AnalysisServices.AdomdClient;
 
 namespace RecommenderSystem.Core.Helper
 {
@@ -28,6 +30,52 @@ namespace RecommenderSystem.Core.Helper
                 //return false;
             }
             return true;
+        }
+
+        public static bool TestADOMD()
+        {
+            try
+            {
+                AdomdConnection conn = new AdomdConnection(ConfigurationManager.ConnectionStrings["Cube"].ConnectionString);
+                conn.Open();
+                if (conn.State == ConnectionState.Open)
+                    return true;
+                else
+                    return false;
+            }
+            catch(Exception ex)
+            {
+                SystemHelper.LogEntry("Fail in DbHelper.cs\\TestADOMD(): " + ex.ToString() + "\n");
+                throw ex;
+            }
+        }
+
+        public static bool RunMDX(String mdx)
+        {
+            try
+            {
+                AdomdConnection conn = new AdomdConnection(ConfigurationManager.ConnectionStrings["Cube"].ConnectionString);
+                conn.Open();
+                AdomdCommand command = conn.CreateCommand();
+                command.CommandText = mdx;
+                command.CommandType = CommandType.Text;
+                AdomdDataReader reader = command.ExecuteReader();
+                DataTable result = reader.GetSchemaTable();
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+
+                    }
+                }
+                conn.Close();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                SystemHelper.LogEntry("Fail in DbHelper.cs\\RunMDX(): " + ex.ToString() + "\n");
+                throw ex;
+            }
         }
 
         public static bool RunScripts(String strSQL)

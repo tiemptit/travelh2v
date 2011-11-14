@@ -35,6 +35,7 @@
             this.txtItem = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnEstimate = new System.Windows.Forms.Button();
+            this.btnTestAdomd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnTest
@@ -99,11 +100,22 @@
             this.btnEstimate.UseVisualStyleBackColor = true;
             this.btnEstimate.Click += new System.EventHandler(this.btnEstimate_Click);
             // 
+            // btnTestAdomd
+            // 
+            this.btnTestAdomd.Location = new System.Drawing.Point(24, 227);
+            this.btnTestAdomd.Name = "btnTestAdomd";
+            this.btnTestAdomd.Size = new System.Drawing.Size(75, 23);
+            this.btnTestAdomd.TabIndex = 7;
+            this.btnTestAdomd.Text = "Test Cube";
+            this.btnTestAdomd.UseVisualStyleBackColor = true;
+            this.btnTestAdomd.Click += new System.EventHandler(this.btnTestAdomd_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.btnTestAdomd);
             this.Controls.Add(this.btnEstimate);
             this.Controls.Add(this.txtItem);
             this.Controls.Add(this.label2);
@@ -127,6 +139,7 @@
         private System.Windows.Forms.TextBox txtItem;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnEstimate;
+        private System.Windows.Forms.Button btnTestAdomd;
     }
 }
 
