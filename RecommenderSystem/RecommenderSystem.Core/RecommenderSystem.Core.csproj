@@ -56,6 +56,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AnalysisServices.AdomdClient, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>dll\Microsoft.AnalysisServices.AdomdClient.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -125,6 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dll\DocumentFormat.OpenXml.dll" />
+    <Content Include="dll\Microsoft.AnalysisServices.AdomdClient.dll" />
     <Content Include="dll\Microsoft.Practices.EnterpriseLibrary.Caching.dll" />
     <Content Include="dll\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
     <Content Include="dll\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
