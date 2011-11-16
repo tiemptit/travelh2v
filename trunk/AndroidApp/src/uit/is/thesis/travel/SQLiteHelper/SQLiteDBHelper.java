@@ -77,10 +77,10 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 			db.execSQL(CREATE_TABLE_PLACES);
 			db.execSQL(CREATE_TABLE_CONTEXT_CONFIG);
 			
-			db.execSQL("insert into PLACE_CATEGORIES values (1,1,'Hotel');");
-			db.execSQL("insert into PLACE_CATEGORIES values (2,2,'Taxi');");
-			db.execSQL("insert into PLACE_CATEGORIES values (3,3,'Restaurant');");
-			db.execSQL("insert into PLACE_CATEGORIES values (4,4,'Market');");
+			db.execSQL("insert into PLACE_CATEGORIES values (1,1,'Seeing');");
+			db.execSQL("insert into PLACE_CATEGORIES values (2,2,'Entertainment');");
+			db.execSQL("insert into PLACE_CATEGORIES values (3,3,'Hotel');");
+			db.execSQL("insert into PLACE_CATEGORIES values (4,4,'Restaurant');");
 			
 			db.execSQL("insert into CONTEXT_CONFIG values (1,'Temperature','0');");
 			db.execSQL("insert into CONTEXT_CONFIG values (2,'Weather','1');");

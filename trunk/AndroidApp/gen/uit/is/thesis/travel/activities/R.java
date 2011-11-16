@@ -15,6 +15,7 @@ public final class R {
         public static final int mood_array=0x7f050003;
         public static final int temperature_array=0x7f050000;
         public static final int travel_length_array=0x7f050006;
+        public static final int type_array=0x7f050007;
         public static final int weather_array=0x7f050001;
     }
     public static final class attr {
@@ -158,8 +159,6 @@ public final class R {
         public static final int btnSaveC=0x7f06003a;
         public static final int btnSearch=0x7f06004d;
         public static final int btnShowOnMap=0x7f060019;
-        public static final int btnType=0x7f060036;
-        public static final int btnType1=0x7f06005c;
         public static final int checkboxItem=0x01010000;
         public static final int icArrow=0x7f06002c;
         public static final int icArrowF=0x7f060028;
@@ -176,6 +175,8 @@ public final class R {
         public static final int spinner_mood=0x7f06003e;
         public static final int spinner_temperature=0x7f06003b;
         public static final int spinner_travel_length=0x7f060042;
+        public static final int spinner_type=0x7f060036;
+        public static final int spinner_type1=0x7f06005c;
         public static final int spinner_weather=0x7f06003c;
         public static final int states=0x7f06001b;
         public static final int tab_all=0x7f06001c;
@@ -225,15 +226,16 @@ public final class R {
     public static final class layout {
         public static final int details=0x7f030000;
         public static final int main=0x7f030001;
-        public static final int rate=0x7f030002;
-        public static final int row_favorite=0x7f030003;
-        public static final int row_place=0x7f030004;
-        public static final int show_on_map=0x7f030005;
-        public static final int tab_all=0x7f030006;
-        public static final int tab_context=0x7f030007;
-        public static final int tab_favorites=0x7f030008;
-        public static final int tab_profile=0x7f030009;
-        public static final int tab_suggestions=0x7f03000a;
+        public static final int my_spinner_item=0x7f030002;
+        public static final int rate=0x7f030003;
+        public static final int row_favorite=0x7f030004;
+        public static final int row_place=0x7f030005;
+        public static final int show_on_map=0x7f030006;
+        public static final int tab_all=0x7f030007;
+        public static final int tab_context=0x7f030008;
+        public static final int tab_favorites=0x7f030009;
+        public static final int tab_profile=0x7f03000a;
+        public static final int tab_suggestions=0x7f03000b;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
@@ -244,6 +246,7 @@ public final class R {
         public static final int mood_prompt=0x7f040005;
         public static final int temperature_prompt=0x7f040002;
         public static final int travel_length_prompt=0x7f040008;
+        public static final int type_prompt=0x7f040009;
         public static final int weather_prompt=0x7f040003;
     }
 }

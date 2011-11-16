@@ -190,10 +190,10 @@ public class MyMapActivity extends MapActivity {
 			items.add(item);
 		}
 
-		public void clear() {
+		/*public void clear() {
 			items.clear();
 		}
-
+*/
 		public void completeToPopulate() {
 			populate();
 		}

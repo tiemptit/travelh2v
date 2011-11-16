@@ -84,7 +84,7 @@ public class TabFavoritesActivity extends ListActivity {
 		
 		if (this.mDBAdapter == null) {
 			this.mDBAdapter = new SQLiteDBAdapter(this);
-			mDBAdapter.open();
+			mDBAdapter.open();		
 		}
 	
 		if (this.mDBHelper == null) {

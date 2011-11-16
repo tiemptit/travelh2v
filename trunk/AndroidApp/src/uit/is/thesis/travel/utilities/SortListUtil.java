@@ -3,6 +3,7 @@
  */
 package uit.is.thesis.travel.utilities;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -10,43 +11,55 @@ import uit.is.thesis.travel.models.PlaceModel;
 
 /**
  * @author LEHIEU
- *
+ * 
  */
 public class SortListUtil {
-	
-	public static List<PlaceModel> SortListByName(List<PlaceModel> original)
-	{	
+
+	public static List<PlaceModel> SortListByName(List<PlaceModel> original) {
 		Collections.sort(original, new NameComparator());
-		for (int i =0; i< original.size();i++)
-			original.get(i).setId_itemOnListView(i);
-		return original;	
-	}
-	
-	public static List<PlaceModel> SortListByDistance(List<PlaceModel> original)
-	{
-		Collections.sort(original, new DistanceComparator());
-		for (int i =0; i< original.size();i++)
-			original.get(i).setId_itemOnListView(i);
-		return original;			
-	}
-	
-	public static List<PlaceModel> SortListByRating(List<PlaceModel> original)
-	{
-		Collections.sort(original, new RatingComparator());
-		for (int i =0; i< original.size();i++)
+		for (int i = 0; i < original.size(); i++)
 			original.get(i).setId_itemOnListView(i);
 		return original;
 	}
 
+	public static List<PlaceModel> SortListByDistance(List<PlaceModel> original) {
+		Collections.sort(original, new DistanceComparator());
+		for (int i = 0; i < original.size(); i++)
+			original.get(i).setId_itemOnListView(i);
+		return original;
+	}
+
+	public static List<PlaceModel> SortListByRating(List<PlaceModel> original) {
+		Collections.sort(original, new RatingComparator());
+		for (int i = 0; i < original.size(); i++)
+			original.get(i).setId_itemOnListView(i);
+		return original;
+	}
+
+	public static List<PlaceModel> SortListByType(List<PlaceModel> original,
+			String place_cate) {
+		List<PlaceModel> result = new ArrayList<PlaceModel>();
+		PlaceModel p = new PlaceModel();
+		int id_itemOnListView = 0;
+		for (int i = 0; i < original.size(); i++) {
+			p = original.get(i);
+			if (p.place_category_obj.getPlace_category().compareTo(place_cate) == 0) {
+				p.setId_itemOnListView(id_itemOnListView);
+				result.add(p);
+				id_itemOnListView++;
+			}
+		}
+		return result;
+	}
 }
 
-//Sort data by name
+// Sort data by name
 class NameComparator implements Comparator<PlaceModel> {
 
 	public int compare(PlaceModel object1, PlaceModel object2) {
 		// TODO Auto-generated method stub
 		String name1 = object1.getName();
-		String name2 = object2.getName();		
+		String name2 = object2.getName();
 		return name1.compareTo(name2);
 	}
 }
@@ -57,32 +70,32 @@ class DistanceComparator implements Comparator<PlaceModel> {
 	public int compare(PlaceModel object1, PlaceModel object2) {
 		// TODO Auto-generated method stub
 		double dis1 = object1.getDistance();
-		double dis2 = object2.getDistance();	
-		if(dis1 > dis2)
+		double dis2 = object2.getDistance();
+		if (dis1 > dis2)
 			return 1;
 		else {
-			if(dis1 < dis2)
+			if (dis1 < dis2)
 				return -1;
 			else
 				return 0;
-		}		
-	}	
+		}
+	}
 }
 
-//Sort data by Rating
+// Sort data by Rating
 class RatingComparator implements Comparator<PlaceModel> {
 
 	public int compare(PlaceModel object1, PlaceModel object2) {
 		// TODO Auto-generated method stub
 		double rat1 = object1.getGeneral_rating();
-		double rat2 = object2.getGeneral_rating();	
-		if(rat1 > rat2)
+		double rat2 = object2.getGeneral_rating();
+		if (rat1 > rat2)
 			return -1;
 		else {
-			if(rat1 < rat2)
+			if (rat1 < rat2)
 				return 1;
 			else
 				return 0;
-		}		
-	}	
+		}
+	}
 }
