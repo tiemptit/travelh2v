@@ -20,15 +20,15 @@
 	<Button android:id="@+id/btnDistance" android:layout_width="80dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_col_distance"
 		android:layout_toRightOf="@+id/btnRating" android:layout_below="@+id/title_allplaces" />
-	<Button android:id="@+id/btnType" android:layout_width="80dip"
-		android:layout_height="33dip" android:background="@drawable/btn_selector_col_type"
-		android:layout_toRightOf="@+id/btnDistance" android:layout_below="@+id/title_allplaces" />
+	<Spinner android:id="@+id/spinner_type" android:background="@drawable/btn_selector_col_type"
+		android:prompt="@string/type_prompt" android:layout_toRightOf="@+id/btnDistance"
+		android:layout_below="@+id/title_allplaces" android:layout_width="80dip"
+		android:textColor="@android:color/transparent" android:layout_height="33dip" />
 	<!-- ListView -->
-	<ListView android:id="@+id/listViewResult" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" 
-			android:divider="@android:color/transparent"
-			android:paddingBottom="2dip" android:dividerHeight="2dp"
-			android:layout_below="@+id/btnAz">
+	<ListView android:id="@+id/listViewResult"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:divider="@android:color/transparent" android:paddingBottom="2dip"
+		android:dividerHeight="2dp" android:layout_below="@+id/btnAz">
 	</ListView>
-	
+
 </RelativeLayout>

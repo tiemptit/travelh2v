@@ -5,7 +5,6 @@ package uit.is.thesis.travel.activities;
 
 import uit.is.thesis.travel.InternetHelper.RateService;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
-import uit.is.thesis.travel.SQLiteHelper.SQLiteDBHelper;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -26,7 +25,6 @@ import android.widget.Toast;
 public class RateActivity extends Activity implements OnClickListener {
 	Button btnRate, btnBack;
 	SQLiteDBAdapter mDBAdapter = null;
-	SQLiteDBHelper mDBHelper = null;
 	RatingBar ratingBar;
 	int id_place;
 	// username and pass of Google Account on the phone
@@ -41,8 +39,7 @@ public class RateActivity extends Activity implements OnClickListener {
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		id_place = bundle.getInt("id_place");
-		Log.i("Rate", "id_place = " + id_place);
-
+		
 		btnRate = (Button) findViewById(R.id.btnRateR);
 		btnRate.setOnClickListener(this);
 		btnBack = (Button) findViewById(R.id.btnBackRate);
@@ -52,11 +49,7 @@ public class RateActivity extends Activity implements OnClickListener {
 		if (this.mDBAdapter == null) {
 			this.mDBAdapter = new SQLiteDBAdapter(this);
 			mDBAdapter.open();
-		}
-
-		if (this.mDBHelper == null) {
-			this.mDBHelper = mDBAdapter.getmDbHelper();
-		}
+		}	
 	}
 
 	// button onclick handler
@@ -128,9 +121,7 @@ public class RateActivity extends Activity implements OnClickListener {
 					Toast.makeText(getApplicationContext(),
 							"Please setup a Google account in your Android smartphone first! (Home --> Settings --> Accounts and sync)", Toast.LENGTH_LONG).show();
 				}
-
 			} catch (Exception e) {
-				Log.i("Rate", "exception = " + e.toString());
 			}
 		}
 			break;
@@ -150,7 +141,6 @@ public class RateActivity extends Activity implements OnClickListener {
 		for (Account account : list) {
 			if (account.type.equalsIgnoreCase("com.google")) {
 				username = account.name;
-				Log.i("Rate", "username = " + username);
 				break;
 			}
 		}

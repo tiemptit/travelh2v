@@ -20,8 +20,9 @@
 	<Button android:id="@+id/btnDistance1" android:layout_width="80dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_col_distance"
 		android:layout_toRightOf="@+id/btnRating1" android:layout_below="@+id/title_suggestions" />
-	<Button android:id="@+id/btnType1" android:layout_width="80dip"
-		android:layout_height="33dip" android:background="@drawable/btn_selector_col_type"
-		android:layout_toRightOf="@+id/btnDistance1" android:layout_below="@+id/title_suggestions" />
+	<Spinner android:id="@+id/spinner_type1" android:background="@drawable/btn_selector_col_type"
+		android:prompt="@string/type_prompt" android:layout_toRightOf="@+id/btnDistance1"
+		android:layout_below="@+id/title_suggestions" android:layout_width="80dip"
+		android:textColor="@android:color/transparent" android:layout_height="33dip" />
 	
 </RelativeLayout>

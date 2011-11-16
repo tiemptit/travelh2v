@@ -164,4 +164,9 @@ public class SQLiteDBAdapter {
 				+ "' where CONTEXT_CONFIG._id = 8");
 		Log.i("Context", "update context end");
 	}
+	
+	// get place categories from DB
+	public Cursor getPlaceCategories() {
+		return mDb.rawQuery("SELECT * FROM PLACE_CATEGORIES", null);
+	}
 }
