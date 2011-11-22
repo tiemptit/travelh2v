@@ -3,10 +3,12 @@
  */
 package uit.is.thesis.travel.SQLiteHelper;
 
+import java.util.Date;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+import android.text.format.DateFormat;
 
 /**
  * @author LEHIEU
@@ -23,8 +25,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 	private static final String CREATE_TABLE_PLACE_CATEGORIES = "CREATE TABLE PLACE_CATEGORIES("
 			+ "_id 				 INTEGER primary key autoincrement,"
 			+ "id_cate                   INTEGER, "
-			+ "place_category	     TEXT "
-			+ ");";
+			+ "place_category	     TEXT " + ");";
 
 	private static final String CREATE_TABLE_PLACES = "CREATE TABLE PLACES("
 			+ "_id 				 INTEGER primary key autoincrement,"
@@ -52,6 +53,10 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 			+ "general_sum_rating   TEXT,"
 			+ "FOREIGN KEY(id_place_category) REFERENCES PLACE_CATEGORIES(id) );";
 
+	private static final String CREATE_TABLE_PROFILE = "CREATE TABLE PROFILE("
+			+ "_id 				 INTEGER primary key autoincrement,"
+			+ "type                 TEXT," + "current_value			     TEXT" + ");";
+
 	private static final String CREATE_TABLE_CONTEXT_CONFIG = "CREATE TABLE CONTEXT_CONFIG("
 			+ "_id 				 INTEGER primary key autoincrement,"
 			+ "type                 TEXT," + "current_value			     TEXT" + ");";
@@ -70,18 +75,25 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 			// do nothing - database already exist
 			this.getWritableDatabase(); // use this to call onUpgrade function
 		} else {
+			// get current date time
+			Date d = new Date();
+			String s_plit[] = DateFormat
+					.format("yyyy-MM-dd hh:mm:ss", d.getTime()).toString()
+					.split(" ");
+
 			db.execSQL("drop table if exists PLACE_CATEGORIES");
 			db.execSQL("drop table if exists PLACES");
 			db.execSQL("drop table if exists CONTEXT_CONFIG");
 			db.execSQL(CREATE_TABLE_PLACE_CATEGORIES);
 			db.execSQL(CREATE_TABLE_PLACES);
 			db.execSQL(CREATE_TABLE_CONTEXT_CONFIG);
-			
+			db.execSQL(CREATE_TABLE_PROFILE);
+
 			db.execSQL("insert into PLACE_CATEGORIES values (1,1,'Seeing');");
 			db.execSQL("insert into PLACE_CATEGORIES values (2,2,'Entertainment');");
 			db.execSQL("insert into PLACE_CATEGORIES values (3,3,'Hotel');");
 			db.execSQL("insert into PLACE_CATEGORIES values (4,4,'Restaurant');");
-			
+
 			db.execSQL("insert into CONTEXT_CONFIG values (1,'Temperature','0');");
 			db.execSQL("insert into CONTEXT_CONFIG values (2,'Weather','1');");
 			db.execSQL("insert into CONTEXT_CONFIG values (3,'Companion','2');");
@@ -89,7 +101,13 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 			db.execSQL("insert into CONTEXT_CONFIG values (5,'Mood','1');");
 			db.execSQL("insert into CONTEXT_CONFIG values (6,'Budget','2');");
 			db.execSQL("insert into CONTEXT_CONFIG values (7,'Travel length','0');");
-			db.execSQL("insert into CONTEXT_CONFIG values (8,'Time','2011-11-04and09:09:09');");
+			db.execSQL("insert into CONTEXT_CONFIG values (8,'Time','"
+					+ s_plit[0] + "and" + s_plit[1] + "');");
+
+			db.execSQL("insert into PROFILE values (1,'Gender','0');");
+
+			db.execSQL("insert into PROFILE values (2,'Birthday','" + s_plit[0]
+					+ "');");
 		}
 	}
 

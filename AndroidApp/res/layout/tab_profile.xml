@@ -14,66 +14,24 @@
 	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_height="fill_parent" android:layout_width="fill_parent">
 		<TableRow>
-			<Button android:id="@+id/btnRegister" android:layout_width="160dip"
-				android:layout_height="33dip" android:background="@drawable/btn_selector_register" />
-			<Button android:id="@+id/btnLogin" android:layout_width="160dip"
-				android:layout_height="33dip" android:background="@drawable/btn_selector_login" />
+			<Button android:layout_width="160dip" android:layout_height="33dip"
+				android:background="@android:color/transparent" />
+			<Button android:id="@+id/btnSaveP" android:layout_width="160dip"
+				android:layout_height="33dip" android:background="@drawable/btn_selector_save" />
 		</TableRow>
 		<TableRow>
-			<ImageView android:src="@drawable/lb_profile_user"
+			<ImageView android:src="@drawable/lb_profile_gender"
 				android:layout_width="160dip" android:layout_height="46dip" />
-			<EditText android:id="@+id/txtUserLogin"
-				android:layout_width="160dip" android:layout_height="46dp"
-				android:padding="2dip" android:hint="Enter keyword"
-				android:textColorHint="#252525" android:textColor="#252525"
-				android:textSize="17sp" />
+			<Spinner android:id="@+id/spinner_gender" android:prompt="@string/gender_prompt"
+				android:layout_width="160dip" android:layout_height="44dip"></Spinner>
 		</TableRow>
 		<TableRow>
-			<ImageView android:src="@drawable/lb_profile_password"
+			<ImageView android:src="@drawable/lb_profile_yob"
 				android:layout_width="160dip" android:layout_height="46dip" />
-			<EditText android:id="@+id/txtPassword"
-				android:layout_width="160dip" android:layout_height="46dp"
-				android:padding="2dip" android:hint="Enter keyword"
-				android:textColorHint="#252525" android:textColor="#252525"
-				android:textSize="17sp" />
+			<Button android:id="@+id/btnBirthday" android:layout_width="160dip"
+				android:layout_height="44dip" />
 		</TableRow>
-		<TableRow>
-			<ImageView android:background="@android:color/transparent"
-				android:layout_width="160dip" android:layout_height="20dip" />
-		</TableRow>
-		<TableRow>
-			<Button android:id="@+id/btnReset" android:layout_width="160dip"
-				android:layout_height="33dip" android:background="@drawable/btn_selector_reset" />
-			<Button android:id="@+id/btnChange" android:layout_width="160dip"
-				android:layout_height="33dip" android:background="@drawable/btn_selector_change" />
-		</TableRow>
-		<TableRow>
-			<ImageView android:src="@drawable/lb_profile_user"
-				android:layout_width="160dip" android:layout_height="46dip" />
-			<EditText android:id="@+id/txtUserChange"
-				android:layout_width="160dip" android:layout_height="46dp"
-				android:padding="2dip" android:hint="Enter keyword"
-				android:textColorHint="#252525" android:textColor="#252525"
-				android:textSize="17sp" />
-		</TableRow>
-		<TableRow>
-			<ImageView android:src="@drawable/lb_profile_old_pass"
-				android:layout_width="160dip" android:layout_height="46dip" />
-			<EditText android:id="@+id/txtOldPassword"
-				android:layout_width="160dip" android:layout_height="46dp"
-				android:padding="2dip" android:hint="Enter keyword"
-				android:textColorHint="#252525" android:textColor="#252525"
-				android:textSize="17sp" />
-		</TableRow>
-		<TableRow>
-			<ImageView android:src="@drawable/lb_profile_new_pass"
-				android:layout_width="160dip" android:layout_height="46dip" />
-			<EditText android:id="@+id/txtNewPassword"
-				android:layout_width="160dip" android:layout_height="46dp"
-				android:padding="2dip" android:hint="Enter keyword"
-				android:textColorHint="#252525" android:textColor="#252525"
-				android:textSize="17sp" />
-		</TableRow>
+
 	</TableLayout>
 
 </LinearLayout>

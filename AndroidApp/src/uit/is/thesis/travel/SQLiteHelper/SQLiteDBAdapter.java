@@ -165,6 +165,21 @@ public class SQLiteDBAdapter {
 		Log.i("Context", "update context end");
 	}
 	
+	// get current profile from DB
+	public Cursor getProfile() {
+		return mDb.rawQuery("SELECT * FROM PROFILE", null);
+	}
+	
+	// update profile
+	public void updateProfile(String gender, String birthday) {	
+		Log.i("Rate", "update birthday =" + birthday);
+		Log.i("Rate", "update gender =" + gender);
+		mDb.execSQL("UPDATE PROFILE set current_value = '" + gender
+				+ "' where PROFILE.type= 'Gender'");
+		mDb.execSQL("UPDATE PROFILE set  current_value= '" + birthday
+				+ "' where PROFILE.type= 'Birthday'");
+	}
+	
 	// get place categories from DB
 	public Cursor getPlaceCategories() {
 		return mDb.rawQuery("SELECT * FROM PLACE_CATEGORIES", null);
