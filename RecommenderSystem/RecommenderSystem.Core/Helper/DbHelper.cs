@@ -50,7 +50,65 @@ namespace RecommenderSystem.Core.Helper
             }
         }
 
-        public static bool RunMDX(String mdx)
+        private static DataTable GetDataTableFromCellSet(CellSet cs)
+        {
+            //design the datatable
+            DataTable dt = new DataTable();
+            DataColumn dc = null;
+            DataRow dr = null;
+
+            //add the columns
+            dt.Columns.Add(new DataColumn("Description"));
+            //first column
+            //get the other columns from axis
+            string name = null;
+            foreach (Position p in cs.Axes[0].Positions)
+            {
+                dc = new DataColumn();
+                name = "";
+                foreach (Member m in p.Members)
+                {
+                    name = name + m.Caption + " ";
+                }
+                dc.ColumnName = name;
+                dt.Columns.Add(dc);
+            }
+
+            //add each row, row label first, then data cells
+            int y = 0;
+            y = 0;
+            foreach (Position py in cs.Axes[1].Positions)
+            {
+                dr = dt.NewRow();
+                //create new row
+
+                // Do the row label
+                name = "";
+                foreach (Member m in py.Members)
+                {
+                    name = name + m.Caption + "";
+
+                }
+                dr[0] = name;
+                //first cell in the row
+
+                // Data cells
+                int x = 0;
+                for (x = 0; x <= cs.Axes[0].Positions.Count - 1; x++)
+                {
+                    dr[x + 1] = cs[x, y].FormattedValue;
+                    //other cells in the row
+                }
+
+                dt.Rows.Add(dr);
+                //add the row
+                y = y + 1;
+            }
+
+            return dt;
+        }
+
+        public static DataTable RunMDXWithDataTable(String mdx)
         {
             try
             {
@@ -59,17 +117,14 @@ namespace RecommenderSystem.Core.Helper
                 AdomdCommand command = conn.CreateCommand();
                 command.CommandText = mdx;
                 command.CommandType = CommandType.Text;
-                AdomdDataReader reader = command.ExecuteReader();
-                DataTable result = reader.GetSchemaTable();
-                while (reader.Read())
-                {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-
-                    }
+                //AdomdDataReader reader = command.ExecuteReader();
+                CellSet cs = command.ExecuteCellSet();
+                foreach (Position pRow in cs.Axes[1].Positions)
+                { 
+                    
                 }
                 conn.Close();
-                return true;
+                return GetDataTableFromCellSet(cs);
             }
             catch (Exception ex)
             {
