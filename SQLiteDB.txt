@@ -1,0 +1,77 @@
+CREATE TABLE PLACE_CATEGORIES(
+_id 				 INTEGER primary key autoincrement, 
+id                   INTEGER,
+place_category	     TEXT 
+);
+
+CREATE TABLE PLACES(
+_id 				 INTEGER primary key autoincrement, 
+id                   INTEGER,
+id_place_category    INTEGER,
+name                 TEXT,
+imgurl               TEXT,
+lat                  REAL,
+lng                  REAL,
+house_number         TEXT,
+street               TEXT,
+ward                 TEXT,
+district             TEXT,
+city                 TEXT,
+province             TEXT,
+country              TEXT,
+phone_number         TEXT,
+email                TEXT,
+website              TEXT,
+history              TEXT,
+details              TEXT,
+sources              TEXT,
+general_rating       REAL,
+general_count_rating REAL,
+general_sum_rating   REAL,
+FOREIGN KEY(id_place_category) REFERENCES PLACE_CATEGORIES(id)
+);
+
+CREATE TABLE CONTEXT_CONFIG(
+_id 				 INTEGER primary key autoincrement, 
+type                 TEXT,
+value			     TEXT 
+);
+
+select * from PLACE_CATEGORIES;
+insert into PLACE_CATEGORIES values (1,1,'Hotel');
+insert into PLACE_CATEGORIES values (2,2,'Taxi');
+insert into PLACE_CATEGORIES values (3,3,'Restaurant');
+insert into PLACE_CATEGORIES values (4,4,'Market');
+
+select * from PLACES;
+insert into PLACES values (1,1,1,"Da Lat Market 1","imgurl.....",10.759723,106.661217,"housenum...","street...","ward...","district...","city...","province...","country...","phonenum...","email...","website...","history...","details...","sources...",4.5,10.6,100.7);
+insert into PLACES values (2,2,4,"Da Lat Market 2","imgurl.....",10.759723,106.661217,"housenum...","street...","ward...","district...","city...","province...","country...","phonenum...","email...","website...","history...","details...","sources...",4.5,10.6,100.7);
+insert into PLACES values (3,3,4,"Da Lat Market 3","imgurl.....",10.759723,106.661217,"housenum...","street...","ward...","district...","city...","province...","country...","phonenum...","email...","website...","history...","details...","sources...",4.5,10.6,100.7);
+insert into PLACES values (4,4,1,"Da Lat Hotel 1","imgurl.....",10.759723,106.661217,"housenum...","street...","ward...","district...","city...","province...","country...","phonenum...","email...","website...","history...","details...","sources...",4.5,10.6,100.7);
+insert into PLACES values (5,5,1,"Da Lat Hotel 2","imgurl.....",10.759723,106.661217,"housenum...","street...","ward...","district...","city...","province...","country...","phonenum...","email...","website...","history...","details...","sources...",4.5,10.6,100.7);
+
+SELECT * FROM PLACES,PLACE_CATEGORIES WHERE PLACES.id_place_category=PLACE_CATEGORIES.id and PLACES.id=1;
+SELECT * FROM PLACES,PLACE_CATEGORIES WHERE PLACES.id_place_category=PLACE_CATEGORIES.id and PLACES.name like "%Da Lat Market%";
+
+select * from CONTEXT_CONFIG;
+insert into CONTEXT_CONFIG values (1,'Temperature','Cold');
+insert into CONTEXT_CONFIG values (2,'Weather','Sunny');
+insert into CONTEXT_CONFIG values (3,'Companion','Alone');
+insert into CONTEXT_CONFIG values (4,'Familiarity','New to city');
+insert into CONTEXT_CONFIG values (5,'Mood','Happy');
+insert into CONTEXT_CONFIG values (6,'Budget','High');
+insert into CONTEXT_CONFIG values (7,'Travel length','1 day');
+insert into CONTEXT_CONFIG values (8,'Time','2011-11-04 09:09:09');
+
+--CONTEXT--
+Temperature: Cold – Warm – Hot 
+Weather: Sunny – Clear sky – Rainy 
+Companion: Alone – Friends/Colleagues – Family – Girlfriend/Boyfriend – Children 
+Familiarity: New to city – Returning visitor – Citizen 
+Mood: Happy – Sad – Active – Lazy 
+Budget: Average – Well – High 
+Travel Length: 1 day – 2/3 days – over 3 days
+Time: datetime
+
+http://localhost:33638/Service/Rate?username=lehi3u1&place=1&temperature=1&weather=2&companion=1&familiarity=1&mood=1&budget=1&travellength=1&time=7&rating=5
+
