@@ -7,8 +7,6 @@ package uit.is.thesis.travel.activities;
  * @author LEHIEU
  *
  */
-import java.util.Calendar;
-import java.util.Date;
 
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import android.app.Activity;
@@ -16,8 +14,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -63,19 +59,14 @@ public class TabProfileActivity extends Activity implements OnClickListener {
 		String value; // context value
 		c.moveToPosition(0); // set current Gender
 		value = c.getString(c.getColumnIndex("current_value"));
-		Log.i("Rate", " create gender1 =" + value);
 		spinner_gender.setSelection(Integer.parseInt(value));
 		c.moveToPosition(1); // set current Birthday
 		value = c.getString(c.getColumnIndex("current_value"));
-		Log.i("Rate", " create birthday =" + value);
-		String s_plit[]  = value.split("-");
-		Log.i("Rate", " create birthday after split" + s_plit[0] + "-" + s_plit[1]+ "-" + s_plit[2]);
-		mYear = Integer.parseInt(s_plit[0]);
-		Log.i("Rate", " create birthday after split year");
-		mMonth = Integer.parseInt(s_plit[1]);
-		Log.i("Rate", " create birthday after split month");
-		mDay = Integer.parseInt(s_plit[2]);
-		Log.i("Rate", " create birthday after split day");
+		String s_plit[]  = value.split("-");		
+		mYear = Integer.parseInt(s_plit[0].trim());
+		mMonth = Integer.parseInt(s_plit[1].trim());
+		mDay = Integer.parseInt(s_plit[2].trim());
+		
 		// display the current date (this method is below)
 		updateDisplay();
 	}
@@ -90,13 +81,10 @@ public class TabProfileActivity extends Activity implements OnClickListener {
 				String gender = spinner_gender.getSelectedItem().toString();
 				String birthday = btnBirthday.getText().toString();
 				String gender1;
-				if(gender == "Male")
+				if(gender.compareTo("Male")==0)
 					gender1 = "0";
 				else
 					gender1 = "1";
-				Log.i("Rate", "gender1 =" + gender1);
-				Log.i("Rate", "birthday =" + birthday);
-				
 				mDBAdapter.updateProfile(gender1, birthday);
 			} catch (Exception e) {
 			}
@@ -104,7 +92,6 @@ public class TabProfileActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btnBirthday: {
 			try {
-				// get current date time
 				showDialog(DATE_DIALOG_ID);
 			} catch (Exception e) {
 			}
@@ -113,7 +100,7 @@ public class TabProfileActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	// the callback received when the user "sets" the date in the dialog
+	// the callback received when the user set the date in the dialog
 	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
 
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
