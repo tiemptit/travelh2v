@@ -14,6 +14,16 @@ namespace RecommenderSystem.Core.Model
          */
         public int id { get; set; }
         public string description { get; set; }
+
+        public Budget()
+        { 
+            
+        }
+
+        public Budget(int id)
+        {
+            this.id = id;
+        }
         /*
          * Override Methods
          */
@@ -39,6 +49,8 @@ namespace RecommenderSystem.Core.Model
 
                 result.Add(obj);
             }
+            //Add Null record
+            result.Add(new Budget());
             return result;
         }
     }

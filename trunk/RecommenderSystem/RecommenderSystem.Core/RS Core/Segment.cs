@@ -2,50 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data;
 using RecommenderSystem.Core.Model;
 using Microsoft.AnalysisServices.AdomdClient;
 using RecommenderSystem.Core.Helper;
 
 namespace RecommenderSystem.Core.RS_Core
 {
-    class Segment //: IEquatable<Item>
+    public class Segment //: IEquatable<Item>
     {
         /*
          * Properties
          */
-        Budget budget {get; set;}
-        Companion companion {get; set;}
-        Familiarity familiarity {get; set;}
-        Mood mood {get; set;}
-        Temperature temperature {get; set;}
-        TravelLength travelLength {get; set;}
-        Weather weather { get; set; }
-        CellSet data { get; set; }
+        public int id { get; set; }
+        public Budget budget { get; set; }
+        public Companion companion { get; set; }
+        public Familiarity familiarity { get; set; }
+        public Mood mood { get; set; }
+        public Temperature temperature { get; set; }
+        public TravelLength travelLength { get; set; }
+        public Weather weather { get; set; }
+        public double Performance {get; set;}
+        public DataTable data { get; set; }
 
         /*
          * Methods
          */
         public void GetData()
         {
-            string mdx = "";
-            CellSet result = DbHelper.RunMDX(mdx);
+            /*string sql = "pr_getSegment " + budget.id
+                    + ", " + companion.id + ", " + familiarity.id + ", " + mood.id + ", " + temperature.id
+                    + ", " + travelLength.id + ", " + weather.id;*/
+
+            string sql = "pr_getSegment " + 0
+                    + ", " + companion.id + ", " + familiarity.id + ", " + mood.id + ", " + 0
+                    + ", " + 0 + ", " + 0;
+            DataTable result = DbHelper.RunScriptsWithTable(string.Format(sql));
 
             this.data = result;
-        }
-        public bool IsContains(Segment other)
-        {
-            return !(budget.id != 0 && other.budget.id == 0)
-                && !(companion.id != 0 && other.companion.id == 0)
-                && !(familiarity.id != 0 && other.familiarity.id == 0)
-                && !(mood.id != 0 && other.mood.id == 0)
-                && !(temperature.id != 0 && other.temperature.id == 0)
-                && !(travelLength.id != 0 && other.travelLength.id == 0)
-                && !(weather.id != 0 && other.weather.id == 0);
         }
 
         public bool IsChildOf(Segment other)
         {
-            return other.IsContains(this);
+            return (budget.id == other.budget.id ||  other.budget.id == 0)
+                && (companion.id == other.companion.id || other.companion.id == 0)
+                && (familiarity.id == other.familiarity.id || other.familiarity.id == 0)
+                && (mood.id == other.mood.id || other.mood.id == 0)
+                && (temperature.id == other.temperature.id || other.temperature.id == 0)
+                && (travelLength.id == other.travelLength.id || other.travelLength.id == 0)
+                && (weather.id == other.weather.id || other.weather.id == 0);
         }
         /*
          * Static Methods
@@ -53,27 +58,53 @@ namespace RecommenderSystem.Core.RS_Core
         public static List<Segment> GetAllSegment()
         {
             List<Segment> result = new List<Segment>();
-            foreach(Budget budget in Budget.GetAllData())
+            //foreach(Budget budget in Budget.GetAllData())
                 foreach(Companion companion in Companion.GetAllData())
                     foreach(Familiarity familiarity in Familiarity.GetAllData())
                         foreach(Mood mood in Mood.GetAllData())
-                            foreach(Temperature temperature in Temperature.GetAllData())
-                                foreach(TravelLength travelLength in TravelLength.GetAllData())
-                                    foreach(Weather weather in Weather.GetAllData())
+                            //foreach(Temperature temperature in Temperature.GetAllData())
+                                //foreach(TravelLength travelLength in TravelLength.GetAllData())
+                                    //foreach(Weather weather in Weather.GetAllData())
                                     {
                                         Segment segment = new Segment();
-                                        segment.budget = budget;
+                                        //segment.budget = budget;
                                         segment.companion = companion;
                                         segment.familiarity = familiarity;
                                         segment.mood = mood;
-                                        segment.temperature = temperature;
-                                        segment.travelLength = travelLength;
-                                        segment.weather = weather;
-
-                                        result.Add(segment);
+                                        //segment.temperature = temperature;
+                                        //segment.travelLength = travelLength;
+                                        //segment.weather = weather;
+                                        segment.GetData();
+                                        if (segment.data.Rows.Count > 10)
+                                            result.Add(segment);
                                     }
             return result;
         }
+
+        public static Segment[] GetCandidates()
+        {
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from segments order by performance asc"));
+            Segment[] candidates = new Segment[data.Rows.Count];
+            for (int i = 0; i < data.Rows.Count; i++)
+            {
+                Segment obj = new Segment();
+                obj.id = Convert.ToInt32(data.Rows[i][0]);
+                obj.budget = new Budget(Convert.ToInt32(data.Rows[i][1]));
+                obj.companion = new Companion(Convert.ToInt32(data.Rows[i][2]));
+                obj.familiarity = new Familiarity(Convert.ToInt32(data.Rows[i][3]));
+                obj.mood = new Mood(Convert.ToInt32(data.Rows[i][4]));
+                obj.temperature = new Temperature(Convert.ToInt32(data.Rows[i][5]));
+                obj.travelLength = new TravelLength(Convert.ToInt32(data.Rows[i][6]));
+                obj.weather = new Weather(Convert.ToInt32(data.Rows[i][7]));
+                obj.Performance = Convert.ToDouble(data.Rows[i][8]);
+
+                candidates[i] = obj;
+            }
+
+            return candidates;
+            
+        }
+
         /*
          * IEquatable
          */

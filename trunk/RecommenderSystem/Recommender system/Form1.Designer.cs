@@ -36,6 +36,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnEstimate = new System.Windows.Forms.Button();
             this.btnTestAdomd = new System.Windows.Forms.Button();
+            this.btnTemp = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnTest
@@ -110,11 +111,22 @@
             this.btnTestAdomd.UseVisualStyleBackColor = true;
             this.btnTestAdomd.Click += new System.EventHandler(this.btnTestAdomd_Click);
             // 
+            // btnTemp
+            // 
+            this.btnTemp.Location = new System.Drawing.Point(179, 227);
+            this.btnTemp.Name = "btnTemp";
+            this.btnTemp.Size = new System.Drawing.Size(75, 23);
+            this.btnTemp.TabIndex = 8;
+            this.btnTemp.Text = "Temp";
+            this.btnTemp.UseVisualStyleBackColor = true;
+            this.btnTemp.Click += new System.EventHandler(this.btnTemp_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Controls.Add(this.btnTemp);
             this.Controls.Add(this.btnTestAdomd);
             this.Controls.Add(this.btnEstimate);
             this.Controls.Add(this.txtItem);
@@ -140,6 +152,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnEstimate;
         private System.Windows.Forms.Button btnTestAdomd;
+        private System.Windows.Forms.Button btnTemp;
     }
 }
 
