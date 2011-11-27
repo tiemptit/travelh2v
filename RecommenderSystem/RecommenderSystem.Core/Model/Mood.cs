@@ -14,6 +14,16 @@ namespace RecommenderSystem.Core.Model
          */
         public int id { get; set; }
         public string description { get; set; }
+
+        public Mood()
+        { 
+            
+        }
+
+        public Mood(int id)
+        {
+            this.id = id;
+        }
         /*
          * Override Methods
          */
@@ -39,7 +49,10 @@ namespace RecommenderSystem.Core.Model
 
                 result.Add(obj);
             }
+            //Add Null record
+            result.Add(new Mood());
             return result;
         }
+
     }
 }

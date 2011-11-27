@@ -14,6 +14,16 @@ namespace RecommenderSystem.Core.Model
          */
         public int id { get; set; }
         public string description { get; set; }
+
+        public TravelLength()
+        { 
+            
+        }
+
+        public TravelLength(int id)
+        {
+            this.id = id;
+        }
         /*
          * Override Methods
          */
@@ -29,7 +39,7 @@ namespace RecommenderSystem.Core.Model
          */
         public static List<TravelLength> GetAllData()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from TravelLength"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from travel_length"));
             List<TravelLength> result = new List<TravelLength>();
             for (int i = 0; i < data.Rows.Count; i++)
             {
@@ -39,6 +49,8 @@ namespace RecommenderSystem.Core.Model
 
                 result.Add(obj);
             }
+            //Add Null record
+            result.Add(new TravelLength());
             return result;
         }
     }

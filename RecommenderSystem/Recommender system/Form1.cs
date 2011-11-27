@@ -61,13 +61,14 @@ namespace Recommender_system
 
         private void btnTestAdomd_Click(object sender, EventArgs e)
         {
-            //if (DbHelper.TestADOMD())
-            //    MessageBox.Show("OK");
-            //else
-            //    MessageBox.Show("Oops!");
-            string mdx = "select ([Dim Budget].[Budget].Members, [Dim Companion].[Companion].Members, [Dim User].[Email].Members) ON COLUMNS, [Dim Place].[Name].Members ON ROWS from [Travel H2V DW]";
+            if (Reduction.GetStrongSegments(Rating.GetFullSegment()))
+                MessageBox.Show("Done");
+        }
 
-            DbHelper.RunMDX(mdx);
+        private void btnTemp_Click(object sender, EventArgs e)
+        {
+            if (Reduction.temp())
+                MessageBox.Show("Done");
         }
     }
 }

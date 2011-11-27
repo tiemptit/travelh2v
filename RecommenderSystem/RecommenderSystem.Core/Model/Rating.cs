@@ -58,19 +58,25 @@ namespace RecommenderSystem.Core.Model
 
         public void GetDataById(int id)
         {
-            DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings where id = " + id)).Rows[0];
-            this.id = id;
-            this.id_user = Convert.ToInt32(data[1]);
-            this.id_place = Convert.ToInt32(data[2]);
-            this.id_temperature = Convert.ToInt32(data[3]);
-            this.id_companion = Convert.ToInt32(data[4]);
-            this.id_farmiliarity = Convert.ToInt32(data[5]);
-            this.id_mood = Convert.ToInt32(data[6]);
-            this.id_budget = Convert.ToInt32(data[7]);
-            this.id_weather = Convert.ToInt32(data[8]);
-            this.id_travel_length = Convert.ToInt32(data[9]);
-            this.time = Convert.ToDateTime(data[10]);
-            this.rating = Convert.ToDouble(data[11]);
+            try
+            {
+                DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings where id = " + id)).Rows[0];
+           
+                this.id = id;
+                this.id_user = Convert.ToInt32(data[1]);
+                this.id_place = Convert.ToInt32(data[2]);
+                this.id_temperature = Convert.ToInt32(data[3]);
+                this.id_companion = Convert.ToInt32(data[4]);
+                this.id_farmiliarity = Convert.ToInt32(data[5]);
+                this.id_mood = Convert.ToInt32(data[6]);
+                this.id_budget = Convert.ToInt32(data[7]);
+                this.id_weather = Convert.ToInt32(data[8]);
+                this.id_travel_length = Convert.ToInt32(data[9]);
+                this.time = Convert.ToDateTime(data[10]);
+                this.rating = Convert.ToDouble(data[11]);
+            }
+            catch (Exception ex)
+            { }
         }
 
         /*
