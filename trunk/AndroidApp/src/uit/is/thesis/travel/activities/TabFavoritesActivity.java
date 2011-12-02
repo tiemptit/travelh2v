@@ -331,9 +331,9 @@ public class TabFavoritesActivity extends ListActivity {
 				sumPage = rowReturnsCount / limit_count;
 			}
 			startManagingCursor(currentCursor);
-			String[] from = new String[] { "id_place", "name", "house_number",
+			String[] from = new String[] { "id_place", "name", "place_category","house_number",
 					"street", "ward", "district", "city", "lat", "lng", "general_rating"};
-			int[] to = new int[] { R.id.checkboxItem, R.id.txtViewNameF,
+			int[] to = new int[] { R.id.checkboxItem, R.id.txtViewNameF, R.id.txtViewCateF,
 					R.id.txtViewAddressF, R.id.txtViewDistanceF, R.id.ratingBarF };
 			// create an array adapter and set it to display using our row
 			this.mSQLiteCursorAdapter = new SQLiteCursorAdapter(this,

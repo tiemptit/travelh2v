@@ -23,7 +23,7 @@ import android.widget.Toast;
  * 
  */
 public class RateActivity extends Activity implements OnClickListener {
-	Button btnRate, btnBack;
+	Button btnRate, btnBackRate;
 	SQLiteDBAdapter mDBAdapter = null;
 	RatingBar ratingBar;
 	int id_place;
@@ -42,8 +42,8 @@ public class RateActivity extends Activity implements OnClickListener {
 		
 		btnRate = (Button) findViewById(R.id.btnRateR);
 		btnRate.setOnClickListener(this);
-		btnBack = (Button) findViewById(R.id.btnBackRate);
-		btnBack.setOnClickListener(this);
+		btnBackRate = (Button) findViewById(R.id.btnBackRate);
+		btnBackRate.setOnClickListener(this);
 		ratingBar = (RatingBar) findViewById(R.id.ratingBarR);
 
 		if (this.mDBAdapter == null) {
@@ -127,6 +127,7 @@ public class RateActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btnBackRate: {
 			try {
+				finish();		
 			} catch (Exception e) {
 			}
 		}

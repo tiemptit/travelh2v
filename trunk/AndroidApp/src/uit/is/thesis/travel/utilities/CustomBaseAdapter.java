@@ -20,6 +20,7 @@ import uit.is.thesis.travel.activities.R;
  */
 class ViewHolderOfBaseAdapter {
     TextView txtViewName;
+    TextView txtViewCate;
     TextView txtViewAddress;
     TextView txtViewDistance;
     RatingBar ratingBar;
@@ -69,6 +70,7 @@ public class CustomBaseAdapter extends BaseAdapter{
              // we want to bind data to.
              holder = new ViewHolderOfBaseAdapter();
              holder.txtViewName = (TextView) convertView.findViewById(R.id.txtViewName);
+             holder.txtViewCate = (TextView) convertView.findViewById(R.id.txtViewCate);
              holder.txtViewAddress = (TextView) convertView.findViewById(R.id.txtViewAddress);
              holder.txtViewDistance = (TextView) convertView.findViewById(R.id.txtViewDistance);
              holder.ratingBar = (RatingBar)convertView.findViewById(R.id.ratingBar);
@@ -78,7 +80,8 @@ public class CustomBaseAdapter extends BaseAdapter{
              holder = (ViewHolderOfBaseAdapter) convertView.getTag();
          }
             // Bind the data with the holder.
-            holder.txtViewName.setText(Places.get(position).get("viewName").toString());          
+            holder.txtViewName.setText(Places.get(position).get("viewName").toString());
+            holder.txtViewCate.setText(Places.get(position).get("viewCate").toString());
             holder.txtViewAddress.setText(Places.get(position).get("viewAddress").toString());        
             holder.txtViewDistance.setText(Places.get(position).get("viewDistance").toString());
             holder.ratingBar.setRating(Float.parseFloat(Places.get(position).get("ratingBar").toString()));

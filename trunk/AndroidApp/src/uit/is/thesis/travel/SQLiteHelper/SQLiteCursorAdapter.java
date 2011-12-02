@@ -72,10 +72,11 @@ public class SQLiteCursorAdapter extends SimpleCursorAdapter {
 		final int[] to = mTo;
 		String id = c.getString(mFrom[0]);
 		String name = c.getString(mFrom[1]);
-		String address = c.getString(mFrom[2]) + " " + c.getString(mFrom[3]) + " " + c.getString(mFrom[4]) + " " + c.getString(mFrom[5]) + " " + c.getString(mFrom[6]);
-		double lat = Double.parseDouble(c.getString(mFrom[7]));
-		double lng = Double.parseDouble(c.getString(mFrom[8]));
-		float rating =  Float.parseFloat(c.getString(mFrom[9]));		
+		String place_cate = c.getString(mFrom[2]);
+		String address = c.getString(mFrom[3]) + " " + c.getString(mFrom[4]) + " " + c.getString(mFrom[5]) + " " + c.getString(mFrom[6]) + " " + c.getString(mFrom[7]);
+		double lat = Double.parseDouble(c.getString(mFrom[8]));
+		double lng = Double.parseDouble(c.getString(mFrom[9]));
+		float rating =  Float.parseFloat(c.getString(mFrom[10]));		
 		// Haversine formula
 		double deltaLatitude = Math.toRadians(Math.abs(lat - currentLat));
 		double deltaLongitude = Math.toRadians(Math.abs(lng - currentLng));
@@ -89,11 +90,13 @@ public class SQLiteCursorAdapter extends SimpleCursorAdapter {
 		checkbox.setText(id);
 		TextView txtViewName = (TextView) v.findViewById(to[1]);
 		txtViewName.setText(name);
-		TextView txtViewAddress = (TextView) v.findViewById(to[2]);
+		TextView txtViewCate = (TextView) v.findViewById(to[2]);
+		txtViewCate.setText(place_cate);
+		TextView txtViewAddress = (TextView) v.findViewById(to[3]);
 		txtViewAddress.setText(address);
-		TextView txtViewDistance = (TextView) v.findViewById(to[3]);
+		TextView txtViewDistance = (TextView) v.findViewById(to[4]);
 		txtViewDistance.setText(String.valueOf(distance));
-		RatingBar ratingBar = (RatingBar) v.findViewById(to[4]);
+		RatingBar ratingBar = (RatingBar) v.findViewById(to[5]);
 		ratingBar.setRating(rating);
 	}
 }

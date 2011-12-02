@@ -209,12 +209,8 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			// Put data to list of result
 			for (int i = 0; i < list.size(); i++) {
 				resultMap = new HashMap<String, Object>();
-				resultMap.put(
-						"viewName",
-						list.get(i).getName()
-								+ "-"
-								+ list.get(i).place_category_obj
-										.getPlace_category());
+				resultMap.put("viewName", list.get(i).getName());
+				resultMap.put("viewCate", list.get(i).place_category_obj.getPlace_category());
 				address = "";
 				address += list.get(i).getHouse_number() + ", "
 						+ list.get(i).getStreet() + ", "

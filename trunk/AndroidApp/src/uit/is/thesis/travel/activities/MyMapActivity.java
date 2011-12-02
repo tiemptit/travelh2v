@@ -9,23 +9,40 @@ package uit.is.thesis.travel.activities;
  */
 import java.util.ArrayList;
 import java.util.List;
+import uit.is.thesis.travel.InternetHelper.MapService;
+import uit.is.thesis.travel.models.PlaceModel;
+import uit.is.thesis.travel.utilities.ConfigUtil;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.CornerPathEffect;
+import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
+import android.graphics.PathEffect;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
-import com.google.android.maps.*;
-import uit.is.thesis.travel.InternetHelper.*;
-import uit.is.thesis.travel.models.*;
-import uit.is.thesis.travel.utilities.*;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.OverlayItem;
+import com.google.android.maps.Projection;
+
 
 public class MyMapActivity extends MapActivity {
+
+	Button btnBackMap;
 	// Prepare variable for map
 	MapService ms = new MapService();
 	private MapView map = null;
@@ -45,13 +62,12 @@ public class MyMapActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_on_map);
-		try {						
+		try {
+			btnBackMap = (Button) findViewById(R.id.btnBackMap);
 			// Get intent and receive data from the parent activity
 			Intent intent = getIntent();
 			Bundle bundle = intent.getExtras();
 			fromLocation = (PlaceModel) bundle.getSerializable("currentplace");
-			Log.i("ShowOnMap", "CorpMart = " + fromLocation.getLat()
-					+ fromLocation.getLng());
 
 			PlaceModel res1 = new PlaceModel();
 			res1.setLat(10.760271);
@@ -59,23 +75,23 @@ public class MyMapActivity extends MapActivity {
 			respectLocation = res1;
 			respectLocation.setLat(10.760271);
 			respectLocation.setLng(106.663256);
-			Log.i("ShowOnMap", "Thong Nhat = " + respectLocation.getLat()
-					+ respectLocation.getLng());
-			
+
 			// Set the coordinate for from-point
 			if (fromLocation == null) {
 				fromLocation = new PlaceModel();
 				fromLocation.setLat(curLAT);
 				fromLocation.setLng(curLNG);
 			}
-			
+
 			// get current location of user
-			getLatitudeLongitude();		
-			
+			getLatitudeLongitude();
+
 			// draw place
-			drawPlace();			
+			drawPlace();
+
+			// buttonOnClick
+			setButtonClick();
 		} catch (Exception e) {
-			Log.i("ShowOnMap", "onCreate Exception" + e.toString());
 		}
 	}
 
@@ -96,7 +112,7 @@ public class MyMapActivity extends MapActivity {
 				marker.getIntrinsicHeight());
 		detailOverlay = new SitesOverlay(detailmarker);
 		Log.i("ShowOnMap", "after prepare overlay");
-		
+
 		if (respectLocation != null) {
 			// Draw position to map
 			double detailLAT = respectLocation.getLat();
@@ -126,7 +142,7 @@ public class MyMapActivity extends MapActivity {
 				Toast.makeText(getApplicationContext(), statusDirection,
 						Toast.LENGTH_SHORT).show();
 		}
-		
+
 		// Add remain overlays into map
 		centerOverlay.addItem(new OverlayItem(getPoint(curLAT, curLNG),
 				"My Location", "My Location\n" + curLAT + " - " + curLNG));
@@ -137,6 +153,16 @@ public class MyMapActivity extends MapActivity {
 		map.getOverlays().add(me);
 		Log.i("ShowOnMap", "after Add remain overlays");
 
+	}
+
+	private void setButtonClick() {
+		btnBackMap.setOnClickListener(new android.view.View.OnClickListener() {	
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
 	}
 
 	// methods of MapActivity
@@ -190,14 +216,13 @@ public class MyMapActivity extends MapActivity {
 			items.add(item);
 		}
 
-		/*public void clear() {
-			items.clear();
-		}
-*/
+		/*
+		 * public void clear() { items.clear(); }
+		 */
 		public void completeToPopulate() {
 			populate();
 		}
-		
+
 		public void initPaint() {
 			if (paint == null)
 				paint = new Paint();

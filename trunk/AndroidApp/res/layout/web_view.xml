@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Wrapper -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+	<!-- Title -->
+	<ImageView android:id="@+id/title_map" android:layout_width="fill_parent"
+		android:layout_height="46dip" android:src="@drawable/title_web" />
+	<Button android:id="@+id/btnBackWeb" android:layout_width="46dip"
+		android:layout_height="46dip" android:background="@drawable/btn_selector_back" />
+
+	<!-- body -->
+	<WebView xmlns:android="http://schemas.android.com/apk/res/android"
+		android:id="@+id/webview" android:layout_below="@+id/title_map" 
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" />
+</RelativeLayout>
