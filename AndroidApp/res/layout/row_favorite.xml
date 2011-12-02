@@ -9,22 +9,31 @@
 		android:layout_alignParentLeft="true" android:layout_height="66dip"
 		android:button="@drawable/checkbox_selector" android:focusable="false" />
 
-	<!-- Row address -->
-	<TextView android:id="@+id/txtViewAddressF"
-		android:layout_width="190dp" android:layout_height="33dp"
-		android:layout_alignParentBottom="true" android:singleLine="true"
-		android:gravity="center_vertical" android:layout_toRightOf="@+android:id/checkboxItem"
-		android:text="Market | Simple application that shows how to use RelativeLayout1111111111111111"
-		android:textSize="12sp" android:textColor="#252525" />
-
 	<!-- Row name -->
 	<TextView android:id="@+id/txtViewNameF" android:layout_width="190dp"
-	android:layout_height="33dp" android:layout_alignParentTop="true"
-	android:layout_above="@id/txtViewAddressF"
-	android:layout_alignWithParentIfMissing="true" android:singleLine="true"
-	android:gravity="center_vertical" android:layout_toRightOf="@+android:id/checkboxItem"
-	android:text="Ngan Hang Sacombank11111111111111111111111111111111111"
-	android:textColor="#252525" android:textSize="18sp" android:textStyle="bold" />
+		android:layout_height="22dp" android:layout_marginTop="3dp"
+		android:layout_alignWithParentIfMissing="true" android:singleLine="true"
+		android:gravity="center_vertical" android:layout_toRightOf="@+android:id/checkboxItem"
+		android:text="Ngan Hang Sacombank11111111111111111111111111111111111"
+		android:textColor="#252525" android:textSize="18sp" android:textStyle="bold" />
+
+	<!-- Row category -->
+	<TextView android:id="@+id/txtViewCateF" android:layout_below="@+id/txtViewNameF"
+		android:layout_toRightOf="@+android:id/checkboxItem"
+		android:layout_width="190dp" android:layout_height="22dp"
+		android:layout_marginTop="-1dp" android:singleLine="true"
+		android:gravity="center_vertical"
+		android:layout_alignWithParentIfMissing="true" android:text="Market"
+		android:textColor="#252525" android:textSize="12sp" />
+
+	<!-- Row address -->
+	<TextView android:id="@+id/txtViewAddressF"
+		android:layout_width="190dp" android:layout_height="22dp"
+		android:singleLine="true" android:layout_below="@+id/txtViewCateF"
+		android:layout_marginTop="-6dp" android:gravity="center_vertical"
+		android:layout_toRightOf="@+android:id/checkboxItem"
+		android:text="Market | Simple application that shows how to use RelativeLayout1111111111111111"
+		android:textSize="12sp" android:textColor="#252525" />
 
 	<!-- Arrow -->
 	<ImageView android:id="@+id/icArrowF" android:layout_width="17dip"
@@ -41,10 +50,10 @@
 	<!-- Distance -->
 	<TextView android:id="@+id/txtViewDistanceF"
 		android:layout_width="60dip" android:layout_height="fill_parent"
-		android:layout_toLeftOf="@+id/icArrowF"
-		android:layout_marginTop="6dp" android:layout_below="@+id/ratingBarF"
-		android:singleLine="true" android:textSize="12sp" android:text="1000 km"
-		android:textColor="#797979" android:textStyle="bold" android:gravity="right" />
+		android:layout_toLeftOf="@+id/icArrowF" android:layout_marginTop="6dp"
+		android:layout_below="@+id/ratingBarF" android:singleLine="true"
+		android:textSize="12sp" android:text="1000 km" android:textColor="#797979"
+		android:textStyle="bold" android:gravity="right" />
 </RelativeLayout>
 
 

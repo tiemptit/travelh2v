@@ -3,14 +3,23 @@
  */
 package uit.is.thesis.travel.activities;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import uit.is.thesis.travel.models.PlaceModel;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -25,12 +34,14 @@ public class DetailsActivity extends Activity implements OnClickListener {
 	// buttons on screen
 	ToggleButton ToggleBtnBasicInfo, ToggleBtnHistory, ToggleBtnMoreDetails,
 			ToggleBtnSource;
-	Button btnRateDetails, btnShowOnMap, btnAddFavorite;
+	Button btnRateDetails, btnShowOnMap, btnAddFavorite, btnBackDetails;
 	TextView txtViewPlaceName, txtViewPlaceNameContent, txtViewPhone,
 			txtViewPhoneContent, txtViewAddress, txtViewAddressContent,
 			txtViewEmail, txtViewEmailContent, txtViewWebsite,
 			txtViewWebsiteContent, txtViewHistoryContent,
 			txtViewMoreDetailsContent, txtViewSourceContent;
+	ImageView imview;
+	Bitmap bmImg;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +72,8 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		btnShowOnMap.setOnClickListener(this);
 		btnAddFavorite = (Button) findViewById(R.id.btnAddFavorite);
 		btnAddFavorite.setOnClickListener(this);
+		btnBackDetails = (Button) findViewById(R.id.btnBackDetails);
+		btnBackDetails.setOnClickListener(this);
 
 		txtViewPlaceName = (TextView) findViewById(R.id.txtViewPlaceName);
 		txtViewPlaceNameContent = (TextView) findViewById(R.id.txtViewPlaceNameContent);
@@ -68,6 +81,7 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		txtViewPhone = (TextView) findViewById(R.id.txtViewPhone);
 		txtViewPhoneContent = (TextView) findViewById(R.id.txtViewPhoneContent);
 		txtViewPhoneContent.setText(place.getPhone_number());
+		txtViewPhoneContent.setOnClickListener(this);
 		txtViewAddress = (TextView) findViewById(R.id.txtViewAddress);
 		txtViewAddressContent = (TextView) findViewById(R.id.txtViewAddressContent);
 		String address = "";
@@ -81,13 +95,20 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		txtViewWebsite = (TextView) findViewById(R.id.txtViewWebsite);
 		txtViewWebsiteContent = (TextView) findViewById(R.id.txtViewWebsiteContent);
 		txtViewWebsiteContent.setText(place.getWebsite());
+		txtViewWebsiteContent.setOnClickListener(this);
 		txtViewHistoryContent = (TextView) findViewById(R.id.txtViewHistoryContent);
 		txtViewHistoryContent.setText(place.getHistory());
 		txtViewMoreDetailsContent = (TextView) findViewById(R.id.txtViewMoreDetailsContent);
 		txtViewMoreDetailsContent.setText(place.getDetails());
 		txtViewSourceContent = (TextView) findViewById(R.id.txtViewSourceContent);
 		txtViewSourceContent.setText(place.getSources());
-
+		imview = (ImageView) findViewById(R.id.imview);
+		//load image
+		String fileUrl = "http://4.bp.blogspot.com/-nWytb6VNyeg/TeYYQ3S98YI/AAAAAAAAApU/8PtShY565HQ/s320/maddi+jane+1.jpg";
+		//String fileUrl = place.getImgurl();
+		bmImg = downloadFile(fileUrl);
+		imview.setImageBitmap(bmImg);
+		
 		// open SQLite DB connection
 		if (this.mDbAdapter == null) {
 			this.mDbAdapter = new SQLiteDBAdapter(this);
@@ -238,7 +259,73 @@ public class DetailsActivity extends Activity implements OnClickListener {
 			}
 		}
 			break;
+		case R.id.btnBackDetails: {
+			try {
+				finish();
+			} catch (Exception e) {
+			}
+		}
+			break;
+		case R.id.txtViewPhoneContent: {
+			try {
+				String phoneNum = txtViewPhoneContent.getText().toString();
+				if (phoneNum != "") {
+					try {
+						Intent intent = new Intent(Intent.ACTION_CALL);
+						intent.setData(Uri.parse("tel:" + phoneNum));
+						startActivity(intent);
+					} catch (Exception e) {
+						Toast.makeText(getApplicationContext(),
+								"Can't make call!", Toast.LENGTH_SHORT).show();
+					}
+				} else {
+					// do nothing
+				}
+			} catch (Exception e) {
+			}
+		}
+			break;
+		case R.id.txtViewWebsiteContent: {
+			try {
+				// String url = txtViewWebsiteContent.getText().toString();
+				String url = "http://www.google.com.vn/";
+				if (url != "") {
+					try {
+						Bundle bundle = new Bundle();
+						bundle.putString("place_url", url);
+						Intent intent = new Intent(DetailsActivity.this,
+								WebViewActivity.class);
+						intent.putExtras(bundle);
+						startActivity(intent);
+					} catch (Exception e) {
+						Toast.makeText(getApplicationContext(),
+								"Can't show webpage!", Toast.LENGTH_SHORT)
+								.show();
+					}
+				} else {
+					// do nothing
+				}
+			} catch (Exception e) {
+			}
+		}
+			break;
 		}
 	}
 
+	// download image from server
+	Bitmap downloadFile(String fileUrl) {
+		Bitmap bmImg = null;
+		URL myFileUrl = null;
+		try {
+			myFileUrl = new URL(fileUrl);
+			HttpURLConnection conn = (HttpURLConnection) myFileUrl
+					.openConnection();
+			conn.setDoInput(true);
+			conn.connect();
+			InputStream is = conn.getInputStream();
+			bmImg = BitmapFactory.decodeStream(is);
+		} catch (IOException e) {
+		}
+		return bmImg;
+	}
 }

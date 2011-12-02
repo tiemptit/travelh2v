@@ -4,21 +4,31 @@
 	android:background="@drawable/item_place_small" android:layout_width="fill_parent"
 	android:layout_height="66dip">
 
-	<!-- Row address -->
-	<TextView android:id="@+id/txtViewAddress"
-		android:layout_width="210dp" android:layout_height="33dp"
-		android:layout_marginLeft="20dp" android:layout_alignParentBottom="true"
-		android:singleLine="true" android:gravity="center_vertical"
-		android:text="Market | Simple application that shows how to use RelativeLayout1111111111111111"
-		android:textSize="12sp" android:textColor="#252525" />
-
 	<!-- Row name -->
 	<TextView android:id="@+id/txtViewName" android:layout_width="220dp"
-		android:layout_height="33dp" android:layout_marginLeft="10dp"
-		android:singleLine="true" android:gravity="center_vertical"
+		android:layout_height="22dp" android:layout_marginLeft="10dp"
+		android:layout_marginTop="2dp" android:singleLine="true"
+		android:gravity="center_vertical"
 		android:layout_alignWithParentIfMissing="true"
 		android:text="Da Lat 11111111111111111111111111111111111"
-		android:textColor="#252525" android:textSize="20sp" android:textStyle="bold" />
+		android:textColor="#252525" android:textSize="18sp" android:textStyle="bold" />
+
+	<!-- Row category -->
+	<TextView android:id="@+id/txtViewCate" android:layout_below="@+id/txtViewName"
+		android:layout_width="100dp" android:layout_height="22dp"
+		android:layout_marginLeft="20dp" android:singleLine="true"
+		android:gravity="center_vertical"
+		android:layout_alignWithParentIfMissing="true" android:text="Market"
+		android:textColor="#252525" android:textSize="12sp" />
+
+	<!-- Row address -->
+	<TextView android:id="@+id/txtViewAddress"
+		android:layout_width="210dp" android:layout_height="22dp"
+		android:layout_marginTop="-5dp" android:layout_below="@+id/txtViewCate"
+		android:layout_marginLeft="20dp" android:singleLine="true"
+		android:gravity="center_vertical"
+		android:text="Market | Simple application that shows how to use RelativeLayout1111111111111111"
+		android:textSize="12sp" android:textColor="#252525" />
 
 	<!-- Arrow -->
 	<ImageView android:id="@+id/icArrow" android:layout_width="17dip"
