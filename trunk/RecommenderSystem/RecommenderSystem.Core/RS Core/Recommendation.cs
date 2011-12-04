@@ -41,10 +41,14 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            foreach (Item item in Item.GetItemsIn(chosenOne, 5))
+            foreach (Item item in Item.GetItemsIn(chosenOne, 20))
             {
-                Recommendation r = new Recommendation(item, CollaborativeFiltering.EstimateRating(item, user, chosenOne));
-                result.Add(r);
+                double estimate_rating = CollaborativeFiltering.EstimateRating(item, user, chosenOne);
+                if (!Double.IsNaN(estimate_rating))
+                {
+                    Recommendation r = new Recommendation(item, estimate_rating);
+                    result.Add(r);
+                }
             }
 
             return result;

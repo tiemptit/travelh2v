@@ -8,19 +8,17 @@ Go
 Create proc pr_insertNewUser
 @id int,
 @email nvarchar(100),
-@password nvarchar(100),
-@year_of_birth int,
+@birthday datetime,
 @gender tinyint
 As
 Begin
 
 SET IDENTITY_INSERT users ON
-insert into users(id, email, [password], year_of_birth, gender) values
+insert into users(id, email, birthday, gender) values
 (
 	@id,
 	@email,
-	@password,
-	@year_of_birth,
+	@birthday,
 	@gender
 )
 SET IDENTITY_INSERT users OFF

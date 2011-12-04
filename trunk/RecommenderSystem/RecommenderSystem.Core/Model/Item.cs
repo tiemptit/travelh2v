@@ -18,7 +18,7 @@ namespace RecommenderSystem.Core.Model
         public string imgurl { get; set; }
         public double lat { get; set; }
         public double lng { get; set; }
-        public int house_number { get; set; }
+        public string house_number { get; set; }
         public string street { get; set; }
         public string ward { get; set; }
         public string district { get; set; }
@@ -68,8 +68,29 @@ namespace RecommenderSystem.Core.Model
 
         public void GetDataById(int id)
         {
+            DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from places where id = " + id)).Rows[0];
             this.id = id;
-            //To be continue
+            this.id_place_category = Convert.ToInt32(data[1]);
+            this.name = Convert.ToString(data[2]);
+            this.imgurl = Convert.ToString(data[3]);
+            this.lat = Convert.ToDouble(data[4]);
+            this.lng = Convert.ToDouble(data[5]);
+            this.house_number = Convert.ToString(data[6]);
+            this.street = Convert.ToString(data[7]);
+            this.ward = Convert.ToString(data[8]);
+            this.district = Convert.ToString(data[9]);
+            this.city = Convert.ToString(data[10]);
+            this.province = Convert.ToString(data[11]);
+            this.country = Convert.ToString(data[12]);
+            this.phone_number = Convert.ToString(data[13]);
+            this.email = Convert.ToString(data[14]);
+            this.website = Convert.ToString(data[15]);
+            this.history = Convert.ToString(data[16]);
+            this.details = Convert.ToString(data[17]);
+            this.sources = Convert.ToString(data[18]);
+            this.general_rating = Convert.ToInt32(data[19] == DBNull.Value ? 0 : data[19]);
+            this.general_count_rating = Convert.ToInt32(data[20] == DBNull.Value ? 0 : data[20]);
+            this.general_sum_rating = Convert.ToInt32(data[21] == DBNull.Value ? 0 : data[21]);
         }
 
         /*

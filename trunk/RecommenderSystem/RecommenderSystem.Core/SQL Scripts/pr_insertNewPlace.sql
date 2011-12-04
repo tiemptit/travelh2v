@@ -12,7 +12,7 @@ Create proc pr_insertNewPlace
 @imgurl nvarchar(1000),
 @lat float,
 @lng float,
-@house_number int,
+@house_number nvarchar(50),
 @street nvarchar(255),
 @ward nvarchar(100),
 @district nvarchar(100),

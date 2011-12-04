@@ -73,7 +73,7 @@ namespace Recommender_system
 
         private void btnEstimate_Context_Click(object sender, EventArgs e)
         {
-            Recommendation.Recommend(new User(10008), 0, 3, 0);
+            Recommendation.Recommend("10010", 0, 3, 0);
         }
 
     }
