@@ -41,7 +41,9 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            foreach (Item item in Item.GetItemsIn(chosenOne, 20))
+            int limit = 5;
+
+            foreach (Item item in Item.GetItemsIn(chosenOne))
             {
                 double estimate_rating = CollaborativeFiltering.EstimateRating(item, user, chosenOne);
                 if (!Double.IsNaN(estimate_rating))
@@ -49,6 +51,8 @@ namespace RecommenderSystem.Core.RS_Core
                     Recommendation r = new Recommendation(item, estimate_rating);
                     result.Add(r);
                 }
+                if (result.Count == limit)
+                    break;
             }
 
             return result;
