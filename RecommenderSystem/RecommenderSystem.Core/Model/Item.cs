@@ -103,5 +103,28 @@ namespace RecommenderSystem.Core.Model
             return result;
         }
 
+        public static List<Item> GetItemsIn(DataTable segment, int num)
+        {
+            List<Item> result = new List<Item>();
+            for (int i = 0; i < num; i++)
+            {
+                Item obj = new Item(Convert.ToInt32(segment.Rows[i][2]));
+                bool flag = false;
+                foreach (Item item in result)
+                {
+                    if (obj.id == item.id)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (!flag)
+                {
+                    result.Add(obj);
+                }
+            }
+            return result;
+        }
+
     }
 }

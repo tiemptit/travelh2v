@@ -57,4 +57,6 @@ namespace RecommenderSystem.Core.RS_Core
             return avg_ru + (1 / formula2) * formula1;
         }
     }
+
+    
 }

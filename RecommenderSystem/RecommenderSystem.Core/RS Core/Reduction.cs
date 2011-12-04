@@ -127,9 +127,9 @@ namespace RecommenderSystem.Core.RS_Core
             {
                 for (int j = i + 1; j < candidates.Length; j++)
                 {
-                    if (candidates[i].IsChildOf(candidates[j]))
+                    if (candidates[j].IsChildOf(candidates[i]))
                     {
-                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[i].id));
+                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[j].id));
                     }
                 }
             }

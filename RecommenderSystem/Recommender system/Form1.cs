@@ -70,5 +70,11 @@ namespace Recommender_system
             if (Reduction.temp())
                 MessageBox.Show("Done");
         }
+
+        private void btnEstimate_Context_Click(object sender, EventArgs e)
+        {
+            Recommendation.Recommend(new User(10008), 0, 3, 0);
+        }
+
     }
 }
