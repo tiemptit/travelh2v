@@ -139,16 +139,16 @@ public final class R {
         public static final int ToggleBtnSource=0x7f060018;
         public static final int btnAddFavorite=0x7f06001b;
         public static final int btnAz=0x7f060036;
-        public static final int btnAz1=0x7f060056;
+        public static final int btnAzS=0x7f060056;
         public static final int btnBackDetails=0x7f060001;
         public static final int btnBackMap=0x7f060033;
         public static final int btnBackRate=0x7f060023;
-        public static final int btnBackWeb=0x7f06005a;
+        public static final int btnBackWeb=0x7f06005b;
         public static final int btnBirthday=0x7f060054;
         public static final int btnCheckAll=0x7f06004c;
         public static final int btnDelete=0x7f06004d;
         public static final int btnDistance=0x7f060038;
-        public static final int btnDistance1=0x7f060058;
+        public static final int btnDistanceS=0x7f060058;
         public static final int btnNext=0x7f06004e;
         public static final int btnPickDate=0x7f060047;
         public static final int btnPickTime=0x7f060048;
@@ -156,7 +156,7 @@ public final class R {
         public static final int btnRateDetails=0x7f060002;
         public static final int btnRateR=0x7f060026;
         public static final int btnRating=0x7f060037;
-        public static final int btnRating1=0x7f060057;
+        public static final int btnRatingS=0x7f060057;
         public static final int btnResetC=0x7f06003c;
         public static final int btnSaveC=0x7f06003d;
         public static final int btnSaveP=0x7f060052;
@@ -169,6 +169,7 @@ public final class R {
         public static final int imgTravelLength=0x7f060044;
         public static final int imview=0x7f060004;
         public static final int listViewResult=0x7f06003a;
+        public static final int listViewResultS=0x7f06005a;
         public static final int map=0x7f060034;
         public static final int ratingBar=0x7f060030;
         public static final int ratingBarF=0x7f06002b;
@@ -181,7 +182,7 @@ public final class R {
         public static final int spinner_temperature=0x7f06003e;
         public static final int spinner_travel_length=0x7f060045;
         public static final int spinner_type=0x7f060039;
-        public static final int spinner_type1=0x7f060059;
+        public static final int spinner_typeS=0x7f060059;
         public static final int spinner_weather=0x7f06003f;
         public static final int states=0x7f06001c;
         public static final int tab_all=0x7f06001d;
@@ -224,7 +225,7 @@ public final class R {
         public static final int txtViewSourceContent=0x7f060019;
         public static final int txtViewWebsite=0x7f06000f;
         public static final int txtViewWebsiteContent=0x7f060010;
-        public static final int webview=0x7f06005b;
+        public static final int webview=0x7f06005c;
     }
     public static final class layout {
         public static final int details=0x7f030000;

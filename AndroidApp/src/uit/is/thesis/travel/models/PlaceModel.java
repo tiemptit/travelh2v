@@ -34,6 +34,7 @@ public class PlaceModel implements Serializable{
     public double general_rating;
     public double general_count_rating;
     public double general_sum_rating;
+    public double estimate_rating;
     
     // more Properties
     public double distance; // distance between current location of user and location of place
@@ -291,6 +292,7 @@ public class PlaceModel implements Serializable{
 	public void setGeneral_count_rating(double general_count_rating) {
 		this.general_count_rating = general_count_rating;
 	}
+	
 	/**
 	 * @return the general_sum_rating
 	 */
@@ -302,6 +304,19 @@ public class PlaceModel implements Serializable{
 	 */
 	public void setGeneral_sum_rating(double general_sum_rating) {
 		this.general_sum_rating = general_sum_rating;
+	}
+	
+	/**
+	 * @return the estimate_rating
+	 */
+	public double getEstimate_rating() {
+		return estimate_rating;
+	}
+	/**
+	 * @param estimate_rating the estimate_rating to set
+	 */
+	public void setEstimate_rating(double estimate_rating) {
+		this.estimate_rating = estimate_rating;
 	}
 	/** Return round distance */
 	public double getDistance() {

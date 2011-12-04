@@ -26,7 +26,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -67,24 +66,16 @@ public class MyMapActivity extends MapActivity {
 			// Get intent and receive data from the parent activity
 			Intent intent = getIntent();
 			Bundle bundle = intent.getExtras();
-			fromLocation = (PlaceModel) bundle.getSerializable("currentplace");
+			respectLocation = (PlaceModel) bundle.getSerializable("currentplace");
 
-			PlaceModel res1 = new PlaceModel();
-			res1.setLat(10.760271);
-			res1.setLng(106.663256);
-			respectLocation = res1;
-			respectLocation.setLat(10.760271);
-			respectLocation.setLng(106.663256);
-
+			// get current location of user
+			getLatitudeLongitude();
 			// Set the coordinate for from-point
 			if (fromLocation == null) {
 				fromLocation = new PlaceModel();
 				fromLocation.setLat(curLAT);
 				fromLocation.setLng(curLNG);
 			}
-
-			// get current location of user
-			getLatitudeLongitude();
 
 			// draw place
 			drawPlace();
@@ -111,8 +102,7 @@ public class MyMapActivity extends MapActivity {
 		detailmarker.setBounds(0, 0, marker.getIntrinsicWidth(),
 				marker.getIntrinsicHeight());
 		detailOverlay = new SitesOverlay(detailmarker);
-		Log.i("ShowOnMap", "after prepare overlay");
-
+		
 		if (respectLocation != null) {
 			// Draw position to map
 			double detailLAT = respectLocation.getLat();
@@ -151,8 +141,6 @@ public class MyMapActivity extends MapActivity {
 		map.getOverlays().add(centerOverlay);
 		me = new MyLocationOverlay(this, map); // user location
 		map.getOverlays().add(me);
-		Log.i("ShowOnMap", "after Add remain overlays");
-
 	}
 
 	private void setButtonClick() {

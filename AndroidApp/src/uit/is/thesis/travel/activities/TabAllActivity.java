@@ -25,6 +25,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -54,6 +55,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	Button btnAz, btnRating, btnDistance;
 	Spinner spinnerType;
 	boolean loadSpinnerType = false;
+	boolean btnAzFirstRun = true;
 	// DB adapter
 	SQLiteDBAdapter mDBAdapter = null;
 	Cursor c = null;
@@ -113,20 +115,24 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			btnRating.setBackgroundResource(R.drawable.btn_col_rating);
 			btnDistance.setBackgroundResource(R.drawable.btn_col_distance);
 			spinnerType.setBackgroundResource(R.drawable.btn_col_type);
+
 			displayListView(searchResultList_name);
-			// sort list by rating
-			searchResultList_rating = SortListUtil
-					.SortListByRating(searchResultList_name);
-			// sort list by distance
-			searchResultList_distance = SortListUtil
-					.SortListByDistance(searchResultList_name);
-			// sort list by type
-			searchResultArrayList_type = new ArrayList<List<PlaceModel>>();
-			for (int i = 0; i < place_cates.length; i++) {
-				List<PlaceModel> result = SortListUtil.SortListByType(
-						searchResultList_distance, place_cates[i]);
-				searchResultArrayList_type.add(result);
+
+			if (btnAzFirstRun == true) {
+				// sort list by distance
+				searchResultList_distance = SortListUtil
+						.SortListByDistance(searchResultList_name);
+				// sort list by rating
+				searchResultList_rating = SortListUtil.SortListByRating(searchResultList_name);
+				// sort list by type
+				searchResultArrayList_type = new ArrayList<List<PlaceModel>>();
+				for (int i = 0; i < place_cates.length; i++) {
+					List<PlaceModel> result = SortListUtil.SortListByType(
+							searchResultList_distance, place_cates[i]);
+					searchResultArrayList_type.add(result);
+				}
 			}
+			btnAzFirstRun = false;
 		}
 			break;
 		case R.id.btnRating: {
@@ -134,6 +140,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			btnRating.setBackgroundResource(R.drawable.btn_col_rating_focus);
 			btnDistance.setBackgroundResource(R.drawable.btn_col_distance);
 			spinnerType.setBackgroundResource(R.drawable.btn_col_type);
+			Log.i("Rate", "displayListView rating");
 			displayListView(searchResultList_rating);
 		}
 			break;
@@ -143,6 +150,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			btnDistance
 					.setBackgroundResource(R.drawable.btn_col_distance_focus);
 			spinnerType.setBackgroundResource(R.drawable.btn_col_type);
+			Log.i("Rate", "displayListView distance");
 			displayListView(searchResultList_distance);
 		}
 			break;
@@ -159,6 +167,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 				btnDistance.setBackgroundResource(R.drawable.btn_col_distance);
 				spinnerType
 						.setBackgroundResource(R.drawable.btn_col_type_focus);
+				Log.i("Rate", "displayListView type");
 				displayListView(searchResultArrayList_type.get(position));
 			} else {
 				loadSpinnerType = true;
@@ -199,6 +208,8 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	// Display ListView with parameters
 	public void displayListView(final List<PlaceModel> list) {
 		try {
+			Log.i("Rate", "displayListView - first name item = "
+					+ list.get(0).getName());
 			listViewResult = (ListView) findViewById(R.id.listViewResult);
 			// Prepare for ListView
 			ArrayList<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
@@ -210,7 +221,8 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			for (int i = 0; i < list.size(); i++) {
 				resultMap = new HashMap<String, Object>();
 				resultMap.put("viewName", list.get(i).getName());
-				resultMap.put("viewCate", list.get(i).place_category_obj.getPlace_category());
+				resultMap.put("viewCate",
+						list.get(i).place_category_obj.getPlace_category());
 				address = "";
 				address += list.get(i).getHouse_number() + ", "
 						+ list.get(i).getStreet() + ", "
@@ -241,7 +253,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 						int id_itemOnListView = Integer.parseInt(item.get(
 								"id_itemOnListView").toString());
 						PlaceModel place = list.get(id_itemOnListView);
-						// bundle.putInt(CommonConfiguration.IQUERY,iquery);
 						bundle.putDouble("currentLatitude", latitude);
 						bundle.putDouble("currentLongitude", longitude);
 						bundle.putSerializable("currentplace", place);

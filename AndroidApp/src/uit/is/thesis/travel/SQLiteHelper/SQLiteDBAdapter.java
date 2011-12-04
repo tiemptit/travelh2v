@@ -8,7 +8,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
  * @author LEHIEU
@@ -145,7 +144,6 @@ public class SQLiteDBAdapter {
 	public void updateContextConfig(int Temperature, int Weather,
 			int Companion, int Familiarity, int Mood, int Budget,
 			int Travel_length, String Time) {
-		Log.i("Context", "update context start");
 		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Temperature
 				+ "' where CONTEXT_CONFIG._id = 1");
 		mDb.execSQL("UPDATE CONTEXT_CONFIG set  current_value= '" + Weather
@@ -162,7 +160,6 @@ public class SQLiteDBAdapter {
 				+ "' where CONTEXT_CONFIG._id = 7");
 		mDb.execSQL("UPDATE CONTEXT_CONFIG set current_value = '" + Time
 				+ "' where CONTEXT_CONFIG._id = 8");
-		Log.i("Context", "update context end");
 	}
 	
 	// get current profile from DB
@@ -172,8 +169,6 @@ public class SQLiteDBAdapter {
 	
 	// update profile
 	public void updateProfile(String gender, String birthday) {	
-		Log.i("Rate", "update birthday =" + birthday);
-		Log.i("Rate", "update gender =" + gender);
 		mDb.execSQL("UPDATE PROFILE set current_value = '" + gender
 				+ "' where PROFILE.type= 'Gender'");
 		mDb.execSQL("UPDATE PROFILE set  current_value= '" + birthday
