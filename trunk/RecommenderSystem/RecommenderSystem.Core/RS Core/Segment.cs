@@ -83,7 +83,7 @@ namespace RecommenderSystem.Core.RS_Core
 
         public static Segment[] GetCandidates()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from segments order by performance asc"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from segments order by performance desc"));
             Segment[] candidates = new Segment[data.Rows.Count];
             for (int i = 0; i < data.Rows.Count; i++)
             {
