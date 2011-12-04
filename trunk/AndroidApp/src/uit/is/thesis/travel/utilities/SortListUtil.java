@@ -15,28 +15,46 @@ import uit.is.thesis.travel.models.PlaceModel;
  */
 public class SortListUtil {
 
-	public static List<PlaceModel> SortListByName(List<PlaceModel> original) {
+	public static List<PlaceModel> SortListByName(final List<PlaceModel> original) {
 		Collections.sort(original, new NameComparator());
 		for (int i = 0; i < original.size(); i++)
 			original.get(i).setId_itemOnListView(i);
 		return original;
 	}
 
-	public static List<PlaceModel> SortListByDistance(List<PlaceModel> original) {
-		Collections.sort(original, new DistanceComparator());
+	public static List<PlaceModel> SortListByDistance(final List<PlaceModel> original) {
+		List<PlaceModel> temp = new ArrayList<PlaceModel>();
+		PlaceModel p = new PlaceModel();
+		int id_itemOnListView = 0;
+		for (int i = 0; i < original.size(); i++) {
+			p = original.get(i);
+			p.setId_itemOnListView(id_itemOnListView);
+			temp.add(p);
+			id_itemOnListView++;
+		}
+		Collections.sort(temp, new DistanceComparator());
 		for (int i = 0; i < original.size(); i++)
-			original.get(i).setId_itemOnListView(i);
-		return original;
+			temp.get(i).setId_itemOnListView(i);
+		return temp;
 	}
 
-	public static List<PlaceModel> SortListByRating(List<PlaceModel> original) {
-		Collections.sort(original, new RatingComparator());
+	public static List<PlaceModel> SortListByRating(final List<PlaceModel> original) {
+		List<PlaceModel> temp = new ArrayList<PlaceModel>();
+		PlaceModel p = new PlaceModel();
+		int id_itemOnListView = 0;
+		for (int i = 0; i < original.size(); i++) {
+			p = original.get(i);
+			p.setId_itemOnListView(id_itemOnListView);
+			temp.add(p);
+			id_itemOnListView++;
+		}
+		Collections.sort(temp, new RatingComparator());
 		for (int i = 0; i < original.size(); i++)
-			original.get(i).setId_itemOnListView(i);
-		return original;
+			temp.get(i).setId_itemOnListView(i);
+		return temp;
 	}
 
-	public static List<PlaceModel> SortListByType(List<PlaceModel> original,
+	public static List<PlaceModel> SortListByType(final List<PlaceModel> original,
 			String place_cate) {
 		List<PlaceModel> result = new ArrayList<PlaceModel>();
 		PlaceModel p = new PlaceModel();

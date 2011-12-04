@@ -104,7 +104,7 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		txtViewSourceContent.setText(place.getSources());
 		imview = (ImageView) findViewById(R.id.imview);
 		//load image
-		String fileUrl = "http://4.bp.blogspot.com/-nWytb6VNyeg/TeYYQ3S98YI/AAAAAAAAApU/8PtShY565HQ/s320/maddi+jane+1.jpg";
+		String fileUrl = "http://10.0.2.2:33638/imgPlacesResize/" + place.imgurl;
 		//String fileUrl = place.getImgurl();
 		bmImg = downloadFile(fileUrl);
 		imview.setImageBitmap(bmImg);

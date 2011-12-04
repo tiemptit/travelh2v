@@ -11,18 +11,23 @@
 		android:src="@drawable/title_suggestions" />
 
 	<!-- body -->
-	<Button android:id="@+id/btnAz1" android:layout_width="80dip"
+	<Button android:id="@+id/btnAzS" android:layout_width="80dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_col_az"
 		android:layout_below="@+id/title_suggestions" />
-	<Button android:id="@+id/btnRating1" android:layout_width="80dip"
+	<Button android:id="@+id/btnRatingS" android:layout_width="80dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_col_rating"
-		android:layout_toRightOf="@+id/btnAz1" android:layout_below="@+id/title_suggestions" />
-	<Button android:id="@+id/btnDistance1" android:layout_width="80dip"
+		android:layout_toRightOf="@+id/btnAzS" android:layout_below="@+id/title_suggestions" />
+	<Button android:id="@+id/btnDistanceS" android:layout_width="80dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_col_distance"
-		android:layout_toRightOf="@+id/btnRating1" android:layout_below="@+id/title_suggestions" />
-	<Spinner android:id="@+id/spinner_type1" android:background="@drawable/btn_selector_col_type"
-		android:prompt="@string/type_prompt" android:layout_toRightOf="@+id/btnDistance1"
+		android:layout_toRightOf="@+id/btnRatingS" android:layout_below="@+id/title_suggestions" />
+	<Spinner android:id="@+id/spinner_typeS" android:background="@drawable/btn_selector_col_type"
+		android:prompt="@string/type_prompt" android:layout_toRightOf="@+id/btnDistanceS"
 		android:layout_below="@+id/title_suggestions" android:layout_width="80dip"
 		android:textColor="@android:color/transparent" android:layout_height="33dip" />
-	
+	<!-- ListView -->
+	<ListView android:id="@+id/listViewResultS"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:divider="@android:color/transparent" android:paddingBottom="2dip"
+		android:dividerHeight="2dp" android:layout_below="@+id/btnAzS">
+	</ListView>
 </RelativeLayout>
