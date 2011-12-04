@@ -124,10 +124,10 @@ namespace RecommenderSystem.Core.Model
             return result;
         }
 
-        public static List<Item> GetItemsIn(DataTable segment, int num)
+        public static List<Item> GetItemsIn(DataTable segment)
         {
             List<Item> result = new List<Item>();
-            for (int i = 0; i < num; i++)
+            for (int i = 0; i < segment.Rows.Count; i++)
             {
                 Item obj = new Item(Convert.ToInt32(segment.Rows[i][2]));
                 bool flag = false;
