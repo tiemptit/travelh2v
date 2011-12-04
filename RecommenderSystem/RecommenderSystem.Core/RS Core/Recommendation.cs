@@ -18,8 +18,9 @@ namespace RecommenderSystem.Core.RS_Core
             this.ratingEstimated = ratingEstimated;
         }
 
-        public static List<Recommendation> Recommend(User user, int companion, int familiarity, int mood)
+        public static List<Recommendation> Recommend(string user_email, int companion, int familiarity, int mood)
         {
+            User user = new User(user_email);
             List<Recommendation> result = new List<Recommendation>();
             Segment[] candidates = Segment.GetCandidates();
             DataTable chosenOne = null;
