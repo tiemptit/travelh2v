@@ -10,6 +10,7 @@ using System.IO;
 using System.Data;
 using System.Web.Script.Serialization;
 using RecommenderSystem.Core.Helper;
+using RecommenderSystem.Core.RS_Core;
 
 namespace TravelWebService
 {
@@ -56,6 +57,21 @@ namespace TravelWebService
             r.time = time;
             r.rating = rating;
             return r.Rate();
+        }
+
+        // Rate a place
+        [WebInvoke(UriTemplate = "Suggestions?username={username}&companion={companion}&familiarity={familiarity}&mood={mood}", Method = "GET")]
+        public Stream Suggestions(string username, int companion, int familiarity, int mood)
+        {
+            // TODO: Add the new instance of SampleItem to the collection
+            //throw new NotImplementedException();
+            List<Recommendation> recommendation = Recommendation.Recommend(username, companion, familiarity, mood);
+            var javaScriptSerializer = new JavaScriptSerializer();
+            string jsonStringMultiple = "{\"responseData\":" + javaScriptSerializer.Serialize(recommendation.Select(x => new { x.item, x.ratingEstimated})) + "}";
+            var json = Encoding.UTF8.GetBytes(jsonStringMultiple);
+            WebOperationContext.Current.OutgoingResponse.ContentType = "application/javascript; charset=utf-8";
+            var memoryStream = new MemoryStream(json);
+            return memoryStream;
         }
     }
 }

@@ -14,8 +14,7 @@ namespace RecommenderSystem.Core.Model
          */
         public int id { get; set; }
         public string email { get; set; }
-        public string password { get; set; }
-        public int year_of_birth { get; set; }
+        public DateTime birthday { get; set; }
         public int gender { get; set; }
         /*
          * Constructors
@@ -23,6 +22,14 @@ namespace RecommenderSystem.Core.Model
         public User (int id)
         {
             GetDataById(id);
+        }
+        public User(string email)
+        {
+            DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from users where email = " + email)).Rows[0];
+            this.id = Convert.ToInt32(data[0]);
+            this.email = Convert.ToString(data[1]);
+            this.birthday = Convert.ToDateTime(data[2]);
+            this.gender = Convert.ToInt32(data[3]);
         }
         /*
          * Methods
@@ -32,9 +39,8 @@ namespace RecommenderSystem.Core.Model
             DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from users where id = " + id)).Rows[0];
             this.id = id;
             this.email = Convert.ToString(data[1]);
-            this.password = Convert.ToString(data[2]);
-            this.year_of_birth = Convert.ToInt32(data[3]);
-            this.gender = Convert.ToInt32(data[4]);
+            this.birthday = Convert.ToDateTime(data[2]);
+            this.gender = Convert.ToInt32(data[3]);
         }
         public double GetAverageRating(DataTable segment)
         {

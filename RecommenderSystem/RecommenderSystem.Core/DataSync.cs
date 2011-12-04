@@ -89,10 +89,10 @@ namespace RecommenderSystem.Core
             {
                 DataTable data = ExcelHelper.GetDataFromExcel(path, sheetName);
 
-                //Special case for userSheet: generate password
+                ////Special case for userSheet: generate password
 
-                if (table_name == "users")
-                    SystemHelper.EnrichUserData(ref data);
+                //if (table_name == "users")
+                //    SystemHelper.EnrichUserData(ref data);
 
                 //Delete old data
 

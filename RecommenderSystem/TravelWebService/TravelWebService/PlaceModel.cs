@@ -16,7 +16,7 @@ namespace TravelWebService
         public string imgurl { get; set; }
         public double lat { get; set; }
         public double lng { get; set; }
-        public int house_number { get; set; }
+        public string house_number { get; set; }
         public string street { get; set; }
         public string ward { get; set; }
         public string district { get; set; }
@@ -52,7 +52,7 @@ namespace TravelWebService
                 place.imgurl = Convert.ToString(data.Rows[i][3]);
                 place.lat = Convert.ToDouble(data.Rows[i][4]);
                 place.lng = Convert.ToDouble(data.Rows[i][5]);
-                place.house_number = Convert.ToInt32(data.Rows[i][6]);
+                place.house_number = Convert.ToString(data.Rows[i][6]);
                 place.street = Convert.ToString(data.Rows[i][7]);
                 place.ward = Convert.ToString(data.Rows[i][8]);
                 place.district = Convert.ToString(data.Rows[i][9]);

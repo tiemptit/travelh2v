@@ -1,4 +1,4 @@
-alter proc pr_getSegment
+create proc pr_getSegment
 @budget int,
 @companion int,
 @familiarity int,
