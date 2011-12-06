@@ -13,7 +13,7 @@ namespace RecommenderSystem.Core.Model
          * Properties
          */
         public int id { get; set; }
-        public int id_place_category { get; set; }
+        public PlaceCategoryModel place_category { get; set; }
         public string name { get; set; }
         public string imgurl { get; set; }
         public double lat { get; set; }
@@ -70,7 +70,8 @@ namespace RecommenderSystem.Core.Model
         {
             DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from places where id = " + id)).Rows[0];
             this.id = id;
-            this.id_place_category = Convert.ToInt32(data[1]);
+            this.place_category = new PlaceCategoryModel();
+            this.place_category.GetDataById(Convert.ToInt32(data[1]));
             this.name = Convert.ToString(data[2]);
             this.imgurl = Convert.ToString(data[3]);
             this.lat = Convert.ToDouble(data[4]);

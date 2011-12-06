@@ -138,7 +138,7 @@ public class TabContextActivity extends Activity implements OnClickListener {
 						spinner_mood.getSelectedItemPosition(),
 						spinner_budget.getSelectedItemPosition(),
 						spinner_travel_length.getSelectedItemPosition(),
-						btnPickDate.getText() + "and" + btnPickTime.getText());
+						btnPickDate.getText().toString().trim() + "and" + btnPickTime.getText().toString().trim());
 			} catch (Exception e) {
 			}
 		}
@@ -225,8 +225,8 @@ public class TabContextActivity extends Activity implements OnClickListener {
 	private void updateDisplayDate() {
 		btnPickDate.setText(new StringBuilder()
 				// Month is 0 based so add 1
-				.append(mYear).append("-").append(mMonth).append("-")
-				.append(mDay).append(" "));
+				.append(mYear).append("-").append(pad(mMonth)).append("-")
+				.append(pad(mDay)).append(" "));
 	}
 	
 	// the callback received when the user set the date in the dialog

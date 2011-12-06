@@ -11,12 +11,15 @@ package uit.is.thesis.travel.activities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import uit.is.thesis.travel.InternetHelper.SearchService;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import uit.is.thesis.travel.models.PlaceModel;
 import uit.is.thesis.travel.utilities.ConfigUtil;
 import uit.is.thesis.travel.utilities.CustomBaseAdapter;
 import uit.is.thesis.travel.utilities.SortListUtil;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +28,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -36,8 +40,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class TabSuggestionsActivity extends Activity implements OnClickListener,
-		LocationListener {
+public class TabSuggestionsActivity extends Activity implements
+		OnClickListener, LocationListener {
 	// ListView on screen
 	ListView listViewResult;
 	// List of All Places sorted by name, rating, distance
@@ -75,7 +79,7 @@ public class TabSuggestionsActivity extends Activity implements OnClickListener,
 		spinnerType = (Spinner) findViewById(R.id.spinner_typeS);
 		spinnerType.setOnItemSelectedListener(spinnerTypeChange);
 
-		// set spinner adapter
+		// set adapter
 		if (this.mDBAdapter == null) {
 			this.mDBAdapter = new SQLiteDBAdapter(this);
 			mDBAdapter.open();
@@ -88,7 +92,6 @@ public class TabSuggestionsActivity extends Activity implements OnClickListener,
 			place_cates[i] = c.getString(c.getColumnIndex("place_category"));
 		}
 		c.close();
-		mDBAdapter.close();
 
 		ArrayAdapter<String> adapter_type = new ArrayAdapter<String>(this,
 				R.layout.my_spinner_item, place_cates);
@@ -119,7 +122,8 @@ public class TabSuggestionsActivity extends Activity implements OnClickListener,
 				searchResultList_distance = SortListUtil
 						.SortListByDistance(searchResultList_name);
 				// sort list by rating
-				searchResultList_rating = SortListUtil.SortListByRating(searchResultList_name);
+				searchResultList_rating = SortListUtil
+						.SortListByRating(searchResultList_name);
 				// sort list by type
 				searchResultArrayList_type = new ArrayList<List<PlaceModel>>();
 				for (int i = 0; i < place_cates.length; i++) {
@@ -173,12 +177,77 @@ public class TabSuggestionsActivity extends Activity implements OnClickListener,
 		}
 	};
 
-	// Get list of SearchResults - All Places from JSON
+	// Get list of SearchResults - Suggestions Places from JSON
 	public void getSearchResultList() {
-		// Receive result from Internet (select and sorted by name on server)
-		this.searchResultList_name = SearchService.SuggestionPlaces(
-				"http://10.0.2.2:33638/Service/Suggestions?username=10010&companion=1&familiarity=1&mood=1", latitude,
-				longitude);
+		try{
+		// URL for web services
+		String url_test = "http://10.0.2.2:33638/Service/Suggestions?username=10010&companion=1&familiarity=1&mood=1";
+		String url = "http://10.0.2.2:33638/Service/Suggestions?";
+		// get google account on the android phone (Settings --> Accounts and
+		// sync)
+		String username = null;
+		AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+		Account[] list = manager.getAccounts();
+		for (Account account : list) {
+			if (account.type.equalsIgnoreCase("com.google")) {
+				username = account.name;
+				break;
+			}
+		}
+		if (username != null) {
+			url += "username=" + username;
+			// get current context from SQLite
+			Cursor c = mDBAdapter.getContextConfig();
+			startManagingCursor(c);
+			int value; // context value
+			c.moveToPosition(0); // set current Temperature
+			value = Integer.parseInt(c.getString(c
+					.getColumnIndex("current_value")));
+			url += "&temperature=" + value;
+			c.moveToPosition(1); // set current Weather
+			value = Integer.parseInt(c.getString(c
+					.getColumnIndex("current_value")));
+			url += "&weather=" + value;
+			c.moveToPosition(2); // set current Companion
+			value = Integer.parseInt(c.getString(c
+					.getColumnIndex("current_value")));
+			url += "&companion=" + value;
+			c.moveToPosition(3); // set current Mood
+			value = Integer.parseInt(c.getString(c
+					.getColumnIndex("current_value")));
+			url += "&mood=" + value;
+			c.moveToPosition(4); // set current Familiarity
+			value = Integer.parseInt(c.getString(c
+					.getColumnIndex("current_value")));
+			url += "&familiarity=" + value;
+			c.moveToPosition(5); // set current Budget
+			value = Integer.parseInt(c.getString(c
+					.getColumnIndex("current_value")));
+			url += "&budget=" + value;
+			c.moveToPosition(6); // set current Travel length
+			value = Integer.parseInt(c.getString(c
+					.getColumnIndex("current_value")));
+			url += "&travellength=" + value;
+			c.moveToPosition(7); // set current Time
+			String time = c.getString(c.getColumnIndex("current_value"));
+			//String[] datetime_plit = time.split("and");
+			url += "&time=" + time;
+			// url += "&time=" + datetime_plit[0].trim()+datetime_plit[1].trim();
+			c.close();
+			Log.i("Rate", "url = " + url);
+			// Receive result from Internet (select and sorted by estimated rate
+			// on server)
+			this.searchResultList_name = SearchService.SuggestionPlaces(url_test,
+					latitude, longitude);
+			} else { // have no google account
+			Toast.makeText(
+					getApplicationContext(),
+					"Please setup a Google account in your Android smartphone first! (Home --> Settings --> Accounts and sync)",
+					Toast.LENGTH_LONG).show();
+		}
+		}catch(Exception e){
+			Log.i("Rate", "url exception = " + e.toString());
+		}
 	}
 
 	// Get current location
@@ -212,13 +281,16 @@ public class TabSuggestionsActivity extends Activity implements OnClickListener,
 			for (int i = 0; i < list.size(); i++) {
 				resultMap = new HashMap<String, Object>();
 				resultMap.put("viewName", list.get(i).getName());
-				resultMap.put("viewCate", list.get(i).place_category_obj.getPlace_category());
+				resultMap.put("viewCate",
+						list.get(i).place_category_obj.getPlace_category());
 				address = "";
 				address += list.get(i).getHouse_number() + ", "
-						+ list.get(i).getStreet() + ", "
-						+ list.get(i).getWard() + ", "
+						+ list.get(i).getStreet() + ", P."
+						+ list.get(i).getWard() + ", Q."
 						+ list.get(i).getDistrict() + ", "
 						+ list.get(i).getCity();
+				if (address.charAt(0) == ',')
+					address = address.substring(2);
 				resultMap.put("viewAddress", address);
 				resultMap.put("viewDistance",
 						String.valueOf(list.get(i).getDistance()) + " km");

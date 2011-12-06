@@ -25,7 +25,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -80,7 +79,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		// set spinner adapter
 		if (this.mDBAdapter == null) {
 			this.mDBAdapter = new SQLiteDBAdapter(this);
-			mDBAdapter.open();
+			mDBAdapter.open(); 
 		}
 		c = mDBAdapter.getPlaceCategories();
 		startManagingCursor(c);
@@ -140,7 +139,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			btnRating.setBackgroundResource(R.drawable.btn_col_rating_focus);
 			btnDistance.setBackgroundResource(R.drawable.btn_col_distance);
 			spinnerType.setBackgroundResource(R.drawable.btn_col_type);
-			Log.i("Rate", "displayListView rating");
 			displayListView(searchResultList_rating);
 		}
 			break;
@@ -150,7 +148,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			btnDistance
 					.setBackgroundResource(R.drawable.btn_col_distance_focus);
 			spinnerType.setBackgroundResource(R.drawable.btn_col_type);
-			Log.i("Rate", "displayListView distance");
 			displayListView(searchResultList_distance);
 		}
 			break;
@@ -167,7 +164,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 				btnDistance.setBackgroundResource(R.drawable.btn_col_distance);
 				spinnerType
 						.setBackgroundResource(R.drawable.btn_col_type_focus);
-				Log.i("Rate", "displayListView type");
 				displayListView(searchResultArrayList_type.get(position));
 			} else {
 				loadSpinnerType = true;
@@ -185,7 +181,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		// Receive result from Internet (select and sorted by name on server)
 		this.searchResultList_name = SearchService.SearchAllPlaces(
 				"http://10.0.2.2:33638/Service/GetAllPlaces", latitude,
-				longitude);
+				longitude); 
 	}
 
 	// Get current location
@@ -208,8 +204,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	// Display ListView with parameters
 	public void displayListView(final List<PlaceModel> list) {
 		try {
-			Log.i("Rate", "displayListView - first name item = "
-					+ list.get(0).getName());
 			listViewResult = (ListView) findViewById(R.id.listViewResult);
 			// Prepare for ListView
 			ArrayList<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
@@ -225,10 +219,12 @@ public class TabAllActivity extends Activity implements OnClickListener,
 						list.get(i).place_category_obj.getPlace_category());
 				address = "";
 				address += list.get(i).getHouse_number() + ", "
-						+ list.get(i).getStreet() + ", "
-						+ list.get(i).getWard() + ", "
+						+ list.get(i).getStreet() + ", P."
+						+ list.get(i).getWard() + ", Q."
 						+ list.get(i).getDistrict() + ", "
 						+ list.get(i).getCity();
+				if(address.charAt(0) == ',')
+					address = address.substring(2);
 				resultMap.put("viewAddress", address);
 				resultMap.put("viewDistance",
 						String.valueOf(list.get(i).getDistance()) + " km");
