@@ -216,7 +216,7 @@ create table places (
    imgurl               nvarchar(1000)       null,
    lat                  float                null,
    lng                  float                null,
-   house_number         int                  null,
+   house_number         nvarchar(50)         null,
    street               nvarchar(255)        null,
    ward                 nvarchar(100)        null,
    district             nvarchar(100)        null,
@@ -282,8 +282,7 @@ go
 create table users (
    id                   int    identity(10000,1)              not null,
    email                nvarchar(100)        null,
-   password             nvarchar(100)        null,
-   year_of_birth        int                  null,
+   birthday				datetime             null,
    gender               tinyint              null,
    constraint PK_USERS primary key (id)
 )

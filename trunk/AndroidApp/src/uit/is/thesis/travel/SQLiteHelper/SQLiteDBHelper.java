@@ -21,7 +21,7 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 	// DB info
 	private static String DATABASE_PATH = "/data/data/uit.is.thesis.travel.activities/databases/";
 	private static final String DATABASE_NAME = "TravleH2VDB";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 	private static final String CREATE_TABLE_PLACE_CATEGORIES = "CREATE TABLE PLACE_CATEGORIES("
 			+ "_id 				 INTEGER primary key autoincrement,"
 			+ "id_cate                   INTEGER, "
@@ -89,10 +89,14 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 			db.execSQL(CREATE_TABLE_CONTEXT_CONFIG);
 			db.execSQL(CREATE_TABLE_PROFILE);
 
-			db.execSQL("insert into PLACE_CATEGORIES values (1,1,'Seeing');");
-			db.execSQL("insert into PLACE_CATEGORIES values (2,2,'Entertainment');");
-			db.execSQL("insert into PLACE_CATEGORIES values (3,3,'Hotel');");
-			db.execSQL("insert into PLACE_CATEGORIES values (4,4,'Restaurant');");
+			db.execSQL("insert into PLACE_CATEGORIES values (1,1,'Church');");
+			db.execSQL("insert into PLACE_CATEGORIES values (2,2,'Cinema');");
+			db.execSQL("insert into PLACE_CATEGORIES values (3,3,'History');");
+			db.execSQL("insert into PLACE_CATEGORIES values (4,4,'Hotel');");
+			db.execSQL("insert into PLACE_CATEGORIES values (5,5,'Market');");
+			db.execSQL("insert into PLACE_CATEGORIES values (6,6,'Pagoda');");
+			db.execSQL("insert into PLACE_CATEGORIES values (7,7,'Resort');");
+			db.execSQL("insert into PLACE_CATEGORIES values (8,8,'Restaurant');");
 
 			db.execSQL("insert into CONTEXT_CONFIG values (1,'Temperature','0');");
 			db.execSQL("insert into CONTEXT_CONFIG values (2,'Weather','1');");

@@ -334,6 +334,10 @@ public class PlaceModel implements Serializable{
 		double c =  2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		this.distance = 6371 * c;
 	}
+	
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
 	/**
 	 * @return the id_listView
 	 */

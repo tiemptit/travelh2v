@@ -287,8 +287,7 @@ public class DetailsActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.txtViewWebsiteContent: {
 			try {
-				// String url = txtViewWebsiteContent.getText().toString();
-				String url = "http://www.google.com.vn/";
+				String url = txtViewWebsiteContent.getText().toString();
 				if (url != "") {
 					try {
 						Bundle bundle = new Bundle();

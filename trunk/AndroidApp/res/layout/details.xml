@@ -24,7 +24,8 @@
 		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			android:layout_width="fill_parent" android:layout_height="fill_parent">
 			<ImageView android:id="@+id/imview" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:layout_centerHorizontal="true" />
+				android:layout_height="wrap_content"
+				android:layout_centerHorizontal="true" />
 			<TextView android:id="@+id/txtViewBasicInfo"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/imview"
@@ -43,8 +44,8 @@
 			<TextView android:id="@+id/txtViewPlaceNameContent"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewBasicInfo"
-				android:layout_toRightOf="@+id/txtViewPlaceName" android:singleLine="true"
-				android:textColor="#ffffff" android:textSize="12sp" android:text="Da Lat Market" />
+				android:layout_toRightOf="@+id/txtViewPlaceName" android:textColor="#ffffff"
+				android:textSize="12sp" android:text="Da Lat Market" />
 			<TextView android:id="@+id/txtViewPhone"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewPlaceName"
