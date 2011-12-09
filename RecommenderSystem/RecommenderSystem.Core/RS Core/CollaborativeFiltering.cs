@@ -9,7 +9,7 @@ namespace RecommenderSystem.Core.RS_Core
 {
     public class CollaborativeFiltering
     {
-        private static double CosineSimilarity(User a, User b, DataTable segment)
+        /*private static double CosineSimilarity(User a, User b, DataTable segment)
         {
 
             List<Item> itemRatedByA = Item.GetItemRatedByUser(a, segment);
@@ -55,7 +55,7 @@ namespace RecommenderSystem.Core.RS_Core
             }
 
             return avg_ru + (1 / formula2) * formula1;
-        }
+        }*/
     }
 
     

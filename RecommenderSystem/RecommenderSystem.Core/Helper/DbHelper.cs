@@ -119,10 +119,7 @@ namespace RecommenderSystem.Core.Helper
                 command.CommandType = CommandType.Text;
                 //AdomdDataReader reader = command.ExecuteReader();
                 CellSet cs = command.ExecuteCellSet();
-                foreach (Position pRow in cs.Axes[1].Positions)
-                { 
-                    
-                }
+                
                 conn.Close();
                 return GetDataTableFromCellSet(cs);
             }

@@ -23,7 +23,7 @@ namespace RecommenderSystem.Core.RS_Core
             User user = new User(user_email);
             List<Recommendation> result = new List<Recommendation>();
             Segment[] candidates = Segment.GetCandidates();
-            DataTable chosenOne = null;
+            Matrix chosenOne = null;
             for (int i = 0; i < candidates.Length; i++)
             {
                 if (candidates[i].companion.id == companion
@@ -43,7 +43,7 @@ namespace RecommenderSystem.Core.RS_Core
 
             int limit = 5;
 
-            foreach (Item item in Item.GetItemsIn(chosenOne))
+            /*foreach (Item item in Item.GetItemsIn(chosenOne))
             {
                 double estimate_rating = CollaborativeFiltering.EstimateRating(item, user, chosenOne);
                 if (!Double.IsNaN(estimate_rating))
@@ -53,7 +53,7 @@ namespace RecommenderSystem.Core.RS_Core
                 }
                 if (result.Count == limit)
                     break;
-            }
+            }*/
 
             return result;
         }
