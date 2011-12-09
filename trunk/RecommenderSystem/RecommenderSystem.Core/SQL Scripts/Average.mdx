@@ -1,0 +1,10 @@
+with
+member Measures.[Avg_Ratings] as
+(
+	[Measures].[Sum_Ratings]/[Measures].[Count_Ratings]
+ )
+select
+{[Dim Place].[Place Key].Members} on columns,
+[Dim User].[User Key].Members on rows
+from [Travel H2V DW]
+where( Measures.[Avg_Ratings]/*, [Dim Budget].[Budget].&[Budget traveler]*/)

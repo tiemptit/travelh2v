@@ -41,6 +41,7 @@
     <Compile Include="DataSync.cs" />
     <Compile Include="Helper\DbHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
+    <Compile Include="Helper\Matrix.cs" />
     <Compile Include="Helper\SystemHelper.cs" />
     <Compile Include="Model\Budget.cs" />
     <Compile Include="Model\Companion.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Weather.cs" />
     <Compile Include="RS Core\CollaborativeFiltering.cs" />
+    <Compile Include="RS Core\MatrixFactorization.cs" />
     <Compile Include="RS Core\Recommendation.cs" />
     <Compile Include="RS Core\Reduction.cs" />
     <Compile Include="RS Core\Segment.cs" />

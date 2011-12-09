@@ -10,8 +10,8 @@ create proc pr_insertSegment
 as
 begin
 
-SET IDENTITY_INSERT segments ON
+
 insert into segments values (@budget, @companion, @familiarity, @mood, @temperature, @travelLength, @weather, @performance)
-SET IDENTITY_INSERT segments OFF
+
 
 end

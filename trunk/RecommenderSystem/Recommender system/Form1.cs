@@ -54,9 +54,9 @@ namespace Recommender_system
         {
             int user_id = Convert.ToInt32(txtUser.Text);
             int item_id = Convert.ToInt32(txtItem.Text);
-            DataTable FullSegment = Rating.GetFullSegment();
-            double estimate = CollaborativeFiltering.EstimateRating(new Item(item_id), new User(user_id), FullSegment);
-            MessageBox.Show(estimate.ToString());
+            //DataTable FullSegment = Rating.GetFullSegment();
+            //double estimate = CollaborativeFiltering.EstimateRating(new Item(item_id), new User(user_id), FullSegment);
+            //MessageBox.Show(estimate.ToString());
         }
 
         private void btnTestAdomd_Click(object sender, EventArgs e)
@@ -74,6 +74,20 @@ namespace Recommender_system
         private void btnEstimate_Context_Click(object sender, EventArgs e)
         {
             Recommendation.Recommend("10010", 0, 3, 0);
+        }
+
+        private void btnTestMatrix_Click(object sender, EventArgs e)
+        {
+
+            double[,] test = new double[5, 4] { { 5, 3, 0, 1 }, { 4, 0, 0, 1 }, { 1, 1, 0, 5 }, { 1, 0, 0, 4 }, { 0, 1, 5, 4 } };
+            Matrix R = new Matrix(5, 4);
+            R.mat = test;
+
+            //Matrix R = Matrix.RandomMatrix(5, 4, 5);
+            Matrix P = Matrix.RandomMatrix(5, 2, 5);
+            Matrix Q = Matrix.RandomMatrix(4, 2, 5);
+
+            MatrixFactorization.testc(R, P, Q, 2);
         }
 
     }

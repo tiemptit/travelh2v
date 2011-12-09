@@ -23,7 +23,8 @@ namespace RecommenderSystem.Core.RS_Core
         public TravelLength travelLength { get; set; }
         public Weather weather { get; set; }
         public double Performance {get; set;}
-        public DataTable data { get; set; }
+        //public DataTable data { get; set; }
+        public Matrix data { get; set; }
 
         /*
          * Methods
@@ -34,12 +35,44 @@ namespace RecommenderSystem.Core.RS_Core
                     + ", " + companion.id + ", " + familiarity.id + ", " + mood.id + ", " + temperature.id
                     + ", " + travelLength.id + ", " + weather.id;*/
 
-            string sql = "pr_getSegment " + 0
+            /*string sql = "pr_getSegment " + 0
                     + ", " + companion.id + ", " + familiarity.id + ", " + mood.id + ", " + 0
                     + ", " + 0 + ", " + 0;
-            DataTable result = DbHelper.RunScriptsWithTable(string.Format(sql));
+            DataTable result = DbHelper.RunScriptsWithTable(string.Format(sql));*/
 
-            this.data = result;
+            /*
+             * OLAP CUBE
+             */
+
+            string mdx = "with member Measures.[Avg_Ratings] as "
+                        + "([Measures].[Sum_Ratings]/[Measures].[Count_Ratings]) "
+                        + "select "
+                        + "[Dim Place].[Place Key].Members on columns, "
+                        + "[Dim User].[User Key].Members on rows "
+                        + "from [Travel H2V DW]"
+                        + "where (Measures.[Avg_Ratings]";
+            /*if (budget.id != 0)
+                mdx += ", [Dim Budget].[Budget Key].&[" + budget.id + "]";*/
+            if (companion.id != 0)
+                mdx += ", [Dim Companion].[Companion Key].&[" + companion.id + "]";
+            if (familiarity.id != 0)
+                mdx += ", [Dim Familiarity].[Familiarity Key].&[" + familiarity.id + "]";
+            if (mood.id != 0)
+                mdx += ", [Dim Mood].[Mood Key].&[" + mood.id + "]";
+            /*if (temperature.id != 0)
+                mdx += ", [Dim Temperature].[Temperature Key].&[" + temperature.id + "]";
+            if (travelLength.id != 0)
+                mdx += ", [Dim Travel Length].[Travellength Key].&[" + travelLength.id + "]";
+            if (weather.id != 0)
+                mdx += ", [Dim Weather].[Weather Key].&[" + weather.id + "]";*/
+                        
+            mdx += ")";
+
+            DataTable result = DbHelper.RunMDXWithDataTable(mdx);
+            this.data = new Matrix(result.Rows.Count - 1, result.Columns.Count - 2);
+            for (int i = 0; i < data.rows; i++)
+                for (int j = 0; j < data.cols; j++)
+                    data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
         }
 
         public bool IsChildOf(Segment other)
@@ -75,7 +108,7 @@ namespace RecommenderSystem.Core.RS_Core
                                         //segment.travelLength = travelLength;
                                         //segment.weather = weather;
                                         segment.GetData();
-                                        if (segment.data.Rows.Count > 10)
+                                        if (segment.data.CountCells() > 10)
                                             result.Add(segment);
                                     }
             return result;

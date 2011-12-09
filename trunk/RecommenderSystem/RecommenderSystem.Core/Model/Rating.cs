@@ -83,9 +83,24 @@ namespace RecommenderSystem.Core.Model
          * Static Methods
          */
 
-        public static DataTable GetFullSegment()
+        public static Matrix GetFullSegment()
         {
-            return DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings"));
+            //return DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings"));
+            string mdx = "with member Measures.[Avg_Ratings] as "
+                        + "([Measures].[Sum_Ratings]/[Measures].[Count_Ratings]) "
+                        + "select "
+                        + "[Dim Place].[Place Key].Members on columns, "
+                        + "[Dim User].[User Key].Members on rows "
+                        + "from [Travel H2V DW]"
+                        + "where Measures.[Avg_Ratings]";
+
+            DataTable result = DbHelper.RunMDXWithDataTable(mdx);
+            Matrix data = new Matrix(result.Rows.Count - 1, result.Columns.Count - 2);
+            for (int i = 0; i < data.rows; i++)
+                for (int j = 0; j < data.cols; j++)
+                    data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
+
+            return data;
         }
 
         public static List<Rating> GetRatingListByUser(User user, DataTable segment)
