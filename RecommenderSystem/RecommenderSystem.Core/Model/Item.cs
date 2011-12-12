@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using RecommenderSystem.Core.Helper;
+using RecommenderSystem.Core.RS_Core;
 
 namespace RecommenderSystem.Core.Model
 {
@@ -37,6 +38,7 @@ namespace RecommenderSystem.Core.Model
         /*
          * Constructor
          */
+        public Item() { }
         public Item(int id)
         {
             GetDataById(id);
