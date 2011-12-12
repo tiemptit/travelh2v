@@ -61,7 +61,7 @@ namespace Recommender_system
 
         private void btnTestAdomd_Click(object sender, EventArgs e)
         {
-            if (Reduction.GetStrongSegments(Rating.GetFullSegment()))
+            if (Reduction.GetStrongSegments())
                 MessageBox.Show("Done");
         }
 
@@ -87,7 +87,7 @@ namespace Recommender_system
             Matrix P = Matrix.RandomMatrix(5, 2, 5);
             Matrix Q = Matrix.RandomMatrix(4, 2, 5);
 
-            MatrixFactorization.testc(R, P, Q, 2);
+            MatrixFactorization.testc(R, P, Q, 10);
         }
 
     }

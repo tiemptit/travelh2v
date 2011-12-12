@@ -17,7 +17,7 @@ namespace RecommenderSystem.Core.RS_Core
         }
         private static double MAE(Matrix Training, Matrix Evaluation)//Mean absolute error
         {
-            int k = 2;
+            int k = Recommendation.k;
             Matrix P = Matrix.RandomMatrix(Training.rows, k, 5);
             Matrix Q = Matrix.RandomMatrix(Training.cols, k, 5);
             Matrix R = MatrixFactorization.MatrixFactorize(Training, ref P, ref Q, k);
@@ -58,9 +58,12 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
         }
-        public static bool GetStrongSegments(Matrix root)
+        public static bool GetStrongSegments()
         {
-            List<Segment> AllSegment = Segment.GetAllSegment();
+            /*List<Segment> AllSegment = Segment.GetAllSegment();
+            Segment root = Segment.GetRoot();
+
+            DbHelper.RunScripts("truncate table segments");
 
             foreach (Segment segment in AllSegment)
             {
@@ -68,15 +71,37 @@ namespace RecommenderSystem.Core.RS_Core
                 Matrix Training_Segment = segment.data.Duplicate();
                 GetRandomEvaluationSet(segment.data, ref Evaluation_Segment, ref Training_Segment);
 
-                Matrix Evaluation_root = new Matrix(root.rows, root.cols);
-                Matrix Training_root = root.Duplicate();
-                GetRandomEvaluationSet(root, ref Evaluation_root, ref Training_root);
+                Matrix Evaluation_root = root.data.Duplicate();
+                Matrix Training_root = root.data.Duplicate();
+                
+                for (int i = 0; i < Evaluation_root.rows; i++)
+                {
+                    for (int j = 0; j < Evaluation_root.cols; j++)
+                    {
+                        bool flag = false;
+                        for (int i_s = 0; i_s < Evaluation_Segment.rows; i_s++)
+                        {
+                            for (int j_s = 0; j_s < Evaluation_Segment.cols; j_s++)
+                            {
+                                if (root.user_id[i] == segment.user_id[i_s] && root.item_id[j] == segment.item_id[j_s])
+                                {
+                                    Training_root[i, j] = 0;
+
+                                    flag = true;
+                                    break;
+                                }
+                            }
+                            if (flag)
+                                break;
+                        }
+                        if (!flag)
+                            Evaluation_root[i, j] = 0;
+                    }
+                }
 
                 //Get strong segment
                 double performamce_segment = Performance(Training_Segment, Evaluation_Segment);
                 double performance_root = Performance(Training_root, Evaluation_root);
-
-                //DbHelper.RunScripts("truncate table segments");
 
                 if (performamce_segment >= performance_root)
                 {
@@ -92,7 +117,7 @@ namespace RecommenderSystem.Core.RS_Core
                         + ", " + 0 + ", " + 0
                         + ", " + performamce_segment));
                 }
-            }
+            }*/
 
             //Remove segment "child" and have performance less than its parents
 
@@ -109,8 +134,23 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            return true;
+            //Save estimated rating
+            candidates = Segment.GetCandidates();
+            for (int t = 0; t < candidates.Length; t++)
+            {
+                candidates[t].GetData();
+                Matrix P = Matrix.RandomMatrix(candidates[t].data.rows, Recommendation.k, 5);
+                Matrix Q = Matrix.RandomMatrix(candidates[t].data.cols, Recommendation.k, 5);
+                Matrix R = MatrixFactorization.MatrixFactorize(candidates[t].data, ref P, ref Q, Recommendation.k);
+                for (int i = 0; i < R.rows; i++)
+                    for (int j = 0; j < R.cols - 1; j++) //exclude "Unknown"
+                        DbHelper.RunScripts(string.Format("pr_insertNewEstimation " + candidates[t].id 
+                            + ", " + candidates[t].user_id[i] + ", " + candidates[t].item_id[j]
+                            + ", " + R[i, j]));
 
+            }
+
+            return true;
         }
 
         public static bool temp()

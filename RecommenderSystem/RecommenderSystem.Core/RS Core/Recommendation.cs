@@ -12,6 +12,8 @@ namespace RecommenderSystem.Core.RS_Core
         public Item item;
         public double ratingEstimated;
 
+        public static int k = 5;
+
         public Recommendation (Item item, double ratingEstimated)
         {
             this.item = item;
@@ -41,21 +43,30 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            int limit = 5;
+            int limit = 10;
 
-            /*foreach (Item item in Item.GetItemsIn(chosenOne))
-            {
-                double estimate_rating = CollaborativeFiltering.EstimateRating(item, user, chosenOne);
-                if (!Double.IsNaN(estimate_rating))
+            Matrix P = Matrix.RandomMatrix(chosenOne.rows, k, 5);
+            Matrix Q = Matrix.RandomMatrix(chosenOne.cols, k, 5);
+            Matrix R = MatrixFactorization.MatrixFactorize(chosenOne, ref P, ref Q, k);
+
+            for (int i = 0; i < R.rows; i++)
+            { 
+                
+            }
+
+                /*foreach (Item item in Item.GetItemsIn(chosenOne))
                 {
-                    Recommendation r = new Recommendation(item, estimate_rating);
-                    result.Add(r);
-                }
-                if (result.Count == limit)
-                    break;
-            }*/
+                    double estimate_rating = CollaborativeFiltering.EstimateRating(item, user, chosenOne);
+                    if (!Double.IsNaN(estimate_rating))
+                    {
+                        Recommendation r = new Recommendation(item, estimate_rating);
+                        result.Add(r);
+                    }
+                    if (result.Count == limit)
+                        break;
+                }*/
 
-            return result;
+                return result;
         }
     }
 }

@@ -25,6 +25,8 @@ namespace RecommenderSystem.Core.RS_Core
         public double Performance {get; set;}
         //public DataTable data { get; set; }
         public Matrix data { get; set; }
+        public int[] user_id { get; set; }
+        public string[] item_id { get; set; }
 
         /*
          * Methods
@@ -70,9 +72,21 @@ namespace RecommenderSystem.Core.RS_Core
 
             DataTable result = DbHelper.RunMDXWithDataTable(mdx);
             this.data = new Matrix(result.Rows.Count - 1, result.Columns.Count - 2);
+            user_id = new int[result.Rows.Count - 1];
+            item_id = new string[result.Columns.Count - 2];
+
+            //item
+            for (int i = 0; i < item_id.Length; i++)
+            {
+                item_id[i] = result.Columns[i+2].ColumnName.Trim();
+            }
+
             for (int i = 0; i < data.rows; i++)
+            {
+                user_id[i] = Convert.ToInt32(result.Rows[i + 1][0]);
                 for (int j = 0; j < data.cols; j++)
                     data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
+            }
         }
 
         public bool IsChildOf(Segment other)
@@ -88,6 +102,37 @@ namespace RecommenderSystem.Core.RS_Core
         /*
          * Static Methods
          */
+        public static Segment GetRoot()
+        {
+            Segment root = new Segment();
+            string mdx = "with member Measures.[Avg_Ratings] as "
+                        + "([Measures].[Sum_Ratings]/[Measures].[Count_Ratings]) "
+                        + "select "
+                        + "[Dim Place].[Place Key].Members on columns, "
+                        + "[Dim User].[User Key].Members on rows "
+                        + "from [Travel H2V DW]"
+                        + "where Measures.[Avg_Ratings]";
+            DataTable result = DbHelper.RunMDXWithDataTable(mdx);
+            root.data = new Matrix(result.Rows.Count - 1, result.Columns.Count - 2);
+            root.user_id = new int[result.Rows.Count - 1];
+            root.item_id = new string[result.Columns.Count - 2];
+
+            //item
+            for (int i = 0; i < root.item_id.Length; i++)
+            {
+                root.item_id[i] = result.Columns[i + 2].ColumnName.Trim();
+            }
+
+            for (int i = 0; i < root.data.rows; i++)
+            {
+                root.user_id[i] = Convert.ToInt32(result.Rows[i + 1][0]);
+                for (int j = 0; j < root.data.cols; j++)
+                    root.data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
+            }
+
+            return root;
+        }
+
         public static List<Segment> GetAllSegment()
         {
             List<Segment> result = new List<Segment>();
