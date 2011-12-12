@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using RecommenderSystem.Core.Helper;
+using RecommenderSystem.Core.RS_Core;
 
 namespace RecommenderSystem.Core.Model
 {
@@ -66,6 +67,14 @@ namespace RecommenderSystem.Core.Model
                 }
             }
 
+            return result;
+        }
+        public static List<int> GetUserIdsRatedItemId(int item_id, Segment segment)
+        {
+            List<int> result = new List<int>();
+            for (int i = 0; i < segment.user_id.Length; i++)
+                if (segment.data[i, item_id] != 0)
+                    result.Add(i);
             return result;
         }
     }

@@ -27,7 +27,8 @@ namespace RecommenderSystem.Core.RS_Core
         public Matrix data { get; set; }
         public int[] user_id { get; set; }
         public string[] item_id { get; set; }
-
+        public double[] avgRatingByItem { get; set; }
+        public double[] avgRatingByUser { get; set; }
         /*
          * Methods
          */
@@ -79,11 +80,13 @@ namespace RecommenderSystem.Core.RS_Core
             for (int i = 0; i < item_id.Length; i++)
             {
                 item_id[i] = result.Columns[i+2].ColumnName.Trim();
+                avgRatingByItem[i] = Convert.ToDouble(result.Rows[0][i+2]);
             }
 
             for (int i = 0; i < data.rows; i++)
             {
                 user_id[i] = Convert.ToInt32(result.Rows[i + 1][0]);
+                avgRatingByUser[i] = Convert.ToDouble(result.Rows[i][1]);
                 for (int j = 0; j < data.cols; j++)
                     data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
             }
