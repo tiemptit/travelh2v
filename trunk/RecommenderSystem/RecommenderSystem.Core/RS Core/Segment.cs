@@ -29,9 +29,27 @@ namespace RecommenderSystem.Core.RS_Core
         public string[] item_id { get; set; }
         public double[] avgRatingByItem { get; set; }
         public double[] avgRatingByUser { get; set; }
+        public double Correlation_Avg { get; set; }
         /*
          * Methods
          */
+        public Segment() { }
+        public Segment (Segment segment, Matrix data)
+        {
+            this.id = segment.id;
+            this.budget = segment.budget;
+            this.companion = segment.companion;
+            this.familiarity = segment.familiarity;
+            this.mood = segment.mood;
+            this.travelLength = segment.travelLength;
+            this.weather = segment.weather;
+            this.user_id = segment.user_id;
+            this.item_id = segment.item_id;
+            this.avgRatingByItem = segment.avgRatingByItem;
+            this.avgRatingByUser = segment.avgRatingByUser;
+
+            this.data = data;
+        }
         public void GetData()
         {
             /*string sql = "pr_getSegment " + budget.id
@@ -75,18 +93,20 @@ namespace RecommenderSystem.Core.RS_Core
             this.data = new Matrix(result.Rows.Count - 1, result.Columns.Count - 2);
             user_id = new int[result.Rows.Count - 1];
             item_id = new string[result.Columns.Count - 2];
+            avgRatingByItem = new double[result.Columns.Count - 2];
+            avgRatingByUser = new double[result.Rows.Count - 1];
 
             //item
             for (int i = 0; i < item_id.Length; i++)
             {
                 item_id[i] = result.Columns[i+2].ColumnName.Trim();
-                avgRatingByItem[i] = Convert.ToDouble(result.Rows[0][i+2]);
+                avgRatingByItem[i] = Convert.ToDouble(result.Rows[0][i + 2] == "" ? 0 : result.Rows[0][i + 2]);
             }
 
             for (int i = 0; i < data.rows; i++)
             {
                 user_id[i] = Convert.ToInt32(result.Rows[i + 1][0]);
-                avgRatingByUser[i] = Convert.ToDouble(result.Rows[i][1]);
+                avgRatingByUser[i] = Convert.ToDouble(result.Rows[i][1] == "" ? 0 : result.Rows[i][1]);
                 for (int j = 0; j < data.cols; j++)
                     data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
             }
@@ -119,16 +139,20 @@ namespace RecommenderSystem.Core.RS_Core
             root.data = new Matrix(result.Rows.Count - 1, result.Columns.Count - 2);
             root.user_id = new int[result.Rows.Count - 1];
             root.item_id = new string[result.Columns.Count - 2];
+            root.avgRatingByItem = new double[result.Columns.Count - 2];
+            root.avgRatingByUser = new double[result.Rows.Count - 1];
 
             //item
             for (int i = 0; i < root.item_id.Length; i++)
             {
                 root.item_id[i] = result.Columns[i + 2].ColumnName.Trim();
+                root.avgRatingByItem[i] = Convert.ToDouble(result.Rows[0][i + 2] == "" ? 0 : result.Rows[0][i + 2]);
             }
 
             for (int i = 0; i < root.data.rows; i++)
             {
                 root.user_id[i] = Convert.ToInt32(result.Rows[i + 1][0]);
+                root.avgRatingByUser[i] = Convert.ToDouble(result.Rows[i][1] == "" ? 0 : result.Rows[i][1]);
                 for (int j = 0; j < root.data.cols; j++)
                     root.data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
             }
@@ -147,24 +171,29 @@ namespace RecommenderSystem.Core.RS_Core
                                 //foreach(TravelLength travelLength in TravelLength.GetAllData())
                                     //foreach(Weather weather in Weather.GetAllData())
                                     {
-                                        Segment segment = new Segment();
-                                        //segment.budget = budget;
-                                        segment.companion = companion;
-                                        segment.familiarity = familiarity;
-                                        segment.mood = mood;
-                                        //segment.temperature = temperature;
-                                        //segment.travelLength = travelLength;
-                                        //segment.weather = weather;
-                                        segment.GetData();
-                                        if (segment.data.CountCells() > 10)
-                                            result.Add(segment);
+                                        if (companion.id == 0 && familiarity.id == 0 && mood.id == 0)
+                                            continue;
+                                        else
+                                        {
+                                            Segment segment = new Segment();
+                                            //segment.budget = budget;
+                                            segment.companion = companion;
+                                            segment.familiarity = familiarity;
+                                            segment.mood = mood;
+                                            //segment.temperature = temperature;
+                                            //segment.travelLength = travelLength;
+                                            //segment.weather = weather;
+                                            segment.GetData();
+                                            if (segment.data.CountCells() > 10)
+                                                result.Add(segment);
+                                        }
                                     }
             return result;
         }
 
         public static Segment[] GetCandidates()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from segments order by performance desc"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from segments order by performance asc"));
             Segment[] candidates = new Segment[data.Rows.Count];
             for (int i = 0; i < data.Rows.Count; i++)
             {

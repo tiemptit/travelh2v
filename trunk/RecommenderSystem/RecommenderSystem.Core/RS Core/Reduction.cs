@@ -10,12 +10,30 @@ namespace RecommenderSystem.Core.RS_Core
 {
     public class Reduction
     {
-        private static double Performance(Matrix Training, Matrix Evaluation)
+        private static double Performance(ref Segment Training, Segment Evaluation)
         { 
             //MAE
-            return - MAE(Training, Evaluation);
+            return MAE(ref Training, Evaluation);
         }
-        private static double MAE(Matrix Training, Matrix Evaluation)//Mean absolute error
+        private static double MAE(ref Segment Training, Segment Evaluation)//Mean absolute error
+        {
+            //Training phase
+            Training.Correlation_Avg = Regression.Correlation_Avg(Training);
+
+            //Test phase
+            double sum = 0;
+            int count = 0;
+            for (int i = 0; i < Evaluation.data.rows; i++)
+                for (int j = 0; j < Evaluation.data.cols - 1; j++)
+                    if (Evaluation.data[i, j] != 0)
+                    {
+                        double predict_scrore = Regression.Prediction(Evaluation.user_id[i], Convert.ToInt32(Evaluation.item_id[j].Trim()), Training);
+                        sum += Math.Abs(Evaluation.data[i, j] - predict_scrore);
+                        count++;
+                    }
+            return sum / count;
+        }
+        /*private static double MAE(Matrix Training, Matrix Evaluation)//Mean absolute error
         {
             int k = Recommendation.k;
             Matrix P = Matrix.RandomMatrix(Training.rows, k, 5);
@@ -30,8 +48,8 @@ namespace RecommenderSystem.Core.RS_Core
 
 
             return formular / (Evaluation.CountCells());
-        }
-        private static void GetRandomEvaluationSet(Matrix root, ref Matrix Eval, ref Matrix Training)
+        }*/
+        private static void GetRandomEvaluationSet(Matrix root, ref Matrix Eval, ref Matrix Training, ref Matrix Training_root)
         {
             Random rand = new Random();
             int need = root.CountCells() / 10;
@@ -48,6 +66,7 @@ namespace RecommenderSystem.Core.RS_Core
                                 {
                                     Eval[i, j] = root[i, j];
                                     Training[i, j] = 0;
+                                    Training_root[i, j] = 0;
                                     count++;
                                 }
                                 if (count == need)
@@ -60,50 +79,42 @@ namespace RecommenderSystem.Core.RS_Core
         }
         public static bool GetStrongSegments()
         {
-            /*List<Segment> AllSegment = Segment.GetAllSegment();
+            /*
+            Segment segment = Segment.GetRoot();
+            Matrix Evaluation_Matrix = new Matrix(segment.data.rows, segment.data.cols);
+            Matrix Training_Segment_Matrix = segment.data.Duplicate();
+            Matrix Training_root_Matrix = segment.data.Duplicate();
+            GetRandomEvaluationSet(segment.data, ref Evaluation_Matrix, ref Training_Segment_Matrix, ref Training_root_Matrix);
+            double performamce_segment = Performance(new Segment(segment, Training_Segment_Matrix), new Segment(segment, Evaluation_Matrix));
+            */
+
+            
+            List<Segment> AllSegment = Segment.GetAllSegment();
             Segment root = Segment.GetRoot();
+            double sum_Correlation_Avg_root = 0;
+            int count_Correlation_Avg_root = 0;
 
             DbHelper.RunScripts("truncate table segments");
 
             foreach (Segment segment in AllSegment)
             {
-                Matrix Evaluation_Segment = new Matrix(segment.data.rows, segment.data.cols);
-                Matrix Training_Segment = segment.data.Duplicate();
-                GetRandomEvaluationSet(segment.data, ref Evaluation_Segment, ref Training_Segment);
-
-                Matrix Evaluation_root = root.data.Duplicate();
-                Matrix Training_root = root.data.Duplicate();
-                
-                for (int i = 0; i < Evaluation_root.rows; i++)
-                {
-                    for (int j = 0; j < Evaluation_root.cols; j++)
-                    {
-                        bool flag = false;
-                        for (int i_s = 0; i_s < Evaluation_Segment.rows; i_s++)
-                        {
-                            for (int j_s = 0; j_s < Evaluation_Segment.cols; j_s++)
-                            {
-                                if (root.user_id[i] == segment.user_id[i_s] && root.item_id[j] == segment.item_id[j_s])
-                                {
-                                    Training_root[i, j] = 0;
-
-                                    flag = true;
-                                    break;
-                                }
-                            }
-                            if (flag)
-                                break;
-                        }
-                        if (!flag)
-                            Evaluation_root[i, j] = 0;
-                    }
-                }
+                Matrix Evaluation_Matrix = new Matrix(segment.data.rows, segment.data.cols);
+                Matrix Training_Segment_Matrix = segment.data.Duplicate();
+                Matrix Training_root_Matrix = root.data.Duplicate();
+                GetRandomEvaluationSet(segment.data, ref Evaluation_Matrix, ref Training_Segment_Matrix, ref Training_root_Matrix);
 
                 //Get strong segment
-                double performamce_segment = Performance(Training_Segment, Evaluation_Segment);
-                double performance_root = Performance(Training_root, Evaluation_root);
+                Segment Evaluation_Segment = new Segment(segment, Evaluation_Matrix);
+                Segment Training_Segment = new Segment(segment, Training_Segment_Matrix);
+                Segment Training_Root = new Segment(root, Training_root_Matrix);
 
-                if (performamce_segment >= performance_root)
+                double performamce_segment = MAE(ref Training_Segment, Evaluation_Segment);
+                double performance_root = MAE(ref Training_Root, Evaluation_Segment);
+
+                sum_Correlation_Avg_root += Training_Root.Correlation_Avg;
+                count_Correlation_Avg_root += 1;
+
+                if (performamce_segment <= performance_root)
                 {
                     //DbHelper.RunScripts(string.Format("pr_insertSegment " + segment.budget.id 
                     //    + ", " + segment.companion.id + ", " + segment.familiarity.id
@@ -115,9 +126,10 @@ namespace RecommenderSystem.Core.RS_Core
                         + ", " + segment.companion.id + ", " + segment.familiarity.id
                         + ", " + segment.mood.id + ", " + 0
                         + ", " + 0 + ", " + 0
-                        + ", " + performamce_segment));
+                        + ", " + performamce_segment
+                        + ", " + Training_Segment.Correlation_Avg));
                 }
-            }*/
+            }
 
             //Remove segment "child" and have performance less than its parents
 
@@ -134,23 +146,15 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            //Save estimated rating
-            candidates = Segment.GetCandidates();
-            for (int t = 0; t < candidates.Length; t++)
-            {
-                candidates[t].GetData();
-                Matrix P = Matrix.RandomMatrix(candidates[t].data.rows, Recommendation.k, 5);
-                Matrix Q = Matrix.RandomMatrix(candidates[t].data.cols, Recommendation.k, 5);
-                Matrix R = MatrixFactorization.MatrixFactorize(candidates[t].data, ref P, ref Q, Recommendation.k);
-                for (int i = 0; i < R.rows; i++)
-                    for (int j = 0; j < R.cols - 1; j++) //exclude "Unknown"
-                        DbHelper.RunScripts(string.Format("pr_insertNewEstimation " + candidates[t].id 
-                            + ", " + candidates[t].user_id[i] + ", " + candidates[t].item_id[j]
-                            + ", " + R[i, j]));
-
-            }
+            DbHelper.RunScripts(string.Format("pr_insertSegment " + 0
+                        + ", " + 0 + ", " + 0
+                        + ", " + 0 + ", " + 0
+                        + ", " + 0 + ", " + 0
+                        + ", " + 9999
+                        + ", " + sum_Correlation_Avg_root/count_Correlation_Avg_root));
 
             return true;
+            
         }
 
         public static bool temp()

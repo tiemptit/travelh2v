@@ -39,7 +39,7 @@ namespace RecommenderSystem.Core.Model
          */
         public static List<TravelLength> GetAllData()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from travel_length"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_travel_length"));
             List<TravelLength> result = new List<TravelLength>();
             for (int i = 0; i < data.Rows.Count; i++)
             {

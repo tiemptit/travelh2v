@@ -39,7 +39,7 @@ namespace RecommenderSystem.Core.Model
          */
         public static List<Mood> GetAllData()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from Mood"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_mood"));
             List<Mood> result = new List<Mood>();
             for (int i = 0; i < data.Rows.Count; i++)
             {

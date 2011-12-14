@@ -39,7 +39,7 @@ namespace RecommenderSystem.Core.Model
          */
         public static List<Familiarity> GetAllData()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from Familiarity"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_familiarity"));
             List<Familiarity> result = new List<Familiarity>();
             for (int i = 0; i < data.Rows.Count; i++)
             {

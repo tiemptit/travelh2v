@@ -53,3 +53,4 @@ D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\Microsoft
 D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\bin\Debug\RecommenderSystem.Core.pdb
 D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender system.exe
 D:\thesisproj\travelh2v\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender system.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\Recommender system\obj\x86\Debug\Recommender_system.Admin.resources
