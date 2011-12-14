@@ -39,7 +39,7 @@ namespace RecommenderSystem.Core.Model
          */
         public static List<Weather> GetAllData()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from Weather"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_weather"));
             List<Weather> result = new List<Weather>();
             for (int i = 0; i < data.Rows.Count; i++)
             {
