@@ -20,7 +20,7 @@ namespace RecommenderSystem.Core.RS_Core
         public Familiarity familiarity { get; set; }
         public Mood mood { get; set; }
         public Temperature temperature { get; set; }
-        public TravelLength travelLength { get; set; }
+        //public TravelLength travelLength { get; set; }
         public Weather weather { get; set; }
         public double Performance {get; set;}
         //public DataTable data { get; set; }
@@ -41,7 +41,7 @@ namespace RecommenderSystem.Core.RS_Core
             this.companion = segment.companion;
             this.familiarity = segment.familiarity;
             this.mood = segment.mood;
-            this.travelLength = segment.travelLength;
+            //this.travelLength = segment.travelLength;
             this.weather = segment.weather;
             this.user_id = segment.user_id;
             this.item_id = segment.item_id;
@@ -72,20 +72,20 @@ namespace RecommenderSystem.Core.RS_Core
                         + "[Dim User].[User Key].Members on rows "
                         + "from [Travel H2V DW]"
                         + "where (Measures.[Avg_Ratings]";
-            /*if (budget.id != 0)
-                mdx += ", [Dim Budget].[Budget Key].&[" + budget.id + "]";*/
+            if (budget.id != 0)
+                mdx += ", [Dim Budget].[Budget Key].&[" + budget.id + "]";
             if (companion.id != 0)
                 mdx += ", [Dim Companion].[Companion Key].&[" + companion.id + "]";
             if (familiarity.id != 0)
                 mdx += ", [Dim Familiarity].[Familiarity Key].&[" + familiarity.id + "]";
             if (mood.id != 0)
                 mdx += ", [Dim Mood].[Mood Key].&[" + mood.id + "]";
-            /*if (temperature.id != 0)
+            if (temperature.id != 0)
                 mdx += ", [Dim Temperature].[Temperature Key].&[" + temperature.id + "]";
-            if (travelLength.id != 0)
-                mdx += ", [Dim Travel Length].[Travellength Key].&[" + travelLength.id + "]";
+            /*if (travelLength.id != 0)
+                mdx += ", [Dim Travel Length].[Travellength Key].&[" + travelLength.id + "]";*/
             if (weather.id != 0)
-                mdx += ", [Dim Weather].[Weather Key].&[" + weather.id + "]";*/
+                mdx += ", [Dim Weather].[Weather Key].&[" + weather.id + "]";
                         
             mdx += ")";
 
@@ -119,7 +119,7 @@ namespace RecommenderSystem.Core.RS_Core
                 && (familiarity.id == other.familiarity.id || other.familiarity.id == 0)
                 && (mood.id == other.mood.id || other.mood.id == 0)
                 && (temperature.id == other.temperature.id || other.temperature.id == 0)
-                && (travelLength.id == other.travelLength.id || other.travelLength.id == 0)
+                //&& (travelLength.id == other.travelLength.id || other.travelLength.id == 0)
                 && (weather.id == other.weather.id || other.weather.id == 0);
         }
         /*
@@ -163,26 +163,26 @@ namespace RecommenderSystem.Core.RS_Core
         public static List<Segment> GetAllSegment()
         {
             List<Segment> result = new List<Segment>();
-            //foreach(Budget budget in Budget.GetAllData())
+            foreach(Budget budget in Budget.GetAllData())
                 foreach(Companion companion in Companion.GetAllData())
                     foreach(Familiarity familiarity in Familiarity.GetAllData())
                         foreach(Mood mood in Mood.GetAllData())
-                            //foreach(Temperature temperature in Temperature.GetAllData())
+                            foreach(Temperature temperature in Temperature.GetAllData())
                                 //foreach(TravelLength travelLength in TravelLength.GetAllData())
-                                    //foreach(Weather weather in Weather.GetAllData())
+                                    foreach(Weather weather in Weather.GetAllData())
                                     {
-                                        if (companion.id == 0 && familiarity.id == 0 && mood.id == 0)
+                                        if (budget.id == 0 && companion.id == 0 && familiarity.id == 0 && mood.id == 0 && temperature.id == 0 && weather.id == 0)
                                             continue;
                                         else
                                         {
                                             Segment segment = new Segment();
-                                            //segment.budget = budget;
+                                            segment.budget = budget;
                                             segment.companion = companion;
                                             segment.familiarity = familiarity;
                                             segment.mood = mood;
-                                            //segment.temperature = temperature;
+                                            segment.temperature = temperature;
                                             //segment.travelLength = travelLength;
-                                            //segment.weather = weather;
+                                            segment.weather = weather;
                                             segment.GetData();
                                             if (segment.data.CountCells() > 10)
                                                 result.Add(segment);
@@ -204,7 +204,7 @@ namespace RecommenderSystem.Core.RS_Core
                 obj.familiarity = new Familiarity(Convert.ToInt32(data.Rows[i][3]));
                 obj.mood = new Mood(Convert.ToInt32(data.Rows[i][4]));
                 obj.temperature = new Temperature(Convert.ToInt32(data.Rows[i][5]));
-                obj.travelLength = new TravelLength(Convert.ToInt32(data.Rows[i][6]));
+                //obj.travelLength = new TravelLength(Convert.ToInt32(data.Rows[i][6]));
                 obj.weather = new Weather(Convert.ToInt32(data.Rows[i][7]));
                 obj.Performance = Convert.ToDouble(data.Rows[i][8]);
 
@@ -232,14 +232,14 @@ namespace RecommenderSystem.Core.RS_Core
                 && familiarity.id.Equals(other.familiarity.id)
                 && mood.id.Equals(other.mood.id)
                 && temperature.id.Equals(other.temperature.id)
-                && travelLength.id.Equals(other.travelLength.id)
+                //&& travelLength.id.Equals(other.travelLength.id)
                 && weather.id.Equals(other.weather.id);
         }
         public override int GetHashCode()
-        {   
+        {
             return budget.GetHashCode() ^ companion.GetHashCode() ^ familiarity.GetHashCode()
-                    ^ mood.GetHashCode() ^ temperature.GetHashCode()
-                    ^ travelLength.GetHashCode() ^ weather.GetHashCode();
+                    ^ mood.GetHashCode() ^ temperature.GetHashCode();
+                    //^ travelLength.GetHashCode() ^ weather.GetHashCode();
         }
     }
 }
