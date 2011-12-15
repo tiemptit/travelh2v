@@ -70,10 +70,12 @@ namespace RecommenderSystem.Core.Model
 
         public void GetDataById(int id)
         {
-            DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from places where id = " + id)).Rows[0];
+            DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_place where place_key = " + id)).Rows[0];
             this.id = id;
             this.place_category = new PlaceCategoryModel();
-            this.place_category.GetDataById(Convert.ToInt32(data[1]));
+            this.place_category.id = -1;
+            this.place_category.place_category = Convert.ToString(data[1]);
+            //place_category = Convert.ToString(data[1]);
             this.name = Convert.ToString(data[2]);
             this.imgurl = Convert.ToString(data[3]);
             this.lat = Convert.ToDouble(data[4]);

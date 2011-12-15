@@ -20,6 +20,11 @@ namespace RecommenderSystem.Core.RS_Core
             //Training phase
             Training.Correlation_Avg = Regression.Correlation_Avg(Training);
 
+            if (Double.IsNaN(Training.Correlation_Avg))
+            {
+                return 9999;
+            }
+
             //Test phase
             double sum = 0;
             int count = 0;
@@ -28,6 +33,12 @@ namespace RecommenderSystem.Core.RS_Core
                     if (Evaluation.data[i, j] != 0)
                     {
                         double predict_scrore = Regression.Prediction(Evaluation.user_id[i], Convert.ToInt32(Evaluation.item_id[j].Trim()), Training);
+                        /*if (Double.IsNaN(predict_scrore))
+                        {
+                            predict_scrore = Regression.Prediction(Evaluation.user_id[i], Convert.ToInt32(Evaluation.item_id[j].Trim()), Training);
+                        }*/
+                        if (Double.IsNaN(predict_scrore))
+                            continue;
                         sum += Math.Abs(Evaluation.data[i, j] - predict_scrore);
                         count++;
                     }
@@ -113,6 +124,13 @@ namespace RecommenderSystem.Core.RS_Core
 
                 sum_Correlation_Avg_root += Training_Root.Correlation_Avg;
                 count_Correlation_Avg_root += 1;
+
+                /*DbHelper.RunScripts(string.Format("pr_insertSegment " + 0
+                        + ", " + segment.companion.id + ", " + segment.familiarity.id
+                        + ", " + segment.mood.id + ", " + 0
+                        + ", " + 0 + ", " + 0
+                        + ", " + performamce_segment
+                        + ", " + performance_root));*/
 
                 if (performamce_segment <= performance_root)
                 {
