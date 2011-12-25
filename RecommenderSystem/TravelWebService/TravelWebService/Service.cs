@@ -25,7 +25,7 @@ namespace TravelWebService
     {
         // TODO: Implement the collection resource that will contain the SampleItem instances
         // Get All Places
-        [WebGet(UriTemplate = "GetAllPlaces", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(UriTemplate = "GetAllPlaces", Method = "GET", ResponseFormat = WebMessageFormat.Json)]
         [Description("list operation.")]
         public Stream  GetAllPlaces()
         {
@@ -39,33 +39,35 @@ namespace TravelWebService
         }
         
         // Rate a place
-        [WebInvoke(UriTemplate = "Rate?username={username}&place={id_place}&temperature={temperature}&weather={weather}&companion={companion}&familiarity={familiarity}&mood={mood}&budget={budget}&travellength={travellength}&time={time}&rating={rating}", Method = "GET")]
-        public bool Rate(string username, int id_place, int temperature, int weather, int companion, int familiarity, int mood, int budget, int travellength, string time, float rating)
+        //[WebInvoke(UriTemplate = "Rate?username={username}&place={id_place}&temperature={temperature}&weather={weather}&companion={companion}&familiarity={familiarity}&mood={mood}&budget={budget}&travellength={travellength}&time={time}&rating={rating}", Method = "GET")]
+        //public bool Rate(string username, int id_place, int temperature, int weather, int companion, int familiarity, int mood, int budget, int travellength, string time, float rating)
+        [WebInvoke(UriTemplate = "Rate?username={username}&place={id_place}&weather={weather}&companion={companion}&budget={budget}&time={time}&rating={rating}", Method = "GET")]
+        public bool Rate(string username, int id_place, int weather, int companion, int budget, string time, float rating)
         {
             // TODO: Add the new instance of SampleItem to the collection
             //throw new NotImplementedException();
             RatingModel r = new RatingModel();
             r.username = username;
             r.id_place = id_place;
-            r.id_temperature = temperature;
+            //r.id_temperature = temperature;
             r.id_weather = weather;
             r.id_companion = companion;
-            r.id_farmiliarity = familiarity;
-            r.id_mood = mood;
+            //r.id_farmiliarity = familiarity;
+            //r.id_mood = mood;
             r.id_budget = budget;
-            r.id_travel_length = travellength;
+            //r.id_travel_length = travellength;
             r.time = time;
             r.rating = rating;
             return r.Rate();
         }
 
-        // Rate a place
-        [WebInvoke(UriTemplate = "Suggestions?username={username}&companion={companion}&familiarity={familiarity}&mood={mood}", Method = "GET")]
-        public Stream Suggestions(string username, int companion, int familiarity, int mood)
+        // sugesstions
+        [WebInvoke(UriTemplate = "Suggestions?username={username}&weather={weather}&companion={companion}&budget={budget}&time={time}", Method = "GET")]
+        public Stream Suggestions(string username, int weather, int companion, int budget, string time)
         {
             // TODO: Add the new instance of SampleItem to the collection
             //throw new NotImplementedException();
-            List<Recommendation> recommendation = Recommendation.Recommend(username, companion, familiarity, mood);
+            List<Recommendation> recommendation = Recommendation.Recommend(username, weather, companion, budget, time);
             var javaScriptSerializer = new JavaScriptSerializer();
             string jsonStringMultiple = "{\"responseData\":" + javaScriptSerializer.Serialize(recommendation.Select(x => new { x.item, x.ratingEstimated})) + "}";
             var json = Encoding.UTF8.GetBytes(jsonStringMultiple);
