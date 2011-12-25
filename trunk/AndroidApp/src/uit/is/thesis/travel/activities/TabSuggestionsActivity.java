@@ -181,8 +181,8 @@ public class TabSuggestionsActivity extends Activity implements
 	public void getSearchResultList() {
 		try{
 		// URL for web services
-		String url_test = "http://10.0.2.2:33638/Service/Suggestions?username=10010&companion=1&familiarity=1&mood=1";
-		String url = "http://10.0.2.2:33638/Service/Suggestions?";
+		String url_test = "http://10.0.2.2/wcf4webservices/Service/Suggestions?username=10010&companion=1&familiarity=1&mood=1";
+		String url = "http://10.0.2.2/wcf4webservices/Service/Suggestions?";
 		// get google account on the android phone (Settings --> Accounts and
 		// sync)
 		String username = null;
@@ -200,35 +200,35 @@ public class TabSuggestionsActivity extends Activity implements
 			Cursor c = mDBAdapter.getContextConfig();
 			startManagingCursor(c);
 			int value; // context value
-			c.moveToPosition(0); // set current Temperature
+			/*c.moveToPosition(0); // set current Temperature
 			value = Integer.parseInt(c.getString(c
 					.getColumnIndex("current_value")));
-			url += "&temperature=" + value;
-			c.moveToPosition(1); // set current Weather
+			url += "&temperature=" + value;*/
+			c.moveToPosition(0); // set current Weather
 			value = Integer.parseInt(c.getString(c
 					.getColumnIndex("current_value")));
 			url += "&weather=" + value;
-			c.moveToPosition(2); // set current Companion
+			c.moveToPosition(1); // set current Companion
 			value = Integer.parseInt(c.getString(c
 					.getColumnIndex("current_value")));
 			url += "&companion=" + value;
-			c.moveToPosition(3); // set current Mood
+			/*c.moveToPosition(3); // set current Mood
 			value = Integer.parseInt(c.getString(c
 					.getColumnIndex("current_value")));
 			url += "&mood=" + value;
 			c.moveToPosition(4); // set current Familiarity
 			value = Integer.parseInt(c.getString(c
 					.getColumnIndex("current_value")));
-			url += "&familiarity=" + value;
-			c.moveToPosition(5); // set current Budget
+			url += "&familiarity=" + value;*/
+			c.moveToPosition(2); // set current Budget
 			value = Integer.parseInt(c.getString(c
 					.getColumnIndex("current_value")));
 			url += "&budget=" + value;
-			c.moveToPosition(6); // set current Travel length
+			/*c.moveToPosition(6); // set current Travel length
 			value = Integer.parseInt(c.getString(c
 					.getColumnIndex("current_value")));
-			url += "&travellength=" + value;
-			c.moveToPosition(7); // set current Time
+			url += "&travellength=" + value;*/
+			c.moveToPosition(3); // set current Time
 			String time = c.getString(c.getColumnIndex("current_value"));
 			//String[] datetime_plit = time.split("and");
 			url += "&time=" + time;

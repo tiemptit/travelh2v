@@ -66,22 +66,20 @@ public class RateActivity extends Activity implements OnClickListener {
 					int value; // context value
 					r.setUsername(username);
 					r.setId_place(id_place);
-					c.moveToPosition(0); // set current Temperature
+					/*c.moveToPosition(0); // set current Temperature
 					value = Integer.parseInt(c.getString(c
 							.getColumnIndex("current_value")));
 					Log.i("Rate", "Temperature = " + value);
-					r.setId_temperature(value);
-					c.moveToPosition(1); // set current Weather
+					r.setId_temperature(value);*/
+					c.moveToPosition(0); // set current Weather
 					value = Integer.parseInt(c.getString(c
 							.getColumnIndex("current_value")));
-					Log.i("Rate", "Weather = " + value);
 					r.setId_weather(value);
-					c.moveToPosition(2); // set current Companion
+					c.moveToPosition(1); // set current Companion
 					value = Integer.parseInt(c.getString(c
 							.getColumnIndex("current_value")));
-					Log.i("Rate", "Companion = " + value);
 					r.setId_companion(value);
-					c.moveToPosition(3); // set current Mood
+					/*c.moveToPosition(3); // set current Mood
 					value = Integer.parseInt(c.getString(c
 							.getColumnIndex("current_value")));
 					Log.i("Rate", "Mood = " + value);
@@ -90,21 +88,20 @@ public class RateActivity extends Activity implements OnClickListener {
 					value = Integer.parseInt(c.getString(c
 							.getColumnIndex("current_value")));
 					Log.i("Rate", "Familiarity = " + value);
-					r.setId_farmiliarity(value);
-					c.moveToPosition(5); // set current Budget
+					r.setId_farmiliarity(value);*/
+					c.moveToPosition(2); // set current Budget
 					value = Integer.parseInt(c.getString(c
 							.getColumnIndex("current_value")));
-					Log.i("Rate", "Budget = " + value);
 					r.setId_budget(value);
-					c.moveToPosition(6); // set current Travel length
+					/*c.moveToPosition(6); // set current Travel length
 					value = Integer.parseInt(c.getString(c
 							.getColumnIndex("current_value")));
 					Log.i("Rate", "Travel length = " + value);
-					r.setId_travel_length(value);
-					c.moveToPosition(7); // set current Time
+					r.setId_travel_length(value);*/
+					c.moveToPosition(3); // set current Time
 					String time = c
 							.getString(c.getColumnIndex("current_value"));
-					Log.i("Rate", "Time = " + value);
+					Log.i("Rate", "Time = " + time);
 					r.setTime(time);
 					Log.i("Rate", "Rating = " + ratingBar.getRating());
 					r.setRating(ratingBar.getRating());
