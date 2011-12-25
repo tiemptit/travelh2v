@@ -20,7 +20,7 @@ namespace RecommenderSystem.Core.RS_Core
             this.ratingEstimated = ratingEstimated;
         }
 
-        public static List<Recommendation> Recommend(string user_email, int budget, int companion, int familiarity, int mood, int temperature, int weather)
+        public static List<Recommendation> Recommend(string user_email, int weather, int companion, int budget, string datetime)
         {
             User user = new User(user_email);
             List<Recommendation> result = new List<Recommendation>();
@@ -31,10 +31,10 @@ namespace RecommenderSystem.Core.RS_Core
                 if (
                     (candidates[i].budget.id == budget || candidates[i].budget.id ==0)
                     && (candidates[i].companion.id == companion || candidates[i].companion.id == 0)
-                    && (candidates[i].familiarity.id == familiarity || candidates[i].familiarity.id == 0)
-                    && (candidates[i].mood.id == mood || candidates[i].mood.id == 0)
-                    && (candidates[i].temperature.id == mood || candidates[i].temperature.id == 0)
-                    && (candidates[i].weather.id == mood || candidates[i].weather.id == 0)
+                    //&& (candidates[i].familiarity.id == familiarity || candidates[i].familiarity.id == 0)
+                    //&& (candidates[i].mood.id == mood || candidates[i].mood.id == 0)
+                    //&& (candidates[i].temperature.id == mood || candidates[i].temperature.id == 0)
+                    && (candidates[i].weather.id == weather || candidates[i].weather.id == 0)
                     )
                 {
                     candidates[i].GetData();
@@ -63,13 +63,13 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            if (result.Count < min && (chosenOne.budget.id != 0 || chosenOne.companion.id != 0 || chosenOne.familiarity.id != 0 || chosenOne.mood.id != 0 || chosenOne.temperature.id != 0 || chosenOne.weather.id != 0))
+            if (result.Count < min && (chosenOne.budget.id != 0 || chosenOne.companion.id != 0 || chosenOne.weather.id != 0))
             {
                 Segment Full = Segment.GetRoot();
                 foreach (Item item in ItemFails)
                 {
                     double predict = Regression.Prediction(user.id, item.id, Full);
-                    if (!Double.IsNaN(predict))
+                    if (!Double.IsNaN(predict) && predict != 0)
                     {
                         result.Add(new Recommendation(item, predict));
                     }

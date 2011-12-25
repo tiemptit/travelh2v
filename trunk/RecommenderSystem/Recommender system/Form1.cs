@@ -73,7 +73,7 @@ namespace Recommender_system
 
         private void btnEstimate_Context_Click(object sender, EventArgs e)
         {
-            Recommendation.Recommend("10010", 1, 0, 3, 0, 2, 3);
+            Recommendation.Recommend("10008", 1, 0, 3, "2");
         }
 
         private void btnTestMatrix_Click(object sender, EventArgs e)

@@ -1,10 +1,7 @@
 create proc pr_insertSegment
+@datetime int,
 @budget int,
 @companion int,
-@familiarity int,
-@mood int,
-@temperature int,
-@travelLength int,
 @weather int,
 @performance float,
 @correlationAvg float
@@ -12,7 +9,7 @@ as
 begin
 
 
-insert into segments values (@budget, @companion, @familiarity, @mood, @temperature, @travelLength, @weather, @performance, @correlationAvg)
+insert into segments values (@datetime, @budget, @companion, @weather, @performance, @correlationAvg)
 
 
 end

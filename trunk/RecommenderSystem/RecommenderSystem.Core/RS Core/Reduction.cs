@@ -140,10 +140,10 @@ namespace RecommenderSystem.Core.RS_Core
                     //    + ", " + segment.travelLength.id + ", " + segment.weather.id
                     //    + ", " + performamce_segment));
 
-                    DbHelper.RunScripts(string.Format("pr_insertSegment " + 0
-                        + ", " + segment.companion.id + ", " + segment.familiarity.id
-                        + ", " + segment.mood.id + ", " + 0
-                        + ", " + 0 + ", " + 0
+                    DbHelper.RunScripts(string.Format("pr_insertSegment " + 0 //time
+                        + ", " + segment.budget.id
+                        + ", " + segment.companion.id
+                        + ", " + segment.weather.id
                         + ", " + performamce_segment
                         + ", " + Training_Segment.Correlation_Avg));
                 }
@@ -164,9 +164,8 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            DbHelper.RunScripts(string.Format("pr_insertSegment " + 0
-                        + ", " + 0 + ", " + 0
-                        + ", " + 0 + ", " + 0
+            DbHelper.RunScripts(string.Format("pr_insertSegment "
+                        + 0 + ", " + 0
                         + ", " + 0 + ", " + 0
                         + ", " + 9999
                         + ", " + sum_Correlation_Avg_root/count_Correlation_Avg_root));
