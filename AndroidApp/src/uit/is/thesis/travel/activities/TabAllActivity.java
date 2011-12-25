@@ -79,7 +79,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		// set spinner adapter
 		if (this.mDBAdapter == null) {
 			this.mDBAdapter = new SQLiteDBAdapter(this);
-			mDBAdapter.open(); 
+			mDBAdapter.open();  //mDBAdapter.deleteDatabase();
 		}
 		c = mDBAdapter.getPlaceCategories();
 		startManagingCursor(c);
@@ -180,7 +180,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	public void getSearchResultList() {
 		// Receive result from Internet (select and sorted by name on server)
 		this.searchResultList_name = SearchService.SearchAllPlaces(
-				"http://10.0.2.2:33638/Service/GetAllPlaces", latitude,
+				"http://10.0.2.2/wcf4webservices/Service/GetAllPlaces", latitude,
 				longitude); 
 	}
 

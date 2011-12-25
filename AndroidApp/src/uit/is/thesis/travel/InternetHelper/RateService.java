@@ -186,11 +186,17 @@ public class RateService {
 	 * @return url string that is used to rate a place
 	 */
 	public String buildURL() {
-		return "http://10.0.2.2:33638/Service/Rate?username=" + username
-				+ "&place=" + id_place + "&temperature=" + id_temperature
-				+ "&weather=" + id_weather + "&companion=" + id_companion
-				+ "&familiarity=" + id_farmiliarity + "&mood=" + id_mood
-				+ "&budget=" + id_budget + "&travellength=" + id_travel_length
+		/*
+		 * return "http://10.0.2.2:33638/Service/Rate?username=" + username +
+		 * "&place=" + id_place + "&temperature=" + id_temperature + "&weather="
+		 * + id_weather + "&companion=" + id_companion + "&familiarity=" +
+		 * id_farmiliarity + "&mood=" + id_mood + "&budget=" + id_budget +
+		 * "&travellength=" + id_travel_length + "&time=" + time + "&rating=" +
+		 * rating;
+		 */
+		return "http://10.0.2.2/wcf4webservices/Service/Rate?username="
+				+ username + "&place=" + id_place + "&weather=" + id_weather
+				+ "&companion=" + id_companion + "&budget=" + id_budget
 				+ "&time=" + time + "&rating=" + rating;
 	}
 
