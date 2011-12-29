@@ -39,8 +39,6 @@ namespace TravelWebService
         }
         
         // Rate a place
-        //[WebInvoke(UriTemplate = "Rate?username={username}&place={id_place}&temperature={temperature}&weather={weather}&companion={companion}&familiarity={familiarity}&mood={mood}&budget={budget}&travellength={travellength}&time={time}&rating={rating}", Method = "GET")]
-        //public bool Rate(string username, int id_place, int temperature, int weather, int companion, int familiarity, int mood, int budget, int travellength, string time, float rating)
         [WebInvoke(UriTemplate = "Rate?username={username}&place={id_place}&weather={weather}&companion={companion}&budget={budget}&time={time}&rating={rating}", Method = "GET")]
         public bool Rate(string username, int id_place, int weather, int companion, int budget, string time, float rating)
         {
@@ -49,14 +47,10 @@ namespace TravelWebService
             RatingModel r = new RatingModel();
             r.username = username;
             r.id_place = id_place;
-            //r.id_temperature = temperature;
             r.id_weather = weather;
             r.id_companion = companion;
-            //r.id_farmiliarity = familiarity;
-            //r.id_mood = mood;
             r.id_budget = budget;
-            //r.id_travel_length = travellength;
-            r.time = time;
+            r.time = time.Replace("and"," ");
             r.rating = rating;
             return r.Rate();
         }
