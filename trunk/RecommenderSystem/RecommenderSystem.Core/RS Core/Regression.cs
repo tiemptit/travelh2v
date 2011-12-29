@@ -82,6 +82,11 @@ namespace RecommenderSystem.Core.RS_Core
             {
                 sum += Math.Pow(segment.data[Uij[u], j] - ExpertScore(segment.data[Uij[u], j], segment), 2);
             }
+
+            //sum = 0
+            if (sum == 0)
+                return 0.01;
+            else
             return sum / Uij.Length;
         }
 
@@ -119,16 +124,18 @@ namespace RecommenderSystem.Core.RS_Core
         {
             double sum = 0;
             int count = 0;
-            for (int i = 0; i < segment.item_id.Length - 2; i++)
-                for (int j = i + 1; j < segment.item_id.Length - 1; j++)
-                    for (int k = j + 1; k < segment.item_id.Length; k++)
+            for (int i = 0; i < segment.item_id.Length - 3; i++)
+                for (int j = i + 1; j < segment.item_id.Length - 2; j++)
+                    for (int k = j + 1; k < segment.item_id.Length - 1; k++)
                     {
                         //int item_i_id = Convert.ToInt32(segment.item_id[i].Trim());
                         //int item_j_id = Convert.ToInt32(segment.item_id[j].Trim());
                         //int item_k_id = Convert.ToInt32(segment.item_id[k].Trim());
                         //sum += Correlation(item_i_id, item_j_id, item_k_id, segment);
                         double temp = Correlation(i, j, k, segment);
-                        if (!Double.IsNaN(temp))
+                        if (Double.IsInfinity(temp))
+                            temp = Correlation(i, j, k, segment);
+                        if (!Double.IsNaN(temp) && !Double.IsInfinity(temp))
                         {
                             sum += temp;
                             count++;

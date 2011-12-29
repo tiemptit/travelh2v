@@ -35,7 +35,7 @@ namespace TravelWebService
 
         public static List<PlaceModel> GetAllPlaces()
         {
-            return GetAllFromDataTable(DbHelper.RunScriptsWithTable(string.Format("Select * from places order by name")));
+            return GetAllFromDataTable(DbHelper.RunScriptsWithTable(string.Format("Select * from places order by name"), "Connection String"));
         }
 
         public static List<PlaceModel> GetAllFromDataTable(DataTable data)

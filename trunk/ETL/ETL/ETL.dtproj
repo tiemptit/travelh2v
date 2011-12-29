@@ -43,28 +43,8 @@
       <References />
     </DtsPackage>
     <DtsPackage FormatVersion="3">
-      <Name>DimFamiliarity.dtsx</Name>
-      <FullPath>DimFamiliarity.dtsx</FullPath>
-      <References />
-    </DtsPackage>
-    <DtsPackage FormatVersion="3">
-      <Name>DimMood.dtsx</Name>
-      <FullPath>DimMood.dtsx</FullPath>
-      <References />
-    </DtsPackage>
-    <DtsPackage FormatVersion="3">
       <Name>DimPlace.dtsx</Name>
       <FullPath>DimPlace.dtsx</FullPath>
-      <References />
-    </DtsPackage>
-    <DtsPackage FormatVersion="3">
-      <Name>DimTemperature.dtsx</Name>
-      <FullPath>DimTemperature.dtsx</FullPath>
-      <References />
-    </DtsPackage>
-    <DtsPackage FormatVersion="3">
-      <Name>DimTravelLength.dtsx</Name>
-      <FullPath>DimTravelLength.dtsx</FullPath>
       <References />
     </DtsPackage>
     <DtsPackage FormatVersion="3">

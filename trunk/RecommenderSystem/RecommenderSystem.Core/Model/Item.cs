@@ -70,7 +70,7 @@ namespace RecommenderSystem.Core.Model
 
         public void GetDataById(int id)
         {
-            DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_place where place_key = " + id)).Rows[0];
+            DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_place where place_key = " + id), "Data Warehouse").Rows[0];
             this.id = id;
             this.place_category = new PlaceCategoryModel();
             this.place_category.id = -1;
@@ -103,7 +103,7 @@ namespace RecommenderSystem.Core.Model
          */
         public static List<Item> GetItemRatedByUser(User user)
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings where id_user = " + user.id));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings where id_user = " + user.id), "Connection String");
 
             List<Item> result = new List<Item>();
             for (int i = 0; i < data.Rows.Count; i++)

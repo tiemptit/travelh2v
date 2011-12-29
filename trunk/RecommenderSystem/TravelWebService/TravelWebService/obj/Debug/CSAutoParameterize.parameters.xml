@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="Connection String-Web.config Connection String" description="Connection String Connection String used in web.config by the application to access the database." defaultvalue="Database=TravelH2V;Server=.\S2K8R2;Integrated Security=SSPI" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Learning\\My\ Thesis\\In\ process\\RecommenderSystem\\TravelWebService\\TravelWebService\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Connection String']/@connectionString" />
+  </parameter>
+  <parameter name="Data Warehouse-Web.config Connection String" description="Data Warehouse Connection String used in web.config by the application to access the database." defaultvalue="Database=TravelH2V_DW;Server=.\S2K8R2;Integrated Security=SSPI" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Learning\\My\ Thesis\\In\ process\\RecommenderSystem\\TravelWebService\\TravelWebService\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Data Warehouse']/@connectionString" />
+  </parameter>
+  <parameter name="Cube-Web.config Connection String" description="Cube Connection String used in web.config by the application to access the database." defaultvalue="Data Source=.\S2K8R2;Provider=MSOLAP;Initial Catalog=TravelCube" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\Learning\\My\ Thesis\\In\ process\\RecommenderSystem\\TravelWebService\\TravelWebService\\obj\\Debug\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Cube']/@connectionString" />
+  </parameter>
+</parameters>

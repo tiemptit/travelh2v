@@ -15,9 +15,6 @@
         <ID>Dim Budget</ID>
       </Dimension>
       <Dimension>
-        <ID>Dim Temperature</ID>
-      </Dimension>
-      <Dimension>
         <ID>Dim Datetime</ID>
       </Dimension>
       <Dimension>
@@ -25,15 +22,6 @@
       </Dimension>
       <Dimension>
         <ID>Dim Companion</ID>
-      </Dimension>
-      <Dimension>
-        <ID>Dim Travel Length</ID>
-      </Dimension>
-      <Dimension>
-        <ID>Dim Mood</ID>
-      </Dimension>
-      <Dimension>
-        <ID>Dim Familiarity</ID>
       </Dimension>
       <Dimension>
         <ID>Dim Weather</ID>

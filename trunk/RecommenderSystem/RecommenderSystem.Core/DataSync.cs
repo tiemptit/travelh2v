@@ -15,13 +15,13 @@ namespace RecommenderSystem.Core
 
             List<string> budgetSheet = new List<string>() { "Budget" };
             List<string> companionSheet = new List<string>() { "Companion" };
-            List<string> familiaritySheet = new List<string>() { "Familiarity" };
-            List<string> moodSheet = new List<string>() { "Mood" };
+            //List<string> familiaritySheet = new List<string>() { "Familiarity" };
+            //List<string> moodSheet = new List<string>() { "Mood" };
             List<string> placeCatSheet = new List<string>() { "Place_Categories" };
             List<string> placesSheet = new List<string>() { "Places" };
             List<string> realRatingSheet = new List<string>() { "Real_Ratings" };
-            List<string> temperatureSheet = new List<string>() { "Temperature" };
-            List<string> travelLengthSheet = new List<string>() { "Travel_Length" };
+            //List<string> temperatureSheet = new List<string>() { "Temperature" };
+            //List<string> travelLengthSheet = new List<string>() { "Travel_Length" };
             List<string> usersSheet = new List<string>() { "Users" };
             List<string> weatherSheet = new List<string>() { "Weather" };
 
@@ -35,7 +35,7 @@ namespace RecommenderSystem.Core
                 result = result && ImportExcelSheetData(path, sheetName, "companion", "pr_insertNewCompanion");
             }
 
-            foreach (string sheetName in ExcelHelper.findSheets(path, familiaritySheet))
+            /*foreach (string sheetName in ExcelHelper.findSheets(path, familiaritySheet))
             {
                 result = result && ImportExcelSheetData(path, sheetName, "familiarity", "pr_insertNewFamiliarity");
             }
@@ -43,7 +43,7 @@ namespace RecommenderSystem.Core
             foreach (string sheetName in ExcelHelper.findSheets(path, moodSheet))
             {
                 result = result && ImportExcelSheetData(path, sheetName, "mood", "pr_insertNewMood");
-            }
+            }*/
 
             foreach (string sheetName in ExcelHelper.findSheets(path, placeCatSheet))
             {
@@ -55,7 +55,7 @@ namespace RecommenderSystem.Core
                 result = result && ImportExcelSheetData(path, sheetName, "places", "pr_insertNewPlace");
             }
 
-            foreach (string sheetName in ExcelHelper.findSheets(path, temperatureSheet))
+            /*foreach (string sheetName in ExcelHelper.findSheets(path, temperatureSheet))
             {
                 result = result && ImportExcelSheetData(path, sheetName, "temperature", "pr_insertNewTemperature");
             }
@@ -63,7 +63,7 @@ namespace RecommenderSystem.Core
             foreach (string sheetName in ExcelHelper.findSheets(path, travelLengthSheet))
             {
                 result = result && ImportExcelSheetData(path, sheetName, "travel_length", "pr_insertNewTravelLength");
-            }
+            }*/
 
             foreach (string sheetName in ExcelHelper.findSheets(path, weatherSheet))
             {
@@ -106,7 +106,7 @@ namespace RecommenderSystem.Core
 
                 foreach (string item in dataIdToDelete)
                 {
-                    DbHelper.RunScripts(string.Format("delete from " + table_name + " where id = {0}", item));
+                    DbHelper.RunScripts(string.Format("delete from " + table_name + " where id = {0}", item), "Connection String");
                 }
 
                 // create the headerList

@@ -45,13 +45,9 @@
     <Compile Include="Helper\SystemHelper.cs" />
     <Compile Include="Model\Budget.cs" />
     <Compile Include="Model\Companion.cs" />
-    <Compile Include="Model\Familiarity.cs" />
     <Compile Include="Model\Item.cs" />
-    <Compile Include="Model\Mood.cs" />
     <Compile Include="Model\PlaceCategoryModel.cs" />
     <Compile Include="Model\Rating.cs" />
-    <Compile Include="Model\Temperature.cs" />
-    <Compile Include="Model\TravelLength.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Weather.cs" />
     <Compile Include="RS Core\CollaborativeFiltering.cs" />

@@ -8,7 +8,7 @@
       <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:DiagramLayout</Name>
       <Value>
         <dds xmlns="">
-          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="2" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-1271" scrolltop="459" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="5583" y="6297" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="1" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
+          <diagram fontclsid="{0BE35203-8F91-11CE-9DE3-00AA004BB851}" mouseiconclsid="{0BE35204-8F91-11CE-9DE3-00AA004BB851}" defaultlayout="MSDDS.Rectilinear" defaultlineroute="MSDDS.Rectilinear" version="7" nextobject="3" scale="100" pagebreakanchorx="0" pagebreakanchory="0" pagebreaksizex="0" pagebreaksizey="0" scrollleft="-1271" scrolltop="459" gridx="150" gridy="150" marginx="5000" marginy="5000" zoom="100" x="5583" y="9604" backcolor="15334399" defaultpersistence="2" PrintPageNumbersMode="3" PrintMarginTop="0" PrintMarginBottom="635" PrintMarginLeft="0" PrintMarginRight="0" marqueeselectionmode="0" mousepointer="0" snaptogrid="0" autotypeannotation="1" showscrollbars="1" viewpagebreaks="0" donotforceconnectorsbehindshapes="1" backpictureclsid="{00000000-0000-0000-0000-000000000000}">
             <font>
               <ddsxmlobjectstreamwrapper binary="01000000900144420100065461686f6d61" />
             </font>
@@ -19,7 +19,7 @@
           <layoutmanager>
             <ddsxmlobj />
           </layoutmanager>
-          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="dim_user" left="20" top="0" logicalid="1" controlid="1" masterid="0" hint1="0" hint2="0" width="3000" height="3149" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
+          <ddscontrol controlprogid="DdsShapes.DdsObjectManagedBridge.2" tooltip="dim_user" left="20" top="0" logicalid="2" controlid="1" masterid="0" hint1="0" hint2="0" width="3000" height="3149" noresize="0" nomove="0" nodefaultattachpoints="0" autodrag="1" usedefaultiddshape="1" selectable="1" showselectionhandles="1" allownudging="1" isannotation="0" dontautolayout="0" groupcollapsed="0" tabstop="1" visible="1" snaptogrid="0">
             <control>
               <ddsxmlobjectstreaminitwrapper binary="00080000b80b00004d0c0000" />
             </control>
@@ -93,35 +93,6 @@
       </KeyColumns>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
     </Attribute>
-    <Attribute dwd:design-time-name="1e8bc292-fc42-45a3-b879-8481bc897551">
-      <ID>Password</ID>
-      <Name>Password</Name>
-      <KeyColumns>
-        <KeyColumn dwd:design-time-name="2fbc179d-fe2d-4b7b-ac34-33a9d4cd14b4">
-          <DataType>WChar</DataType>
-          <DataSize>100</DataSize>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="3862699f-9467-44d0-941a-8d7a4b390f3d">
-            <TableID>dbo_dim_user</TableID>
-            <ColumnID>password</ColumnID>
-          </Source>
-        </KeyColumn>
-      </KeyColumns>
-      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
-    </Attribute>
-    <Attribute dwd:design-time-name="bc9701c1-37d5-422a-9236-1931587ec32f">
-      <ID>Year Of Birth</ID>
-      <Name>Year Of Birth</Name>
-      <KeyColumns>
-        <KeyColumn dwd:design-time-name="9be127ab-87af-4887-86f9-d8a86bc9fc8d">
-          <DataType>Integer</DataType>
-          <Source xsi:type="ColumnBinding" dwd:design-time-name="765b7f43-b732-4aad-be67-a4dd47d5a3de">
-            <TableID>dbo_dim_user</TableID>
-            <ColumnID>year_of_birth</ColumnID>
-          </Source>
-        </KeyColumn>
-      </KeyColumns>
-      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
-    </Attribute>
     <Attribute dwd:design-time-name="d560c1eb-c8d2-4bf3-ad64-ed333cc924d6">
       <ID>Gender</ID>
       <Name>Gender</Name>
@@ -154,19 +125,29 @@
           <AttributeID>Email</AttributeID>
           <Name>Email</Name>
         </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="8b332a41-b341-4ce2-a830-274751f2fbcb">
-          <AttributeID>Password</AttributeID>
-          <Name>Password</Name>
-        </AttributeRelationship>
-        <AttributeRelationship dwd:design-time-name="5b274ba9-7c3e-4eb8-974a-1fdfab1c5698">
-          <AttributeID>Year Of Birth</AttributeID>
-          <Name>Year Of Birth</Name>
-        </AttributeRelationship>
         <AttributeRelationship dwd:design-time-name="3afbffc1-e889-426d-a93b-6067cf98a202">
           <AttributeID>Gender</AttributeID>
           <Name>Gender</Name>
         </AttributeRelationship>
+        <AttributeRelationship dwd:design-time-name="85dd6310-7405-4ba1-b3bb-9ea6ee1b9953">
+          <AttributeID>Birthday</AttributeID>
+          <Name>Birthday</Name>
+        </AttributeRelationship>
       </AttributeRelationships>
+      <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
+    </Attribute>
+    <Attribute dwd:design-time-name="2b93fc79-1fae-49f6-8df7-071b82269397">
+      <ID>Birthday</ID>
+      <Name>Birthday</Name>
+      <KeyColumns>
+        <KeyColumn dwd:design-time-name="652082f8-bd02-4dc0-af60-d73c515c983d">
+          <DataType>Date</DataType>
+          <Source xsi:type="ColumnBinding" dwd:design-time-name="f80019a1-cd77-4880-806c-f7b3491acce4">
+            <TableID>dbo_dim_user</TableID>
+            <ColumnID>birthday</ColumnID>
+          </Source>
+        </KeyColumn>
+      </KeyColumns>
       <ddl200:ProcessingState>Unprocessed</ddl200:ProcessingState>
     </Attribute>
   </Attributes>

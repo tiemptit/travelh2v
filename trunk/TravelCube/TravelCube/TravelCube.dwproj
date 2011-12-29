@@ -24,10 +24,6 @@
       <FullPath>Dim Budget.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>Dim Temperature.dim</Name>
-      <FullPath>Dim Temperature.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>Dim Datetime.dim</Name>
       <FullPath>Dim Datetime.dim</FullPath>
     </ProjectItem>
@@ -38,18 +34,6 @@
     <ProjectItem>
       <Name>Dim Companion.dim</Name>
       <FullPath>Dim Companion.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Travel Length.dim</Name>
-      <FullPath>Dim Travel Length.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Mood.dim</Name>
-      <FullPath>Dim Mood.dim</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Dim Familiarity.dim</Name>
-      <FullPath>Dim Familiarity.dim</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Dim Weather.dim</Name>
