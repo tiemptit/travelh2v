@@ -63,7 +63,7 @@ public class TabSuggestionsActivity extends Activity implements
 	// current Latitude - Longitude of user
 	double latitude, longitude;
 	// buttons on screen
-	Button btnAz, btnRating, btnDistance;
+	Button btnAz, btnRating, btnDistance, btnRefresh;
 	Spinner spinnerType;
 	boolean loadSpinnerType = false;
 	boolean btnAzFirstRun = true;
@@ -79,6 +79,7 @@ public class TabSuggestionsActivity extends Activity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_suggestions);
+		
 		if (!isConnectToInternet()) { // no Internet connection, quit
 			TextView myView = new TextView(getApplicationContext());
 			myView.setText("There is no Internet Connection!" + "\n\n"
@@ -198,6 +199,18 @@ public class TabSuggestionsActivity extends Activity implements
 			displayListView(searchResultList_distance);
 		}
 			break;
+		case R.id.btnRefreshS: {
+			// Create and show ProgressDialog
+			progressDialog = new ProgressDialog(this);
+			progressDialog.setMessage("Reloading ... Please wait!");
+			progressDialog.show();
+			getLatitudeLongitude();
+			getSearchResultList();
+			btnAzFirstRun = false;
+			btnAz.performClick();
+			progressDialog.dismiss();
+		}
+			break;
 		}
 	}
 
@@ -243,6 +256,8 @@ public class TabSuggestionsActivity extends Activity implements
 				}
 			}
 			if (username != null) {
+				//test user 10008
+				//username="10008";
 				url += "username=" + username;
 				// get current context from SQLite
 				Cursor c = mDBAdapter.getContextConfig();
@@ -288,10 +303,10 @@ public class TabSuggestionsActivity extends Activity implements
 				// url += "&time=" +
 				// datetime_plit[0].trim()+datetime_plit[1].trim();
 				c.close();
-				Log.i("Rate", "url = " + url);
+				Log.i("Rate", "url suggestions= " + url);
 				// Receive result from Internet (sorted by estimated rating)
 				this.searchResultList_name = SearchService.SuggestionPlaces(
-						url_test, latitude, longitude);
+						url, latitude, longitude);
 			} else { // have no google account
 				TextView myView = new TextView(getApplicationContext());
 				myView.setText("Please setup a Google account in your Android smartphone first!"
@@ -301,12 +316,7 @@ public class TabSuggestionsActivity extends Activity implements
 						TabSuggestionsActivity.this);
 				alertDialog.setTitle("Alert");
 				alertDialog.setView(myView);
-				alertDialog.setPositiveButton("OK",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface arg0, int arg1) {
-								finish();
-							}
-						});
+				alertDialog.setPositiveButton("OK",null);
 				alertDialog.show();
 			}
 		} catch (Exception e) {
@@ -318,9 +328,7 @@ public class TabSuggestionsActivity extends Activity implements
 		// Method of interface LocationListener
 		@Override
 		public void onLocationChanged(Location location) {
-			getLatitudeLongitude();
-			getSearchResultList();
-			btnAz.performClick();
+			btnRefresh.performClick();
 		}
 
 		// Method of interface LocationListener
@@ -430,7 +438,6 @@ public class TabSuggestionsActivity extends Activity implements
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
-			Log.i("Rate", "run resume");
 			// button onclick listener
 			btnAz = (Button) findViewById(R.id.btnAzS);
 			btnAz.setOnClickListener(this);
@@ -438,10 +445,11 @@ public class TabSuggestionsActivity extends Activity implements
 			btnRating.setOnClickListener(this);
 			btnDistance = (Button) findViewById(R.id.btnDistanceS);
 			btnDistance.setOnClickListener(this);
+			btnRefresh = (Button) findViewById(R.id.btnRefreshS);
+			btnRefresh.setOnClickListener(this);
 			spinnerType = (Spinner) findViewById(R.id.spinner_typeS);
 			spinnerType.setOnItemSelectedListener(spinnerTypeChange);
 
-			Log.i("Rate", "set adapter");
 			// set adapter
 			if (this.mDBAdapter == null) {
 				this.mDBAdapter = new SQLiteDBAdapter(this);
@@ -492,6 +500,21 @@ public class TabSuggestionsActivity extends Activity implements
 				alertDialog.setView(myView);
 				alertDialog.setPositiveButton("OK", null);
 				alertDialog.show();
+			}
+			
+			// if can't get GPS signal
+			if(latitude == ConfigUtil.LATITUDE && longitude == ConfigUtil.LONGITUDE){
+			TextView myView = new TextView(getApplicationContext());
+			myView.setText("Phone can't get the GPS signal! Your current location will be set to the default: at Reunification Place (Dinh Doc Lap), district 1, HCMC."
+					+ "\n\n" + "Please check the GPS service on your phone!"
+					+ "\n\n" + "(If you're inside your house, you can't get the GPS signal!)");
+			myView.setTextSize(15);
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+					TabSuggestionsActivity.this);
+			alertDialog.setTitle("Alert");
+			alertDialog.setView(myView);
+			alertDialog.setPositiveButton("OK",null);
+			alertDialog.show();
 			}
 		}
 	};

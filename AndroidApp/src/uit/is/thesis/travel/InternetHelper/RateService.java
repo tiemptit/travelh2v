@@ -6,6 +6,8 @@ package uit.is.thesis.travel.InternetHelper;
 import java.io.InputStream;
 import java.net.URL;
 
+import android.util.Log;
+
 import uit.is.thesis.travel.utilities.ConfigUtil;
 import uit.is.thesis.travel.utilities.JsonUtil;
 
@@ -211,6 +213,7 @@ public class RateService {
 		String rs = null;
 		try {
 			String url = buildURL();
+			Log.i("Rate", "url rate = " + url);
 			URL feedUrl = new URL(url);
 			inputStream = feedUrl.openConnection().getInputStream();
 			rs = JsonUtil.convertStreamToString(inputStream);

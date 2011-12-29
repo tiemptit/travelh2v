@@ -9,6 +9,9 @@
 	<ImageView android:id="@+id/title_allplaces"
 		android:layout_width="fill_parent" android:layout_height="46dip"
 		android:src="@drawable/title_allplaces" />
+	<Button android:id="@+id/btnRefresh" android:layout_width="46dip"
+		android:layout_height="46dip" android:layout_alignParentRight="true"
+		android:background="@drawable/btn_selector_refresh" />
 
 	<!-- body -->
 	<Button android:id="@+id/btnAz" android:layout_width="80dip"
@@ -28,7 +31,7 @@
 	<ListView android:id="@+id/listViewResult"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:divider="@android:color/transparent" android:paddingBottom="2dip"
-		android:dividerHeight="2dp" android:layout_below="@+id/btnAz">
+		android:dividerHeight="1dp" android:layout_below="@+id/btnAz">
 	</ListView>
 
 </RelativeLayout>

@@ -130,7 +130,6 @@ public class SortListUtil {
 			temp.add(p);
 		}
 		Collections.sort(temp, new RatingEstimateComparator());
-		Log.i("Rate", "Suggestions collections sort");
 		for (int i = 0; i < temp.size(); i++)
 			temp.get(i).setId_itemOnListView(i);
 		return temp;

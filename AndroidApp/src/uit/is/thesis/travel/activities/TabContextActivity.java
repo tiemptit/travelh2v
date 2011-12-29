@@ -120,7 +120,7 @@ public class TabContextActivity extends Activity implements OnClickListener {
 				String s_plit[] = DateFormat
 						.format("yyyy-MM-dd hh:mm", d.getTime()).toString()
 						.split(" ");
-				mDBAdapter.updateContextConfig(0, 0, 0, s_plit[0]
+				mDBAdapter.updateContextConfig(1, 1, 1, s_plit[0]
 						+ "and" + s_plit[1]);
 				LoadCurrentContextConfig();
 			} catch (Exception e) {
@@ -132,11 +132,11 @@ public class TabContextActivity extends Activity implements OnClickListener {
 				// update current context config
 				mDBAdapter.updateContextConfig(
 						//spinner_temperature.getSelectedItemPosition(),
-						spinner_weather.getSelectedItemPosition(),
-						spinner_companion.getSelectedItemPosition(),
+						spinner_weather.getSelectedItemPosition()+1,
+						spinner_companion.getSelectedItemPosition()+1,
 						//spinner_familiarity.getSelectedItemPosition(),
 						//spinner_mood.getSelectedItemPosition(),
-						spinner_budget.getSelectedItemPosition(),
+						spinner_budget.getSelectedItemPosition()+1,
 						//spinner_travel_length.getSelectedItemPosition(),
 						btnPickDate.getText().toString().trim() + "and" + btnPickTime.getText().toString().trim());
 			} catch (Exception e) {
@@ -171,11 +171,11 @@ public class TabContextActivity extends Activity implements OnClickListener {
 		c.moveToPosition(0); // set current Weather
 		value = Integer
 				.parseInt(c.getString(c.getColumnIndex("current_value")));
-		spinner_weather.setSelection(value);
+		spinner_weather.setSelection(value-1);
 		c.moveToPosition(1); // set current Companion
 		value = Integer
 				.parseInt(c.getString(c.getColumnIndex("current_value")));
-		spinner_companion.setSelection(value);
+		spinner_companion.setSelection(value-1);
 		/*c.moveToPosition(3); // set current Mood
 		value = Integer
 				.parseInt(c.getString(c.getColumnIndex("current_value")));
@@ -187,7 +187,7 @@ public class TabContextActivity extends Activity implements OnClickListener {
 		c.moveToPosition(2); // set current Budget
 		value = Integer
 				.parseInt(c.getString(c.getColumnIndex("current_value")));
-		spinner_budget.setSelection(value);
+		spinner_budget.setSelection(value-1);
 		/*c.moveToPosition(6); // set current Travel length
 		value = Integer
 				.parseInt(c.getString(c.getColumnIndex("current_value")));
