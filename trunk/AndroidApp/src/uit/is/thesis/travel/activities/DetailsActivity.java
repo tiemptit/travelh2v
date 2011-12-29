@@ -10,12 +10,16 @@ import java.net.URL;
 
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import uit.is.thesis.travel.models.PlaceModel;
+import uit.is.thesis.travel.utilities.ConfigUtil;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -28,7 +32,7 @@ import android.widget.ToggleButton;
  * @author LEHIEU
  * 
  */
-public class DetailsActivity extends Activity implements OnClickListener {
+public class DetailsActivity extends Activity implements OnClickListener, Runnable {
 	PlaceModel place;
 	SQLiteDBAdapter mDbAdapter = null;
 	// buttons on screen
@@ -43,77 +47,21 @@ public class DetailsActivity extends Activity implements OnClickListener {
 	ImageView imview;
 	Bitmap bmImg;
 
+	private ProgressDialog progressDialog;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.details);
 
-		// Get intent and receive data from the parent activity
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		place = (PlaceModel) bundle.getSerializable("currentplace");
-
-		// get layouts id
-		ToggleBtnBasicInfo = (ToggleButton) findViewById(R.id.ToggleBtnBasicInfo);
-		ToggleBtnBasicInfo.setOnClickListener(this);
-		ToggleBtnBasicInfo.setChecked(true);
-		ToggleBtnHistory = (ToggleButton) findViewById(R.id.ToggleBtnHistory);
-		ToggleBtnHistory.setOnClickListener(this);
-		ToggleBtnHistory.setChecked(true);
-		ToggleBtnMoreDetails = (ToggleButton) findViewById(R.id.ToggleBtnMoreDetails);
-		ToggleBtnMoreDetails.setOnClickListener(this);
-		ToggleBtnMoreDetails.setChecked(true);
-		ToggleBtnSource = (ToggleButton) findViewById(R.id.ToggleBtnSource);
-		ToggleBtnSource.setOnClickListener(this);
-		ToggleBtnSource.setChecked(true);
-		btnRateDetails = (Button) findViewById(R.id.btnRateDetails);
-		btnRateDetails.setOnClickListener(this);
-		btnShowOnMap = (Button) findViewById(R.id.btnShowOnMap);
-		btnShowOnMap.setOnClickListener(this);
-		btnAddFavorite = (Button) findViewById(R.id.btnAddFavorite);
-		btnAddFavorite.setOnClickListener(this);
-		btnBackDetails = (Button) findViewById(R.id.btnBackDetails);
-		btnBackDetails.setOnClickListener(this);
-
-		txtViewPlaceName = (TextView) findViewById(R.id.txtViewPlaceName);
-		txtViewPlaceNameContent = (TextView) findViewById(R.id.txtViewPlaceNameContent);
-		txtViewPlaceNameContent.setText(place.getName());
-		txtViewPhone = (TextView) findViewById(R.id.txtViewPhone);
-		txtViewPhoneContent = (TextView) findViewById(R.id.txtViewPhoneContent);
-		txtViewPhoneContent.setText(place.getPhone_number());
-		txtViewPhoneContent.setOnClickListener(this);
-		txtViewAddress = (TextView) findViewById(R.id.txtViewAddress);
-		txtViewAddressContent = (TextView) findViewById(R.id.txtViewAddressContent);
-		String address = "";
-		address += place.getHouse_number() + ", " + place.getStreet() + ", "
-				+ place.getWard() + ", " + place.getDistrict() + ", "
-				+ place.getCity();
-		txtViewAddressContent.setText(address);
-		txtViewEmail = (TextView) findViewById(R.id.txtViewEmail);
-		txtViewEmailContent = (TextView) findViewById(R.id.txtViewEmailContent);
-		txtViewEmailContent.setText(place.getEmail());
-		txtViewWebsite = (TextView) findViewById(R.id.txtViewWebsite);
-		txtViewWebsiteContent = (TextView) findViewById(R.id.txtViewWebsiteContent);
-		txtViewWebsiteContent.setText(place.getWebsite());
-		txtViewWebsiteContent.setOnClickListener(this);
-		txtViewHistoryContent = (TextView) findViewById(R.id.txtViewHistoryContent);
-		txtViewHistoryContent.setText(place.getHistory());
-		txtViewMoreDetailsContent = (TextView) findViewById(R.id.txtViewMoreDetailsContent);
-		txtViewMoreDetailsContent.setText(place.getDetails());
-		txtViewSourceContent = (TextView) findViewById(R.id.txtViewSourceContent);
-		txtViewSourceContent.setText(place.getSources());
-		imview = (ImageView) findViewById(R.id.imview);
-		//load image
-		String fileUrl = "http://10.0.2.2/wcf4webservices/imgPlacesResize/" + place.imgurl;
-		//String fileUrl = place.getImgurl();
-		bmImg = downloadFile(fileUrl);
-		imview.setImageBitmap(bmImg);
+		// Create and show ProgressDialog
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setMessage("Loading ... Please wait!");
+		progressDialog.show();
 		
-		// open SQLite DB connection
-		if (this.mDbAdapter == null) {
-			this.mDbAdapter = new SQLiteDBAdapter(this);
-			mDbAdapter.open();
-		}
+		// Create thread and start it
+		Thread thread = new Thread(this);
+		thread.start();
 	}
 
 	// button onclick handler
@@ -327,4 +275,87 @@ public class DetailsActivity extends Activity implements OnClickListener {
 		}
 		return bmImg;
 	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		try{
+		// Get intent and receive data from the parent activity
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		place = (PlaceModel) bundle.getSerializable("currentplace");
+		// get layouts id
+		ToggleBtnBasicInfo = (ToggleButton) findViewById(R.id.ToggleBtnBasicInfo);
+		ToggleBtnBasicInfo.setOnClickListener(this);
+		ToggleBtnHistory = (ToggleButton) findViewById(R.id.ToggleBtnHistory);
+		ToggleBtnHistory.setOnClickListener(this);
+		ToggleBtnMoreDetails = (ToggleButton) findViewById(R.id.ToggleBtnMoreDetails);
+		ToggleBtnMoreDetails.setOnClickListener(this);
+		ToggleBtnSource = (ToggleButton) findViewById(R.id.ToggleBtnSource);
+		ToggleBtnSource.setOnClickListener(this);	
+		btnRateDetails = (Button) findViewById(R.id.btnRateDetails);
+		btnRateDetails.setOnClickListener(this);
+		btnShowOnMap = (Button) findViewById(R.id.btnShowOnMap);
+		btnShowOnMap.setOnClickListener(this);
+		btnAddFavorite = (Button) findViewById(R.id.btnAddFavorite);
+		btnAddFavorite.setOnClickListener(this);
+		btnBackDetails = (Button) findViewById(R.id.btnBackDetails);
+		btnBackDetails.setOnClickListener(this);
+		txtViewPlaceName = (TextView) findViewById(R.id.txtViewPlaceName);
+		txtViewPlaceNameContent = (TextView) findViewById(R.id.txtViewPlaceNameContent);	
+		txtViewPhone = (TextView) findViewById(R.id.txtViewPhone);
+		txtViewPhoneContent = (TextView) findViewById(R.id.txtViewPhoneContent);
+		txtViewPhoneContent.setOnClickListener(this);
+		txtViewAddress = (TextView) findViewById(R.id.txtViewAddress);
+		txtViewAddressContent = (TextView) findViewById(R.id.txtViewAddressContent);
+			
+		txtViewEmail = (TextView) findViewById(R.id.txtViewEmail);
+		txtViewEmailContent = (TextView) findViewById(R.id.txtViewEmailContent);		
+		txtViewWebsite = (TextView) findViewById(R.id.txtViewWebsite);
+		txtViewWebsiteContent = (TextView) findViewById(R.id.txtViewWebsiteContent);	
+		txtViewWebsiteContent.setOnClickListener(this);
+		txtViewHistoryContent = (TextView) findViewById(R.id.txtViewHistoryContent);	
+		txtViewMoreDetailsContent = (TextView) findViewById(R.id.txtViewMoreDetailsContent);
+		txtViewSourceContent = (TextView) findViewById(R.id.txtViewSourceContent);	
+		imview = (ImageView) findViewById(R.id.imview);
+		// load image
+		String fileUrl = "http://" + ConfigUtil.SERVER
+				+ "/wcf4webservices/imgPlacesResize/" + place.imgurl;
+		bmImg = downloadFile(fileUrl);
+		// open SQLite DB connection
+		if (this.mDbAdapter == null) {
+			this.mDbAdapter = new SQLiteDBAdapter(this);
+			mDbAdapter.open();
+		}
+		handler.sendEmptyMessage(0);	
+		
+		}catch(Exception e){
+		}
+	}
+	
+	/** Handler for handling message from method run() */
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message message) {			
+			ToggleBtnBasicInfo.setChecked(true);
+			ToggleBtnHistory.setChecked(true);
+			ToggleBtnMoreDetails.setChecked(true);
+			ToggleBtnSource.setChecked(true);
+			txtViewPlaceNameContent.setText(place.getName());
+			txtViewPhoneContent.setText(place.getPhone_number());
+			String address = "";
+			address += place.getHouse_number() + ", " + place.getStreet() + ", P."
+					+ place.getWard() + ", Q." + place.getDistrict() + ", "
+					+ place.getCity();
+			txtViewAddressContent.setText(address);
+			txtViewEmailContent.setText(place.getEmail());
+			txtViewWebsiteContent.setText(place.getWebsite());
+			txtViewHistoryContent.setText(place.getHistory());
+			txtViewMoreDetailsContent.setText(place.getDetails());
+			txtViewSourceContent.setText(place.getSources());
+			imview.setImageBitmap(bmImg);
+			// dismiss dialog
+			progressDialog.dismiss();
+		}
+	};
 }

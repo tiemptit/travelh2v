@@ -13,9 +13,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import uit.is.thesis.travel.models.PlaceModel;
-
 import com.google.android.maps.GeoPoint;
 
 
@@ -28,6 +26,7 @@ public class MapService {
 	private String direction;
 	private String statusDirection;
 	
+	// get Route
 	public String getRoute(PlaceModel respectLocation, double curLat,
 			double curLng, String lang) {
 		String responseBody="";
@@ -39,14 +38,13 @@ public class MapService {
 			String currentPosistion = curLat + "," + curLng + ",";
 
 			String url = prefix + currentPosistion + respectPosition + suffix + lang;
-
 			HttpClient client = new DefaultHttpClient();
 			HttpGet getMethod = new HttpGet(url);
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
 			responseBody = client.execute(getMethod, responseHandler);
+			// parse json
 			parseJson(responseBody);
 		} catch (Exception e) {
-			e.toString();
 		}
 		return responseBody;
 	}
@@ -57,12 +55,11 @@ public class MapService {
 			StringBuilder directionBuilder = new StringBuilder();
 			for (int i = 0; i < routeJS.length(); i++) {
 				JSONArray directionApart = routeJS.getJSONArray(i);
-				directionBuilder.append("_" + directionApart.getString(0) + " "
+				directionBuilder.append("- " + directionApart.getString(0) + ": "
 						+ directionApart.getString(4) + "\n");
 			}
 			direction = directionBuilder.toString();
 		} catch (Exception e) {
-			e.toString();
 		}
 		return direction;
 	}
@@ -79,11 +76,11 @@ public class MapService {
 				listRoutePoint.add(gp);
 			}
 		} catch (Exception e) {
-			e.toString();
 		}
 		return listRoutePoint;
 	}
 	
+	// parse Json from String dataJson
 	public void parseJson(String dataJson) {
 		try {
 			JSONObject jsonObject = new JSONObject(dataJson);
@@ -102,19 +99,18 @@ public class MapService {
 				JSONArray route_geometry = jsonObject
 						.getJSONArray("route_geometry");
 				listPathPoint = getListRoutePoint(route_geometry);
-
 				// Route instruction
 				JSONArray route_instructions = jsonObject
 						.getJSONArray("route_instructions");
-				direction = "TOTAL DISTANCE: " + total_distance + "m\n"
-						+ "START POINT: " + start_point + "\n" + "END POINT: "
+				 //"TOTAL DISTANCE: " + total_distance + "m\n"
+				direction = "START POINT: " + start_point + "\n" + "END POINT: "
 						+ end_point + "\n\n" + getDirection(route_instructions);
 
 			} else {
+				listPathPoint = null;
 				statusDirection = "Can not find the route direction!";
 			}
 		} catch (Exception e) {
-			e.toString();
 		}
 	}
 

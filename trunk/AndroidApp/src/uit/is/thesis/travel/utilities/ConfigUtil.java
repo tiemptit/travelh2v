@@ -9,6 +9,11 @@ package uit.is.thesis.travel.utilities;
  */
 public class ConfigUtil {
 	// current location of user
-	public static double LATITUDE = 10.759723;
-	public static double LONGITUDE = 106.661217;
+	public static double LATITUDE = 10.7783;
+	public static double LONGITUDE = 106.6962;
+	//LEHIEU 
+	//public static String SERVER = "192.168.0.100";
+	//MINSU
+	//public static String SERVER = "192.168.2.100";
+	public static String SERVER = "192.168.1.103";
 }

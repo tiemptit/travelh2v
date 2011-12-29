@@ -21,13 +21,20 @@ import uit.is.thesis.travel.utilities.SortListUtil;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,10 +45,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class TabSuggestionsActivity extends Activity implements
-		OnClickListener, LocationListener {
+		OnClickListener, Runnable {
 	// ListView on screen
 	ListView listViewResult;
 	// List of All Places sorted by name, rating, distance
@@ -63,48 +71,86 @@ public class TabSuggestionsActivity extends Activity implements
 	SQLiteDBAdapter mDBAdapter = null;
 	Cursor c = null;
 	String place_cates[];
+	ArrayAdapter<String> adapter_type;
+	private ProgressDialog progressDialog;
 
 	// /////////////////////////////METHODS///////////////////////////////
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_suggestions);
-		// button onclick listener
-		btnAz = (Button) findViewById(R.id.btnAzS);
-		btnAz.setOnClickListener(this);
-		btnRating = (Button) findViewById(R.id.btnRatingS);
-		btnRating.setOnClickListener(this);
-		btnDistance = (Button) findViewById(R.id.btnDistanceS);
-		btnDistance.setOnClickListener(this);
-		spinnerType = (Spinner) findViewById(R.id.spinner_typeS);
-		spinnerType.setOnItemSelectedListener(spinnerTypeChange);
+		if (!isConnectToInternet()) { // no Internet connection, quit
+			TextView myView = new TextView(getApplicationContext());
+			myView.setText("There is no Internet Connection!" + "\n\n"
+					+ "Please check it and restart the application!");
+			myView.setTextSize(15);
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+					TabSuggestionsActivity.this);
+			alertDialog.setTitle("Alert");
+			alertDialog.setView(myView);
+			alertDialog.setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							finish();
+						}
+					});
+			alertDialog.show();
+		} else {
+			// get current location of user
+			getLatitudeLongitude();
+			// Create and show ProgressDialog
+			progressDialog = new ProgressDialog(this);
+			progressDialog.setMessage("Loading ... Please wait!");
+			progressDialog.show();
 
-		// set adapter
-		if (this.mDBAdapter == null) {
-			this.mDBAdapter = new SQLiteDBAdapter(this);
-			mDBAdapter.open();
+			// Create thread and start it
+			Thread thread = new Thread(this);
+			thread.start();
 		}
-		c = mDBAdapter.getPlaceCategories();
-		startManagingCursor(c);
-		place_cates = new String[c.getCount()];
-		for (int i = 0; i < c.getCount(); i++) {
-			c.moveToPosition(i);
-			place_cates[i] = c.getString(c.getColumnIndex("place_category"));
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (!isConnectToInternet()) { // no Internet connection, quit
+			TextView myView = new TextView(getApplicationContext());
+			myView.setText("There is no Internet Connection!" + "\n\n"
+					+ "Please check it and restart the application!");
+			myView.setTextSize(15);
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+					TabSuggestionsActivity.this);
+			alertDialog.setTitle("Alert");
+			alertDialog.setView(myView);
+			alertDialog.setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							finish();
+						}
+					});
+			alertDialog.show();
 		}
-		c.close();
+	}
 
-		ArrayAdapter<String> adapter_type = new ArrayAdapter<String>(this,
-				R.layout.my_spinner_item, place_cates);
-		adapter_type
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinnerType.setAdapter(adapter_type);
-
-		// get current location of user
-		getLatitudeLongitude();
-		// get Result List of All Places (sorted by name)
-		getSearchResultList();
-		// click on btnAZ
-		btnAz.performClick();
+	public boolean isConnectToInternet() { // check WIFI or MOBILE (3G ...)
+		// connections
+		boolean haveConnectedWifi = false;
+		boolean haveConnectedMobile = false;
+		try {
+			ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+			for (NetworkInfo ni : netInfo) {
+				if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+					if (ni.isConnected()) {
+						haveConnectedWifi = true;
+					}
+				if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+					if (ni.isConnected()) {
+						haveConnectedMobile = true;
+					}
+			}
+		} catch (Exception e) {
+		}
+		return haveConnectedWifi || haveConnectedMobile;
 	}
 
 	// button onclick handler
@@ -123,7 +169,7 @@ public class TabSuggestionsActivity extends Activity implements
 						.SortListByDistance(searchResultList_name);
 				// sort list by rating
 				searchResultList_rating = SortListUtil
-						.SortListByRating(searchResultList_name);
+						.SortListByRatingEstimate(searchResultList_name);
 				// sort list by type
 				searchResultArrayList_type = new ArrayList<List<PlaceModel>>();
 				for (int i = 0; i < place_cates.length; i++) {
@@ -179,91 +225,141 @@ public class TabSuggestionsActivity extends Activity implements
 
 	// Get list of SearchResults - Suggestions Places from JSON
 	public void getSearchResultList() {
-		try{
-		// URL for web services
-		String url_test = "http://10.0.2.2/wcf4webservices/Service/Suggestions?username=10010&companion=1&familiarity=1&mood=1";
-		String url = "http://10.0.2.2/wcf4webservices/Service/Suggestions?";
-		// get google account on the android phone (Settings --> Accounts and
-		// sync)
-		String username = null;
-		AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-		Account[] list = manager.getAccounts();
-		for (Account account : list) {
-			if (account.type.equalsIgnoreCase("com.google")) {
-				username = account.name;
-				break;
+		try {
+			// URL for web services
+			String url_test = "http://"
+					+ ConfigUtil.SERVER
+					+ "/wcf4webservices/Service/Suggestions?username=10008&weather=1&companion=1&budget=1&time=2011-12-25and14:16";
+			String url = "http://" + ConfigUtil.SERVER
+					+ "/wcf4webservices/Service/Suggestions?";
+			// get google account on the android phone
+			String username = null;
+			AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+			Account[] list = manager.getAccounts();
+			for (Account account : list) {
+				if (account.type.equalsIgnoreCase("com.google")) {
+					username = account.name;
+					break;
+				}
 			}
-		}
-		if (username != null) {
-			url += "username=" + username;
-			// get current context from SQLite
-			Cursor c = mDBAdapter.getContextConfig();
-			startManagingCursor(c);
-			int value; // context value
-			/*c.moveToPosition(0); // set current Temperature
-			value = Integer.parseInt(c.getString(c
-					.getColumnIndex("current_value")));
-			url += "&temperature=" + value;*/
-			c.moveToPosition(0); // set current Weather
-			value = Integer.parseInt(c.getString(c
-					.getColumnIndex("current_value")));
-			url += "&weather=" + value;
-			c.moveToPosition(1); // set current Companion
-			value = Integer.parseInt(c.getString(c
-					.getColumnIndex("current_value")));
-			url += "&companion=" + value;
-			/*c.moveToPosition(3); // set current Mood
-			value = Integer.parseInt(c.getString(c
-					.getColumnIndex("current_value")));
-			url += "&mood=" + value;
-			c.moveToPosition(4); // set current Familiarity
-			value = Integer.parseInt(c.getString(c
-					.getColumnIndex("current_value")));
-			url += "&familiarity=" + value;*/
-			c.moveToPosition(2); // set current Budget
-			value = Integer.parseInt(c.getString(c
-					.getColumnIndex("current_value")));
-			url += "&budget=" + value;
-			/*c.moveToPosition(6); // set current Travel length
-			value = Integer.parseInt(c.getString(c
-					.getColumnIndex("current_value")));
-			url += "&travellength=" + value;*/
-			c.moveToPosition(3); // set current Time
-			String time = c.getString(c.getColumnIndex("current_value"));
-			//String[] datetime_plit = time.split("and");
-			url += "&time=" + time;
-			// url += "&time=" + datetime_plit[0].trim()+datetime_plit[1].trim();
-			c.close();
-			Log.i("Rate", "url = " + url);
-			// Receive result from Internet (select and sorted by estimated rate
-			// on server)
-			this.searchResultList_name = SearchService.SuggestionPlaces(url_test,
-					latitude, longitude);
+			if (username != null) {
+				url += "username=" + username;
+				// get current context from SQLite
+				Cursor c = mDBAdapter.getContextConfig();
+				startManagingCursor(c);
+				int value; // context value
+				/*
+				 * c.moveToPosition(0); // set current Temperature value =
+				 * Integer.parseInt(c.getString(c
+				 * .getColumnIndex("current_value"))); url += "&temperature=" +
+				 * value;
+				 */
+				c.moveToPosition(0); // set current Weather
+				value = Integer.parseInt(c.getString(c
+						.getColumnIndex("current_value")));
+				url += "&weather=" + value;
+				c.moveToPosition(1); // set current Companion
+				value = Integer.parseInt(c.getString(c
+						.getColumnIndex("current_value")));
+				url += "&companion=" + value;
+				/*
+				 * c.moveToPosition(3); // set current Mood value =
+				 * Integer.parseInt(c.getString(c
+				 * .getColumnIndex("current_value"))); url += "&mood=" + value;
+				 * c.moveToPosition(4); // set current Familiarity value =
+				 * Integer.parseInt(c.getString(c
+				 * .getColumnIndex("current_value"))); url += "&familiarity=" +
+				 * value;
+				 */
+				c.moveToPosition(2); // set current Budget
+				value = Integer.parseInt(c.getString(c
+						.getColumnIndex("current_value")));
+				url += "&budget=" + value;
+				/*
+				 * c.moveToPosition(6); // set current Travel length value =
+				 * Integer.parseInt(c.getString(c
+				 * .getColumnIndex("current_value"))); url += "&travellength=" +
+				 * value;
+				 */
+				c.moveToPosition(3); // set current Time
+				String time = c.getString(c.getColumnIndex("current_value"));
+				// String[] datetime_plit = time.split("and");
+				url += "&time=" + time;
+				// url += "&time=" +
+				// datetime_plit[0].trim()+datetime_plit[1].trim();
+				c.close();
+				Log.i("Rate", "url = " + url);
+				// Receive result from Internet (sorted by estimated rating)
+				this.searchResultList_name = SearchService.SuggestionPlaces(
+						url_test, latitude, longitude);
 			} else { // have no google account
-			Toast.makeText(
-					getApplicationContext(),
-					"Please setup a Google account in your Android smartphone first! (Home --> Settings --> Accounts and sync)",
-					Toast.LENGTH_LONG).show();
-		}
-		}catch(Exception e){
-			Log.i("Rate", "url exception = " + e.toString());
+				TextView myView = new TextView(getApplicationContext());
+				myView.setText("Please setup a Google account in your Android smartphone first!"
+						+ "\n\n" + "(Home --> Settings --> Accounts and sync)");
+				myView.setTextSize(15);
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+						TabSuggestionsActivity.this);
+				alertDialog.setTitle("Alert");
+				alertDialog.setView(myView);
+				alertDialog.setPositiveButton("OK",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface arg0, int arg1) {
+								finish();
+							}
+						});
+				alertDialog.show();
+			}
+		} catch (Exception e) {
+			// Log.i("Rate", "getSearchResultList exception = " + e.toString());
 		}
 	}
 
+	private final LocationListener locationListener = new LocationListener() {
+		// Method of interface LocationListener
+		@Override
+		public void onLocationChanged(Location location) {
+			getLatitudeLongitude();
+			getSearchResultList();
+			btnAz.performClick();
+		}
+
+		// Method of interface LocationListener
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+		}
+
+		// Method of interface LocationListener
+		@Override
+		public void onProviderDisabled(String provider) {
+		}
+
+		// Method of interface LocationListener
+		@Override
+		public void onProviderEnabled(String provider) {
+		}
+	};
+
 	// Get current location
 	public void getLatitudeLongitude() {
-		// Get the location manager
-		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		// Provider is GPS
-		provider = LocationManager.GPS_PROVIDER;
-		Location location = locationManager.getLastKnownLocation(provider);
-		// Initialize the location fields
-		if (location != null) {
-			this.latitude = location.getLatitude();
-			this.longitude = location.getLongitude();
-		} else {
-			this.latitude = ConfigUtil.LATITUDE;
-			this.longitude = ConfigUtil.LONGITUDE;
+		try {
+			// Get the location manager
+			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			// Provider is GPS
+			provider = LocationManager.GPS_PROVIDER;
+			locationManager.requestLocationUpdates(provider, 0, 0,
+					locationListener);
+			Location location = locationManager.getLastKnownLocation(provider);
+			// Initialize the location fields
+			if (location != null) {
+				this.latitude = location.getLatitude();
+				this.longitude = location.getLongitude();
+			} else {
+				this.latitude = ConfigUtil.LATITUDE;
+				this.longitude = ConfigUtil.LONGITUDE;
+			}
+			locationManager.removeUpdates(locationListener);
+		} catch (Exception e) {
+			// Log.i("Rate", "Sugesstions exception " + e.toString());
 		}
 	}
 
@@ -330,31 +426,73 @@ public class TabSuggestionsActivity extends Activity implements
 		}
 	}
 
-	// Method of interface LocationListener
 	@Override
-	public void onLocationChanged(Location location) {
-		getLatitudeLongitude();
-		getSearchResultList();
-		btnAz.performClick();
+	public void run() {
+		// TODO Auto-generated method stub
+		try {
+			Log.i("Rate", "run resume");
+			// button onclick listener
+			btnAz = (Button) findViewById(R.id.btnAzS);
+			btnAz.setOnClickListener(this);
+			btnRating = (Button) findViewById(R.id.btnRatingS);
+			btnRating.setOnClickListener(this);
+			btnDistance = (Button) findViewById(R.id.btnDistanceS);
+			btnDistance.setOnClickListener(this);
+			spinnerType = (Spinner) findViewById(R.id.spinner_typeS);
+			spinnerType.setOnItemSelectedListener(spinnerTypeChange);
+
+			Log.i("Rate", "set adapter");
+			// set adapter
+			if (this.mDBAdapter == null) {
+				this.mDBAdapter = new SQLiteDBAdapter(this);
+				mDBAdapter.open();
+			}
+			c = mDBAdapter.getPlaceCategories();
+			startManagingCursor(c);
+			place_cates = new String[c.getCount()];
+			for (int i = 0; i < c.getCount(); i++) {
+				c.moveToPosition(i);
+				place_cates[i] = c
+						.getString(c.getColumnIndex("place_category"));
+			}
+			c.close();
+
+			// get Result List of All Places (sorted by name)
+			getSearchResultList();
+		} catch (Exception e) {
+			// Log.i("Rate", "run Exception" + e.toString());
+		}
+		handler.sendEmptyMessage(0);
 	}
 
-	// Method of interface LocationListener
-	@Override
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-	}
+	/** Handler for handling message from method run() */
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message message) {
+			adapter_type = new ArrayAdapter<String>(getApplicationContext(),
+					R.layout.my_spinner_item, place_cates);
+			adapter_type
+					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spinnerType.setAdapter(adapter_type);
+			btnAz.performClick();
 
-	// Method of interface LocationListener
-	@Override
-	public void onProviderDisabled(String provider) {
-		Toast.makeText(this, "Enabled new provider " + provider,
-				Toast.LENGTH_SHORT).show();
-	}
+			// dismiss the progress dialog
+			progressDialog.dismiss();
 
-	// Method of interface LocationListener
-	@Override
-	public void onProviderEnabled(String provider) {
-		Toast.makeText(this, "Disabled provider " + provider,
-				Toast.LENGTH_SHORT).show();
-	}
-
+			// have no suggestions, quit
+			if (searchResultList_name.size() == 0) {
+				TextView myView = new TextView(getApplicationContext());
+				myView.setText("Please rate some places first! Then the recommender system can suggest you more!"
+						+ "\n\n"
+						+ "(Make sure that you've created an Google Account on your phone before rating!)");
+				myView.setTextSize(15);
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+						TabSuggestionsActivity.this);
+				alertDialog.setTitle("Alert");
+				alertDialog.setView(myView);
+				alertDialog.setPositiveButton("OK", null);
+				alertDialog.show();
+			}
+		}
+	};
 }
