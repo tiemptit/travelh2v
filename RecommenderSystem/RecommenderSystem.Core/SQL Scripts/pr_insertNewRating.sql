@@ -1,21 +1,29 @@
-Use TravelH2V
-Go
+USE [TravelH2V]
+GO
 
+/****** Object:  StoredProcedure [dbo].[pr_insertNewRating]    Script Date: 12/26/2011 14:29:59 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[pr_insertNewRating]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [dbo].[pr_insertNewRating]
-Go
+GO
 
-Create proc pr_insertNewRating
+USE [TravelH2V]
+GO
+
+/****** Object:  StoredProcedure [dbo].[pr_insertNewRating]    Script Date: 12/26/2011 14:29:59 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+Create proc [dbo].[pr_insertNewRating]
 @id int,
 @id_user int,
 @id_place int,
-@id_temperature int,
 @id_companion int,
-@id_farmiliarity int,
-@id_mood int,
 @id_budget int,
 @id_weather int,
-@id_travel_length int,
 @time datetime,
 @rating float
 
@@ -23,18 +31,14 @@ As
 Begin
 
 SET IDENTITY_INSERT real_ratings ON
-insert into real_ratings(id, id_user, id_place, id_temperature, id_companion, id_farmiliarity, id_mood, id_budget, id_weather, id_travel_length, [time], rating) values
+insert into real_ratings(id, id_user, id_place, id_companion, id_budget, id_weather, [time], rating) values
 (
 	@id,
 	@id_user,
 	@id_place,
-	@id_temperature,
 	@id_companion,
-	@id_farmiliarity,
-	@id_mood,
 	@id_budget,
 	@id_weather,
-	@id_travel_length,
 	@time,
 	@rating
 
@@ -42,3 +46,6 @@ insert into real_ratings(id, id_user, id_place, id_temperature, id_companion, id
 SET IDENTITY_INSERT real_ratings OFF
 
 End
+GO
+
+

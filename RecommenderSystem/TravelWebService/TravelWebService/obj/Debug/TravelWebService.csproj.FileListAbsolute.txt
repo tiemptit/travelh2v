@@ -31,3 +31,16 @@ D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\bin\
 D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\ResolveAssemblyReference.cache
 D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\TravelWebService.dll
 D:\thesisproj\travelh2v\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\TravelWebService.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\TravelWebService.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\TravelWebService.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\RecommenderSystem.Core.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.ServiceLocation.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.Unity.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\Microsoft.Practices.Unity.Interception.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\bin\RecommenderSystem.Core.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\ResolveAssemblyReference.cache
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\TravelWebService.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\TravelWebService\TravelWebService\obj\Debug\TravelWebService.pdb

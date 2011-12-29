@@ -20,7 +20,7 @@ namespace RecommenderSystem.Core.RS_Core
             //Training phase
             Training.Correlation_Avg = Regression.Correlation_Avg(Training);
 
-            if (Double.IsNaN(Training.Correlation_Avg))
+            if (Double.IsNaN(Training.Correlation_Avg)) // Ma trận quá thưa thớt
             {
                 return 9999;
             }
@@ -37,7 +37,7 @@ namespace RecommenderSystem.Core.RS_Core
                         {
                             predict_scrore = Regression.Prediction(Evaluation.user_id[i], Convert.ToInt32(Evaluation.item_id[j].Trim()), Training);
                         }*/
-                        if (Double.IsNaN(predict_scrore))
+                        if (Double.IsNaN(predict_scrore) && predict_scrore != 0) // Ko có điểm chung
                             continue;
                         sum += Math.Abs(Evaluation.data[i, j] - predict_scrore);
                         count++;
@@ -105,7 +105,7 @@ namespace RecommenderSystem.Core.RS_Core
             double sum_Correlation_Avg_root = 0;
             int count_Correlation_Avg_root = 0;
 
-            DbHelper.RunScripts("truncate table segments");
+            DbHelper.RunScripts("truncate table segments", "Data Warehouse");
 
             foreach (Segment segment in AllSegment)
             {
@@ -145,7 +145,7 @@ namespace RecommenderSystem.Core.RS_Core
                         + ", " + segment.companion.id
                         + ", " + segment.weather.id
                         + ", " + performamce_segment
-                        + ", " + Training_Segment.Correlation_Avg));
+                        + ", " + Training_Segment.Correlation_Avg), "Data Warehouse");
                 }
             }
 
@@ -159,7 +159,7 @@ namespace RecommenderSystem.Core.RS_Core
                 {
                     if (candidates[j].IsChildOf(candidates[i]))
                     {
-                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[j].id));
+                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[j].id), "Data Warehouse");
                     }
                 }
             }
@@ -168,7 +168,7 @@ namespace RecommenderSystem.Core.RS_Core
                         + 0 + ", " + 0
                         + ", " + 0 + ", " + 0
                         + ", " + 9999
-                        + ", " + sum_Correlation_Avg_root/count_Correlation_Avg_root));
+                        + ", " + sum_Correlation_Avg_root / count_Correlation_Avg_root), "Data Warehouse");
 
             return true;
             
@@ -186,7 +186,7 @@ namespace RecommenderSystem.Core.RS_Core
                 {
                     if (candidates[i].IsChildOf(candidates[j]))
                     {
-                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[i].id));
+                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[i].id), "Data Warehouse");
                     }
                 }
             }

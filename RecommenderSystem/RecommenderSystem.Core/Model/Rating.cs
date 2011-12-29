@@ -60,7 +60,7 @@ namespace RecommenderSystem.Core.Model
         {
             try
             {
-                DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings where id = " + id)).Rows[0];
+                DataRow data = DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings where id = " + id), "Connection String").Rows[0];
            
                 this.id = id;
                 this.id_user = Convert.ToInt32(data[1]);

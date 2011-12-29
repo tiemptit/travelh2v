@@ -19,14 +19,14 @@
     <ObjectSnapshots>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.RelationalDataSource</Type>
-        <TimeStamp>M34X3tbGuI8ztWhoyFWIug==11/13/2011 6:28:06 PM11/13/2011 5:04:19 PM</TimeStamp>
+        <TimeStamp>eeAgc/xnxEVyk698wD+Qfg==12/26/2011 2:49:21 PM12/26/2011 2:49:21 PM</TimeStamp>
         <ID>
           <String>Travel H2V DW</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.DataSourceView</Type>
-        <TimeStamp>B8EsnSxP5VgGUDjio3A5xg==11/13/2011 5:58:47 PM11/13/2011 5:58:45 PM</TimeStamp>
+        <TimeStamp>6fDMUnU0NV/4bh9OQu/k8Q==12/26/2011 2:49:45 PM12/26/2011 2:49:45 PM</TimeStamp>
         <ID>
           <String>Travel H2V DW</String>
         </ID>
@@ -40,13 +40,6 @@
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>cuzrntb20m6KnOQIhkmjxg==11/13/2011 6:18:37 PM11/13/2011 6:00:33 PM</TimeStamp>
-        <ID>
-          <String>Dim Temperature</String>
-        </ID>
-      </ObjectSnapshot>
-      <ObjectSnapshot>
-        <Type>Microsoft.AnalysisServices.Dimension</Type>
         <TimeStamp>wxTHOWhmS9PimOIyAfFWzw==11/13/2011 6:18:37 PM11/13/2011 6:00:33 PM</TimeStamp>
         <ID>
           <String>Dim Datetime</String>
@@ -54,7 +47,7 @@
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>w8spz+Gv5Gf6TvlYbe8SAg==11/13/2011 6:18:37 PM11/13/2011 6:00:33 PM</TimeStamp>
+        <TimeStamp>xUjaJxj9gMgpM1H3KBPIhQ==12/26/2011 3:05:50 PM11/13/2011 6:00:33 PM</TimeStamp>
         <ID>
           <String>Dim User</String>
         </ID>
@@ -64,27 +57,6 @@
         <TimeStamp>I+58d0EQe2T04uWkTBWqcw==11/13/2011 6:18:37 PM11/13/2011 6:00:33 PM</TimeStamp>
         <ID>
           <String>Dim Companion</String>
-        </ID>
-      </ObjectSnapshot>
-      <ObjectSnapshot>
-        <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>wy+cgpcKxu8k4CMl5N8QIg==11/13/2011 6:18:37 PM11/13/2011 6:00:34 PM</TimeStamp>
-        <ID>
-          <String>Dim Travel Length</String>
-        </ID>
-      </ObjectSnapshot>
-      <ObjectSnapshot>
-        <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>3FF7UFdKgiWAj1mzlYXGvg==11/13/2011 6:18:36 PM11/13/2011 6:00:34 PM</TimeStamp>
-        <ID>
-          <String>Dim Mood</String>
-        </ID>
-      </ObjectSnapshot>
-      <ObjectSnapshot>
-        <Type>Microsoft.AnalysisServices.Dimension</Type>
-        <TimeStamp>p+LPicIvLX0QBAhYK8iJZg==11/13/2011 6:18:36 PM11/13/2011 6:00:34 PM</TimeStamp>
-        <ID>
-          <String>Dim Familiarity</String>
         </ID>
       </ObjectSnapshot>
       <ObjectSnapshot>
@@ -103,7 +75,7 @@
       </ObjectSnapshot>
       <ObjectSnapshot>
         <Type>Microsoft.AnalysisServices.Cube</Type>
-        <TimeStamp>0/p7HBbVEtzDzKix2wZWJw==12/8/2011 4:18:01 PM11/13/2011 6:00:33 PMUe/DlPsZWjeZUCDYawk2hw==12/8/2011 4:18:01 PM11/13/2011 6:00:33 PM</TimeStamp>
+        <TimeStamp>lhMqafCXPYAOEX0r7dlQKw==12/26/2011 3:14:49 PM12/26/2011 2:50:32 PMcMDFCPgcZWPEOkVw5Qnnbg==12/26/2011 3:14:49 PM12/26/2011 2:50:32 PM</TimeStamp>
         <ID>
           <String>Travel H2V DW</String>
         </ID>
@@ -120,5 +92,5 @@
   </Snapshot>
   <AssemblyLocations />
   <ProcessingComplete>true</ProcessingComplete>
-  <LastDeployed>2011-12-08T09:18:37.856667Z</LastDeployed>
+  <LastDeployed>2011-12-26T08:16:06.523333Z</LastDeployed>
 </DeploymentSnapshot>

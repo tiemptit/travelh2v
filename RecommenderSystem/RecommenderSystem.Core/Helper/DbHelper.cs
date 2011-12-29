@@ -130,11 +130,11 @@ namespace RecommenderSystem.Core.Helper
             }
         }
 
-        public static bool RunScripts(String strSQL)
+        public static bool RunScripts(String strSQL, string connectionString)
         {
             try
             {
-                Database db = DatabaseFactory.CreateDatabase("Connection String");
+                Database db = DatabaseFactory.CreateDatabase(connectionString);
 
                 DbCommand command = db.GetSqlStringCommand(strSQL);
                 command.CommandTimeout = 0;
@@ -151,11 +151,11 @@ namespace RecommenderSystem.Core.Helper
 
         }
 
-        public static DataTable RunScriptsWithTable(String strSQL)
+        public static DataTable RunScriptsWithTable(String strSQL, string connectionString)
         {
             try
             {
-                Database db = DatabaseFactory.CreateDatabase("Connection String");
+                Database db = DatabaseFactory.CreateDatabase(connectionString);
 
                 DbCommand command = db.GetSqlStringCommand(strSQL);
                 command.CommandTimeout = 0;
@@ -172,12 +172,12 @@ namespace RecommenderSystem.Core.Helper
             }
         }
 
-        public static DataSet RunScriptsWithMultipleTable(String strSQL)
+        public static DataSet RunScriptsWithMultipleTable(String strSQL, string connectionString)
         {
             try
             {
 
-                Database db = DatabaseFactory.CreateDatabase("Connection String");
+                Database db = DatabaseFactory.CreateDatabase(connectionString);
                 //DataSet result = db.ExecuteDataSet(CommandType.Text, strSQL);
                 DbCommand command = db.GetSqlStringCommand(strSQL);
                 command.CommandTimeout = 0;

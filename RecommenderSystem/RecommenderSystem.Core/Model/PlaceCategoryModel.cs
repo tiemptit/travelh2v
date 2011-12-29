@@ -15,7 +15,7 @@ namespace RecommenderSystem.Core.Model
 
         public void GetDataById(int id)
         {
-            DataTable temp = DbHelper.RunScriptsWithTable(string.Format("Select place_category from place_categories where id = '" + id.ToString() + "'"));
+            DataTable temp = DbHelper.RunScriptsWithTable(string.Format("Select place_category from place_categories where id = '" + id.ToString() + "'"), "Connection String");
             this.id = id;
             place_category = Convert.ToString(temp.Rows[0][0]);
         }

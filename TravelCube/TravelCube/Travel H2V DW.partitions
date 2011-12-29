@@ -1,17 +1,17 @@
-﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="72d97a1a-66fc-4a93-9981-f04d3a8081d2" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+﻿<Cube xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="d9575308-1bf6-430c-9b34-c7c9f648fec0" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
   <ID>Travel H2V DW</ID>
   <MeasureGroups>
     <MeasureGroup>
       <ID>Fact Ratings</ID>
       <Partitions>
-        <Partition dwd:design-time-name="a0492449-196c-4c18-8a8e-1744404feac5">
+        <Partition dwd:design-time-name="ab538c22-4ac5-4075-b9af-9dd7a39b8181">
           <ID>Fact Ratings</ID>
           <Name>Fact Ratings</Name>
           <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
           <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
           <LastProcessed>0001-01-01T00:00:00Z</LastProcessed>
           <State>Unprocessed</State>
-          <Source xsi:type="DsvTableBinding" dwd:design-time-name="7616753a-afb1-4d05-bd98-af35f9f30d40">
+          <Source xsi:type="DsvTableBinding" dwd:design-time-name="0f2bd2d4-cc1a-4b88-8545-1ec1c634bd79">
             <DataSourceViewID>Travel H2V DW</DataSourceViewID>
             <TableID>dbo_fact_ratings</TableID>
           </Source>

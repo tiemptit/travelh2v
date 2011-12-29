@@ -44,7 +44,7 @@ namespace RecommenderSystem.Core.RS_Core
             }
 
 
-            int min = 10;
+            int min = 100;
             List<Item> ItemFails = new List<Item>();
 
             for (int i = 0; i < chosenOne.item_id.Length - 1; i++) // Bo unknown
@@ -52,7 +52,7 @@ namespace RecommenderSystem.Core.RS_Core
                 Item item = new Item(Convert.ToInt32(chosenOne.item_id[i].Trim()));
                 double predict = Regression.Prediction(user.id, Convert.ToInt32(chosenOne.item_id[i].Trim()), chosenOne);
 
-                if (!Double.IsNaN(predict))
+                if (!Double.IsNaN(predict) && predict != 0)
                 {
                     result.Add(new Recommendation(item, predict));
                 }
@@ -78,20 +78,6 @@ namespace RecommenderSystem.Core.RS_Core
                         break;
                 }
             }
-
-
-                /*foreach (Item item in Item.GetItemsIn(chosenOne))
-                {
-                    double estimate_rating = CollaborativeFiltering.EstimateRating(item, user, chosenOne);
-                    if (!Double.IsNaN(estimate_rating))
-                    {
-                        Recommendation r = new Recommendation(item, estimate_rating);
-                        result.Add(r);
-                    }
-                    if (result.Count == limit)
-                        break;
-                }*/
-
                 return result;
         }
     }

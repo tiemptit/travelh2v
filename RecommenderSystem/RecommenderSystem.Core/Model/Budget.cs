@@ -39,7 +39,7 @@ namespace RecommenderSystem.Core.Model
          */
         public static List<Budget> GetAllData()
         {
-            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_budget"));
+            DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from dim_budget"), "Data Warehouse");
             List<Budget> result = new List<Budget>();
             for (int i = 0; i < data.Rows.Count; i++)
             {
