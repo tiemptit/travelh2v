@@ -9,7 +9,9 @@
 	<ImageView android:id="@+id/title_suggestions"
 		android:layout_width="fill_parent" android:layout_height="46dip"
 		android:src="@drawable/title_suggestions" />
-
+	<Button android:id="@+id/btnRefreshS" android:layout_width="46dip"
+		android:layout_height="46dip" android:layout_alignParentRight="true"
+		android:background="@drawable/btn_selector_refresh" />
 	<!-- body -->
 	<Button android:id="@+id/btnAzS" android:layout_width="80dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_col_az"

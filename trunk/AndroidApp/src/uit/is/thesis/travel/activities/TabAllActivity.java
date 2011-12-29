@@ -43,7 +43,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class TabAllActivity extends Activity implements OnClickListener,
 		Runnable {
@@ -61,7 +60,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	// current Latitude - Longitude of user
 	double latitude, longitude;
 	// buttons on screen
-	Button btnAz, btnRating, btnDistance;
+	Button btnAz, btnRating, btnDistance, btnRefresh;
 	Spinner spinnerType;
 	boolean loadSpinnerType = false;
 	boolean btnAzFirstRun = true;
@@ -77,7 +76,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_all);
-
+		
 		if (!isConnectToInternet()) { // no Internet connection, quit 
 			TextView myView = new TextView(getApplicationContext());
 			myView.setText("There is no Internet Connection!" + "\n\n"
@@ -199,6 +198,19 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			displayListView(searchResultList_distance);
 		}
 			break;
+			
+		case R.id.btnRefresh: {	
+			// Create and show ProgressDialog
+			progressDialog = new ProgressDialog(this);
+			progressDialog.setMessage("Reloading ... Please wait!");
+			progressDialog.show();
+			getLatitudeLongitude();
+			getSearchResultList();
+			btnAzFirstRun = false;
+			btnAz.performClick();
+			progressDialog.dismiss();
+		}
+			break;
 		}
 	}
 
@@ -236,9 +248,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		// Method of interface LocationListener
 		@Override
 		public void onLocationChanged(Location location) {
-			getLatitudeLongitude();
-			getSearchResultList();
-			btnAz.performClick();
+			btnRefresh.performClick();
 		}
 
 		// Method of interface LocationListener
@@ -272,11 +282,22 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			if (location != null) {
 				this.latitude = location.getLatitude();
 				this.longitude = location.getLongitude();
-			} else {
+			} else { // can't get GPS
 				this.latitude = ConfigUtil.LATITUDE;
 				this.longitude = ConfigUtil.LONGITUDE;
+				TextView myView = new TextView(getApplicationContext());
+				myView.setText("Phone can't get the GPS signal! Your current location will be set to the default: at Reunification Place (Dinh Doc Lap), district 1, HCMC."
+						+ "\n\n" + "Please check the GPS service on your phone!"
+						+ "\n\n" + "(If you're inside your house, you can't get the GPS signal!)");
+				myView.setTextSize(15);
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+						TabAllActivity.this);
+				alertDialog.setTitle("Alert");
+				alertDialog.setView(myView);
+				alertDialog.setPositiveButton("OK",null);
+				alertDialog.show();
 			}
-			//locationManager.removeUpdates(locationListener);		
+			locationManager.removeUpdates(locationListener);		
 		} catch (Exception e) {
 		}
 	}
@@ -355,6 +376,8 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			btnRating.setOnClickListener(this);
 			btnDistance = (Button) findViewById(R.id.btnDistance);
 			btnDistance.setOnClickListener(this);
+			btnRefresh = (Button) findViewById(R.id.btnRefresh);
+			btnRefresh.setOnClickListener(this);
 			spinnerType = (Spinner) findViewById(R.id.spinner_type);
 			spinnerType.setOnItemSelectedListener(spinnerTypeChange);
 

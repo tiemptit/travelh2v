@@ -376,6 +376,17 @@ public class MyMapActivity extends MapActivity implements Runnable {
 		} else {
 			this.curLAT = ConfigUtil.LATITUDE;
 			this.curLNG = ConfigUtil.LONGITUDE;
+			TextView myView = new TextView(getApplicationContext());
+			myView.setText("Phone can't get the GPS signal! Your current location will be set to the default: at Reunification Place (Dinh Doc Lap), district 1, HCMC."
+					+ "\n\n" + "Please check the GPS service on your phone!"
+					+ "\n\n" + "(If you're inside your house, you can't get the GPS signal!)");
+			myView.setTextSize(15);
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+					MyMapActivity.this);
+			alertDialog.setTitle("Alert");
+			alertDialog.setView(myView);
+			alertDialog.setPositiveButton("OK",null);
+			alertDialog.show();
 		}
 	}
 

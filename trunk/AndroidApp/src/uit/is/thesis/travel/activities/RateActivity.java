@@ -8,6 +8,8 @@ import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -59,6 +62,8 @@ public class RateActivity extends Activity implements OnClickListener {
 		case R.id.btnRateR: {
 			try {
 				if (checkAccount() == true) { // login successful
+					//test user 10008
+					//username = "10008";
 					RateService r = new RateService();
 					// get context config from DB
 					Cursor c = mDBAdapter.getContextConfig();
@@ -101,9 +106,7 @@ public class RateActivity extends Activity implements OnClickListener {
 					c.moveToPosition(3); // set current Time
 					String time = c
 							.getString(c.getColumnIndex("current_value"));
-					Log.i("Rate", "Time = " + time);
 					r.setTime(time);
-					Log.i("Rate", "Rating = " + ratingBar.getRating());
 					r.setRating(ratingBar.getRating());
 					// result of rating
 					if (r.ratePlace() == "true") {
@@ -115,8 +118,16 @@ public class RateActivity extends Activity implements OnClickListener {
 								Toast.LENGTH_SHORT).show();
 					}
 				} else { // not login
-					Toast.makeText(getApplicationContext(),
-							"Please setup a Google account in your Android smartphone first! (Home --> Settings --> Accounts and sync)", Toast.LENGTH_LONG).show();
+					TextView myView = new TextView(getApplicationContext());
+					myView.setText("Please setup a Google account in your Android smartphone first!"
+							+ "\n\n" + "(Home --> Settings --> Accounts and sync)");
+					myView.setTextSize(15);
+					AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+							RateActivity.this);
+					alertDialog.setTitle("Alert");
+					alertDialog.setView(myView);
+					alertDialog.setPositiveButton("OK", null);
+					alertDialog.show();
 				}
 			} catch (Exception e) {
 			}

@@ -100,10 +100,10 @@ public class SQLiteDBHelper extends SQLiteOpenHelper {
 
 			//db.execSQL("insert into CONTEXT_CONFIG values (1,'Temperature','0');");
 			db.execSQL("insert into CONTEXT_CONFIG values (2,'Weather','1');");
-			db.execSQL("insert into CONTEXT_CONFIG values (3,'Companion','2');");
+			db.execSQL("insert into CONTEXT_CONFIG values (3,'Companion','1');");
 			//db.execSQL("insert into CONTEXT_CONFIG values (4,'Familiarity','0');");
 			//db.execSQL("insert into CONTEXT_CONFIG values (5,'Mood','1');");
-			db.execSQL("insert into CONTEXT_CONFIG values (6,'Budget','2');");
+			db.execSQL("insert into CONTEXT_CONFIG values (6,'Budget','1');");
 			//db.execSQL("insert into CONTEXT_CONFIG values (7,'Travel length','0');");
 			db.execSQL("insert into CONTEXT_CONFIG values (8,'Time','"
 					+ s_plit[0] + "and" + s_plit[1] + "');");
