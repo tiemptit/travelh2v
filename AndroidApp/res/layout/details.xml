@@ -45,7 +45,7 @@
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewBasicInfo"
 				android:layout_toRightOf="@+id/txtViewPlaceName" android:textColor="#ffffff"
-				android:textSize="12sp" android:text="Da Lat Market" />
+				android:textSize="12sp" android:text="Loading ..." />
 			<TextView android:id="@+id/txtViewPhone"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewPlaceName"
@@ -55,7 +55,7 @@
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewPlaceName"
 				android:layout_toRightOf="@+id/txtViewPhone" android:singleLine="true"
 				android:textColor="@drawable/text_selector" android:textSize="12sp"
-				android:text="0909090909" />
+				android:text="Loading ..." />
 			<TextView android:id="@+id/txtViewAddress"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewPhone"
@@ -65,7 +65,7 @@
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewPhone"
 				android:layout_toRightOf="@+id/txtViewAddress" android:singleLine="true"
 				android:textColor="#ffffff" android:textSize="12sp"
-				android:text="201, Dao Duy Tu, P6 Q10" />
+				android:text="Loading ..." />
 			<TextView android:id="@+id/txtViewEmail"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewAddress"
@@ -74,7 +74,7 @@
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewAddress"
 				android:layout_toRightOf="@+id/txtViewEmail" android:singleLine="true"
-				android:textColor="#ffffff" android:textSize="12sp" android:text="lehi3u1989@yahoo.com" />
+				android:textColor="#ffffff" android:textSize="12sp" android:text="Loading ..." />
 			<TextView android:id="@+id/txtViewWebsite"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewEmail"
@@ -84,7 +84,7 @@
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewEmail"
 				android:layout_toRightOf="@+id/txtViewWebsite" android:singleLine="true"
 				android:textColor="@drawable/text_selector" android:textSize="12sp"
-				android:text="www.yahoo.com" />
+				android:text="Loading ..." />
 			<TextView android:id="@+id/txtViewHistory"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewWebsite"
@@ -101,7 +101,7 @@
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewHistory"
 				android:textColor="#ffffff" android:textSize="12sp"
-				android:text="Đà Lạt, or Dalat, (pop. 206,105 as of 2009, of which 185,509 are urban inhabitants) is the capital of Lam Dong province in Vietnam." />
+				android:text="Loading ..." />
 			<TextView android:id="@+id/txtViewMoreDetails"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewHistoryContent"
@@ -118,7 +118,7 @@
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewMoreDetails"
 				android:textColor="#ffffff" android:textSize="12sp"
-				android:text="Đà Lạt, or Dalat, (pop. 206,105 as of 2009, of which 185,509 are urban inhabitants) is the capital of Lam Dong province in Vietnam." />
+				android:text="Loading ..." />
 			<TextView android:id="@+id/txtViewSource"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewMoreDetailsContent"
@@ -135,7 +135,7 @@
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:layout_margin="5dip" android:layout_below="@+id/txtViewSource"
 				android:textColorLink="#1122cc" android:textSize="12sp"
-				android:text="http://en.wikipedia.org, http://www.google.com.vn/" />
+				android:text="Loading ..." />
 		</RelativeLayout>
 	</ScrollView>
 	<Button android:id="@+id/btnShowOnMap" android:layout_width="160dip"

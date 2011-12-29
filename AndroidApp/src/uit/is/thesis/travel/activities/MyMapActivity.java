@@ -12,7 +12,10 @@ import java.util.List;
 import uit.is.thesis.travel.InternetHelper.MapService;
 import uit.is.thesis.travel.models.PlaceModel;
 import uit.is.thesis.travel.utilities.ConfigUtil;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -24,85 +27,101 @@ import android.graphics.PathEffect;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.OverlayItem;
 import com.google.android.maps.Projection;
 
+public class MyMapActivity extends MapActivity implements Runnable {
 
-public class MyMapActivity extends MapActivity {
-
-	Button btnBackMap;
+	Button btnBackMap, btnDirection;
 	// Prepare variable for map
 	MapService ms = new MapService();
-	private MapView map = null;
-	private MyLocationOverlay me = null;
-	private SitesOverlay centerOverlay = null;
-	private SitesOverlay detailOverlay = null;
+	MapController mc;
+	MapView map = null;
+	MyLocationOverlay me = null;
+	SitesOverlay centerOverlay = null;
+	SitesOverlay detailOverlay = null;
 	double curLAT, curLNG, fromLat, fromLng;
-
+	// LocationManager
+	LocationManager locationManager;
+	String provider;
 	// Prepare variable for request direction
-	private PlaceModel respectLocation;
-	private PlaceModel fromLocation;
-
+	PlaceModel respectLocation;
+	PlaceModel fromLocation;
+	String statusDirection, directionEN;
 	// Prepare variable for draw direction
 	private List<GeoPoint> listRoutePoint = null;
+
+	ProgressDialog progressDialog;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_on_map);
-		try {
-			btnBackMap = (Button) findViewById(R.id.btnBackMap);
-			// Get intent and receive data from the parent activity
-			Intent intent = getIntent();
-			Bundle bundle = intent.getExtras();
-			respectLocation = (PlaceModel) bundle.getSerializable("currentplace");
 
-			// get current location of user
-			getLatitudeLongitude();
-			// Set the coordinate for from-point
-			if (fromLocation == null) {
-				fromLocation = new PlaceModel();
-				fromLocation.setLat(curLAT);
-				fromLocation.setLng(curLNG);
-			}
+		// Create and show ProgressDialog
+		progressDialog = new ProgressDialog(this);
+		progressDialog.setMessage("Loading ... Please wait!");
+		progressDialog.show();
 
-			// draw place
-			drawPlace();
+		// get current location of user
+		getLatitudeLongitude();
 
-			// buttonOnClick
-			setButtonClick();
-		} catch (Exception e) {
-		}
+		// get map controller
+		map = (MapView) findViewById(R.id.map);
+		mc = map.getController(); // get map controller to zoom to current place
+		me = new MyLocationOverlay(this, map);
+
+		// Create thread and start it
+		Thread thread = new Thread(this);
+		thread.start();
+	}
+
+	private void zoomToCurrentPlace() {
+		// zoom to Place location
+		GeoPoint point = getPoint(respectLocation.getLat(),
+				respectLocation.getLng());
+		mc.setZoom(16);
+		mc.setCenter(point);
 	}
 
 	private void drawPlace() {
-		// Prepare map and overlays
-		map = (MapView) findViewById(R.id.map);
-		map.getController().setZoom(16);
-		map.setBuiltInZoomControls(true);
+		// Prepare overlays: Center overlay and Details overlay
 		Drawable marker = getResources().getDrawable(R.drawable.marker);
 		Drawable centermarker = getResources().getDrawable(
 				R.drawable.centermarker);
 		centermarker.setBounds(0, 0, marker.getIntrinsicWidth(),
 				marker.getIntrinsicHeight());
 		centerOverlay = new SitesOverlay(centermarker);
-
 		Drawable detailmarker = getResources().getDrawable(R.drawable.star);
 		detailmarker.setBounds(0, 0, marker.getIntrinsicWidth(),
 				marker.getIntrinsicHeight());
 		detailOverlay = new SitesOverlay(detailmarker);
-		
+
+		// Add remain overlays into map
+		centerOverlay.addItem(new OverlayItem(getPoint(curLAT, curLNG),
+				"My Location", "My Location\n" + curLAT + " - " + curLNG));
+		centerOverlay.completeToPopulate();
+
+		// add user location
+		map.getOverlays().add(centerOverlay);
+		map.getOverlays().add(me);
+
 		if (respectLocation != null) {
 			// Draw position to map
 			double detailLAT = respectLocation.getLat();
@@ -124,33 +143,56 @@ public class MyMapActivity extends MapActivity {
 			// Get route direction and list route point to draw map
 			fromLat = fromLocation.getLat();
 			fromLng = fromLocation.getLng();
-			ms.getRoute(respectLocation, fromLat, fromLng, "vi");
-			listRoutePoint = ms.getListPathPoint();
-			// directionVI = ms.getDirection();
-			String statusDirection = ms.getStatusDirection();
-			if (!statusDirection.equals("OK")) // can not find the direction
-				Toast.makeText(getApplicationContext(), statusDirection,
-						Toast.LENGTH_SHORT).show();
-		}
+			try {
+				ms.getRoute(respectLocation, fromLat, fromLng, "en");
+				listRoutePoint = ms.getListPathPoint();
+			} catch (Exception e) {
+			}
+			directionEN = ms.getDirection();
+			statusDirection = ms.getStatusDirection();
 
-		// Add remain overlays into map
-		centerOverlay.addItem(new OverlayItem(getPoint(curLAT, curLNG),
-				"My Location", "My Location\n" + curLAT + " - " + curLNG));
-		centerOverlay.completeToPopulate();
-		// overlay.completeToPopulate();
-		map.getOverlays().add(centerOverlay);
-		me = new MyLocationOverlay(this, map); // user location
-		map.getOverlays().add(me);
+			// can not find the direction, listRoutePoint == null
+			if (!statusDirection.equals("OK")) {
+				detailOverlay.addItem(new OverlayItem(getPoint(detailLAT,
+						detailLNG), respectLocation.getName(), des));
+				detailOverlay.completeToPopulate();
+				map.getOverlays().add(detailOverlay);
+			}
+		}
 	}
 
 	private void setButtonClick() {
-		btnBackMap.setOnClickListener(new android.view.View.OnClickListener() {	
+		btnBackMap.setOnClickListener(new android.view.View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				locationManager.removeUpdates(locationListener);
 				finish();
 			}
 		});
+
+		btnDirection
+				.setOnClickListener(new android.view.View.OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if (directionEN != null) { //show dialog box
+							TextView myView = new TextView(getApplicationContext()); 
+							myView.setText(directionEN); 
+							myView.setTextSize(15); 
+							AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+									MyMapActivity.this);
+							alertDialog.setTitle("Driving directions");
+							alertDialog.setView(myView);
+							alertDialog.setPositiveButton("Ok", null);
+							alertDialog.show();
+						} else {
+							Toast.makeText(getApplicationContext(),
+									"There is no direction!",
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
 	}
 
 	// methods of MapActivity
@@ -295,12 +337,37 @@ public class MyMapActivity extends MapActivity {
 		}
 	}
 
+	private final LocationListener locationListener = new LocationListener() {
+		public void onLocationChanged(Location location) {
+			curLAT = location.getLatitude();
+			curLAT = location.getLongitude();
+		}
+
+		@Override
+		public void onProviderDisabled(String arg0) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onProviderEnabled(String provider) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			// TODO Auto-generated method stub
+		}
+	};
+
 	// Get current location
 	private void getLatitudeLongitude() {
 		// Get the location manager
-		LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		// Provider is GPS
-		String provider = LocationManager.GPS_PROVIDER;
+		provider = LocationManager.GPS_PROVIDER;
+		//provider = LocationManager.NETWORK_PROVIDER;
+		locationManager.requestLocationUpdates(provider, 0, 0,
+				locationListener);
 		Location location = locationManager.getLastKnownLocation(provider);
 		// Initialize the location fields
 		if (location != null) {
@@ -317,4 +384,49 @@ public class MyMapActivity extends MapActivity {
 		return (new GeoPoint((int) (lat * 1000000.0), (int) (lon * 1000000.0)));
 	}
 
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		try {
+			btnBackMap = (Button) findViewById(R.id.btnBackMap);
+			btnDirection = (Button) findViewById(R.id.btnDirection);
+			// Get intent and receive data from the parent activity
+			Intent intent = getIntent();
+			Bundle bundle = intent.getExtras();
+			respectLocation = (PlaceModel) bundle
+					.getSerializable("currentplace");
+
+			// Set the coordinate for from-point
+			if (fromLocation == null) {
+				fromLocation = new PlaceModel();
+				fromLocation.setLat(curLAT);
+				fromLocation.setLng(curLNG);
+			}
+
+			// zoom to current place
+			zoomToCurrentPlace();
+			// draw place
+			drawPlace();
+
+			// buttonOnClick, button Zoom on map
+			setButtonClick();
+			map.setBuiltInZoomControls(true);
+			map.invalidate();
+		} catch (Exception e) {
+		}
+		handler.sendEmptyMessage(0);
+	}
+
+	/** Handler for handling message from method run() */
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message message) {
+			if (!statusDirection.equals("OK")) { // not find direction
+				Toast.makeText(getApplicationContext(), statusDirection,
+						Toast.LENGTH_SHORT).show();
+			}
+			// dismiss dialog
+			progressDialog.dismiss();
+		}
+	};
 }

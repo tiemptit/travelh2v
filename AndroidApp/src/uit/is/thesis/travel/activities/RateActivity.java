@@ -108,7 +108,7 @@ public class RateActivity extends Activity implements OnClickListener {
 					// result of rating
 					if (r.ratePlace() == "true") {
 						Toast.makeText(getApplicationContext(),
-								"Rate successfully!", Toast.LENGTH_SHORT)
+								"Rate successfully! Thank you very much!", Toast.LENGTH_SHORT)
 								.show();
 					} else {
 						Toast.makeText(getApplicationContext(), "Rate fail!",

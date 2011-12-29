@@ -72,33 +72,47 @@ public class TabFavoritesActivity extends ListActivity {
 		btnSearch = (Button) findViewById(R.id.btnSearch);
 		btnSearch.setOnClickListener(mSearchListener);
 		btnDelete = (Button) findViewById(R.id.btnDelete);
-		btnDelete.setOnClickListener(mDeleteListener);	
+		btnDelete.setOnClickListener(mDeleteListener);
 		btnPrev = (Button) findViewById(R.id.btnPrev);
 		btnPrev.setOnClickListener(mPrevListener);
 		btnNext = (Button) findViewById(R.id.btnNext);
 		btnNext.setOnClickListener(mNextListener);
-		btnCheckAll = (Button) findViewById(R.id.btnCheckAll);	
+		btnCheckAll = (Button) findViewById(R.id.btnCheckAll);
 		btnCheckAll.setOnClickListener(mCheckAllListener);
 		txtViewPage = (TextView) findViewById(R.id.txtViewPage);
-		
-		
+
 		if (this.mDBAdapter == null) {
 			this.mDBAdapter = new SQLiteDBAdapter(this);
-			mDBAdapter.open();		
+			mDBAdapter.open();
 		}
-	
+
 		if (this.mDBHelper == null) {
 			this.mDBHelper = mDBAdapter.getmDbHelper();
 		}
-		
+
 		if (listView == null) {
 			listView = getListView();
 			listView.setOnItemClickListener(listViewItemListener);
 		}
 		try {
 			Search(keyWord, limit_from, limit_count);
-			txtViewPage.setText("Page" + curPage + "/" + sumPage);
+			if (sumPage != 0) {
+				txtViewPage.setText("Page " + curPage + "/" + sumPage);
+			} else {
+				txtViewPage.setText("Page " + 0 + "/" + sumPage);
+			}
 		} catch (Exception e) {
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		Search(keyWord, limit_from, limit_count);
+		if (sumPage != 0) {
+			txtViewPage.setText("Page " + curPage + "/" + sumPage);
+		} else {
+			txtViewPage.setText("Page " + 0 + "/" + sumPage);
 		}
 	}
 
@@ -175,7 +189,7 @@ public class TabFavoritesActivity extends ListActivity {
 				place.setGeneral_sum_rating(general_sum_rating);
 				place.setId_itemOnListView(-1);
 				place.setDistance(currentLatitude, currentLongitude);
-				
+
 				// send them to Details Activity
 				Bundle bundle = new Bundle();
 				bundle.putDouble("currentLatitude", currentLatitude);
@@ -249,8 +263,13 @@ public class TabFavoritesActivity extends ListActivity {
 									limit_from = 0;
 									curPage = 1;
 									Search(keyWord, limit_from, limit_count);
-									txtViewPage.setText("Page" + curPage + "/"
-											+ sumPage);
+									if (sumPage != 0) {
+										txtViewPage.setText("Page " + curPage
+												+ "/" + sumPage);
+									} else {
+										txtViewPage.setText("Page " + 0 + "/"
+												+ sumPage);
+									}
 								} catch (Exception e) {
 								}
 							}
@@ -281,7 +300,11 @@ public class TabFavoritesActivity extends ListActivity {
 					limit_from = limit_from - 5;
 					Search(keyWord, limit_from, limit_count);
 					curPage -= 1;
-					txtViewPage.setText("Page" + curPage + "/" + sumPage);
+					if (sumPage != 0) {
+						txtViewPage.setText("Page " + curPage + "/" + sumPage);
+					} else {
+						txtViewPage.setText("Page " + 0 + "/" + sumPage);
+					}
 					isCheckAll = false;
 				}
 			} catch (Exception e) {
@@ -297,7 +320,11 @@ public class TabFavoritesActivity extends ListActivity {
 					limit_from = limit_from + 5;
 					Search(keyWord, limit_from, limit_count);
 					curPage += 1;
-					txtViewPage.setText("Page" + curPage + "/" + sumPage);
+					if (sumPage != 0) {
+						txtViewPage.setText("Page " + curPage + "/" + sumPage);
+					} else {
+						txtViewPage.setText("Page " + 0 + "/" + sumPage);
+					}
 					isCheckAll = false;
 				}
 			} catch (Exception e) {
@@ -313,7 +340,11 @@ public class TabFavoritesActivity extends ListActivity {
 				limit_from = 0;
 				curPage = 1;
 				Search(keyWord, limit_from, limit_count);
-				txtViewPage.setText("Page" + curPage + "/" + sumPage);
+				if (sumPage != 0) {
+					txtViewPage.setText("Page " + curPage + "/" + sumPage);
+				} else {
+					txtViewPage.setText("Page " + 0 + "/" + sumPage);
+				}
 			} catch (Exception e) {
 			}
 		}
@@ -321,7 +352,7 @@ public class TabFavoritesActivity extends ListActivity {
 
 	private void Search(String keyWord, int lm_from, int lm_count) {
 		try {
-			//mDBAdapter.deleteDatabase();
+			// mDBAdapter.deleteDatabase();
 			this.currentCursor = mDBAdapter.getItemsLikeThisFromTo(keyWord,
 					lm_from, lm_count);
 			rowReturnsCount = mDBAdapter.getRowReturnCount(keyWord);
@@ -331,13 +362,16 @@ public class TabFavoritesActivity extends ListActivity {
 				sumPage = rowReturnsCount / limit_count;
 			}
 			startManagingCursor(currentCursor);
-			String[] from = new String[] { "id_place", "name", "place_category","house_number",
-					"street", "ward", "district", "city", "lat", "lng", "general_rating"};
-			int[] to = new int[] { R.id.checkboxItem, R.id.txtViewNameF, R.id.txtViewCateF,
-					R.id.txtViewAddressF, R.id.txtViewDistanceF, R.id.ratingBarF };
+			String[] from = new String[] { "id_place", "name",
+					"place_category", "house_number", "street", "ward",
+					"district", "city", "lat", "lng", "general_rating" };
+			int[] to = new int[] { R.id.checkboxItem, R.id.txtViewNameF,
+					R.id.txtViewCateF, R.id.txtViewAddressF,
+					R.id.txtViewDistanceF, R.id.ratingBarF };
 			// create an array adapter and set it to display using our row
 			this.mSQLiteCursorAdapter = new SQLiteCursorAdapter(this,
-					R.layout.row_favorite, currentCursor, from, to, mDBHelper, currentLatitude, currentLongitude);
+					R.layout.row_favorite, currentCursor, from, to, mDBHelper,
+					currentLatitude, currentLongitude);
 			setListAdapter(mSQLiteCursorAdapter);
 		} catch (Exception e) {
 		}

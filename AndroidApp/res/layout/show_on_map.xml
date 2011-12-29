@@ -9,12 +9,20 @@
 		android:layout_height="46dip" android:src="@drawable/title_map" />
 	<Button android:id="@+id/btnBackMap" android:layout_width="46dip"
 		android:layout_height="46dip" android:background="@drawable/btn_selector_back" />
+	<Button android:id="@+id/btnDirection" android:layout_width="46dip"
+		android:layout_height="46dip" android:layout_alignParentRight="true"
+		android:background="@drawable/btn_selector_direction" />
 
 	<!-- body -->
-	<!-- MapAPI key of Le Hieu -->
-	<com.google.android.maps.MapView
-		android:id="@+id/map" android:layout_width="fill_parent"
-		android:layout_height="463dip" android:layout_below="@+id/title_map"
-		android:clickable="true" android:apiKey="0iuwQQ9eDAyv8fvWGlNvCmjFolZZVgYHtWgx0Jw" />
-
+	<!-- MapAPI debug key of Le Hieu  
+	<com.google.android.maps.MapView android:id="@+id/map" 
+		android:layout_width="fill_parent" android:layout_height="463dip" android:layout_below="@+id/title_map" 
+		android:clickable="true" android:apiKey="0iuwQQ9eDAyv8fvWGlNvCmjFolZZVgYHtWgx0Jw" 
+		/> 
+	 -->	
+	<!-- MapAPI release key of Le Hieu --> 
+	<com.google.android.maps.MapView android:id="@+id/map" 
+		android:layout_width="fill_parent" android:layout_height="463dip" android:layout_below="@+id/title_map"
+		android:clickable="true" android:apiKey="0iuwQQ9eDAyvU7ujk3ciCiQN95pQGoWcX-gkMPw" />
+	
 </RelativeLayout>
