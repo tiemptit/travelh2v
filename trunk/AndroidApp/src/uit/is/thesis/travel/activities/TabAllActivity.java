@@ -11,6 +11,7 @@ package uit.is.thesis.travel.activities;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import uit.is.thesis.travel.InternetHelper.SearchService;
 import uit.is.thesis.travel.SQLiteHelper.SQLiteDBAdapter;
 import uit.is.thesis.travel.models.PlaceModel;
@@ -52,11 +53,12 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	List<PlaceModel> searchResultList_name, searchResultList_rating,
 			searchResultList_distance, searchResultList_type;
 	List<List<PlaceModel>> searchResultArrayList_type;
-	// LocationManager
+	// LocationManager, location
 	LocationManager locationManager;
+	Location location;
 	// provider string (GPS provider)
 	String provider;
-	List <String> providers1, providers2;
+	List<String> providers1, providers2;
 	// current Latitude - Longitude of user
 	double latitude, longitude;
 	// buttons on screen
@@ -76,11 +78,44 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_all);
+		// button onclick listener
+		btnAz = (Button) findViewById(R.id.btnAz);
+		btnAz.setOnClickListener(this);
+		btnRating = (Button) findViewById(R.id.btnRating);
+		btnRating.setOnClickListener(this);
+		btnDistance = (Button) findViewById(R.id.btnDistance);
+		btnDistance.setOnClickListener(this);
+		btnRefresh = (Button) findViewById(R.id.btnRefresh);
+		btnRefresh.setOnClickListener(this);
+		spinnerType = (Spinner) findViewById(R.id.spinner_type);
+		spinnerType.setOnItemSelectedListener(spinnerTypeChange);
+
+		// set spinner adapter
+		if (this.mDBAdapter == null) {
+			this.mDBAdapter = new SQLiteDBAdapter(this);
+			mDBAdapter.open(); // mDBAdapter.deleteDatabase();
+		}
+		c = mDBAdapter.getPlaceCategories();
+		startManagingCursor(c);
+		place_cates = new String[c.getCount()];
+		for (int i = 0; i < c.getCount(); i++) {
+			c.moveToPosition(i);
+			place_cates[i] = c
+					.getString(c.getColumnIndex("place_category"));
+		}
+		c.close();
+		mDBAdapter.close();
 		
-		if (!isConnectToInternet()) { // no Internet connection, quit 
+		adapter_type = new ArrayAdapter<String>(getApplicationContext(),
+				R.layout.my_spinner_item, place_cates);
+		adapter_type
+				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinnerType.setAdapter(adapter_type);
+		
+		if (!isConnectToInternet()) { // no Internet connection, quit
 			TextView myView = new TextView(getApplicationContext());
 			myView.setText("There is no Internet Connection!" + "\n\n"
-					+ "Please check it and restart the application!");
+					+ "Please check it. Then click button REFRESH!");
 			myView.setTextSize(15);
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					TabAllActivity.this);
@@ -89,10 +124,12 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			alertDialog.setPositiveButton("OK",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface arg0, int arg1) {
-							finish();
+							startActivity
+							(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
 						}
 					});
 			alertDialog.show();
+			alertGPSsignal();
 		} else {
 			// get current location of user
 			getLatitudeLongitude();
@@ -102,33 +139,25 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			progressDialog.show();
 
 			// Create thread and start it
-			Thread thread = new Thread(this); 
+			Thread thread = new Thread(this);
 			thread.start();
 		}
 	}
 
 	@Override
-	public void onResume(){
+	public void onResume() {
 		super.onResume();
-		if (!isConnectToInternet()) { // no Internet connection, quit 
-			TextView myView = new TextView(getApplicationContext());
-			myView.setText("There is no Internet Connection!" + "\n\n"
-					+ "Please check it and restart the application!");
-			myView.setTextSize(15);
-			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-					TabAllActivity.this);
-			alertDialog.setTitle("Alert");
-			alertDialog.setView(myView);
-			alertDialog.setPositiveButton("OK",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface arg0, int arg1) {
-							finish();
-						}
-					});
-			alertDialog.show();
-		} 
+		if(locationManager!=null)
+			locationManager.requestLocationUpdates(provider, 2000, 10,locationListener);
 	}
 	
+	@Override
+	public void onPause() {
+		super.onPause();
+		if(locationManager!=null)
+			locationManager.removeUpdates(locationListener);
+	}
+
 	public boolean isConnectToInternet() { // check WIFI or MOBILE (3G ...)
 											// connections
 		boolean haveConnectedWifi = false;
@@ -198,15 +227,14 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			displayListView(searchResultList_distance);
 		}
 			break;
-			
-		case R.id.btnRefresh: {	
+		case R.id.btnRefresh: {
 			// Create and show ProgressDialog
 			progressDialog = new ProgressDialog(this);
 			progressDialog.setMessage("Reloading ... Please wait!");
 			progressDialog.show();
 			getLatitudeLongitude();
 			getSearchResultList();
-			btnAzFirstRun = false;
+			btnAzFirstRun = true;
 			btnAz.performClick();
 			progressDialog.dismiss();
 		}
@@ -275,30 +303,45 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			// Provider is GPS
 			provider = LocationManager.GPS_PROVIDER;
 			//provider = LocationManager.NETWORK_PROVIDER;
-			locationManager.requestLocationUpdates(provider, 0, 0,
+			locationManager.requestLocationUpdates(provider, 2000, 10,
 					locationListener);
-			Location location = locationManager.getLastKnownLocation(provider);
+			location = locationManager.getLastKnownLocation(provider);
 			// Initialize the location fields
 			if (location != null) {
 				this.latitude = location.getLatitude();
 				this.longitude = location.getLongitude();
+				// stop receive GPS signal
+				locationManager.removeUpdates(locationListener); 																	
 			} else { // can't get GPS
 				this.latitude = ConfigUtil.LATITUDE;
 				this.longitude = ConfigUtil.LONGITUDE;
-				TextView myView = new TextView(getApplicationContext());
-				myView.setText("Phone can't get the GPS signal! Your current location will be set to the default: at Reunification Place (Dinh Doc Lap), district 1, HCMC."
-						+ "\n\n" + "Please check the GPS service on your phone!"
-						+ "\n\n" + "(If you're inside your house, you can't get the GPS signal!)");
-				myView.setTextSize(15);
-				AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-						TabAllActivity.this);
-				alertDialog.setTitle("Alert");
-				alertDialog.setView(myView);
-				alertDialog.setPositiveButton("OK",null);
-				alertDialog.show();
 			}
-			locationManager.removeUpdates(locationListener);		
 		} catch (Exception e) {
+		}
+	}
+
+	// alert GPS signal
+	public void alertGPSsignal() {
+		if (location == null) {
+			TextView myView = new TextView(getApplicationContext());
+			myView.setText("Phone can't get the GPS signal! Your current location will be set to default value: at Reunification Place (Dinh Doc Lap), district 1, HCMC."
+					+ "\n\n"
+					+ "Please check the GPS service on your phone!"
+					+ "\n\n"
+					+ "(If you're inside your house, you can't get the GPS signal!)");
+			myView.setTextSize(15);
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+					TabAllActivity.this);
+			alertDialog.setTitle("Alert");
+			alertDialog.setView(myView);
+			alertDialog.setPositiveButton("OK",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface arg0, int arg1) {
+							startActivity
+							(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+						}
+					});
+			alertDialog.show();
 		}
 	}
 
@@ -369,34 +412,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
-			// button onclick listener
-			btnAz = (Button) findViewById(R.id.btnAz);
-			btnAz.setOnClickListener(this);
-			btnRating = (Button) findViewById(R.id.btnRating);
-			btnRating.setOnClickListener(this);
-			btnDistance = (Button) findViewById(R.id.btnDistance);
-			btnDistance.setOnClickListener(this);
-			btnRefresh = (Button) findViewById(R.id.btnRefresh);
-			btnRefresh.setOnClickListener(this);
-			spinnerType = (Spinner) findViewById(R.id.spinner_type);
-			spinnerType.setOnItemSelectedListener(spinnerTypeChange);
-
-			// set spinner adapter
-			if (this.mDBAdapter == null) {
-				this.mDBAdapter = new SQLiteDBAdapter(this);
-				mDBAdapter.open(); // mDBAdapter.deleteDatabase();
-			}
-			c = mDBAdapter.getPlaceCategories();
-			startManagingCursor(c);
-			place_cates = new String[c.getCount()];
-			for (int i = 0; i < c.getCount(); i++) {
-				c.moveToPosition(i);
-				place_cates[i] = c
-						.getString(c.getColumnIndex("place_category"));
-			}
-			c.close();
-			mDBAdapter.close();
-
 			// get Result List of All Places (sorted by name)
 			getSearchResultList();
 		} catch (Exception e) {
@@ -409,13 +424,10 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		@Override
 		public void handleMessage(Message message) {
 			// dismiss dialog
-			adapter_type = new ArrayAdapter<String>(getApplicationContext(),
-					R.layout.my_spinner_item, place_cates);
-			adapter_type
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-			spinnerType.setAdapter(adapter_type);
+			
 			btnAz.performClick();
-			progressDialog.dismiss();			
+			progressDialog.dismiss();
+			alertGPSsignal();
 		}
 	};
 

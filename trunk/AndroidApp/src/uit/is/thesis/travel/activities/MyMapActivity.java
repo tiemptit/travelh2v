@@ -15,7 +15,6 @@ import uit.is.thesis.travel.utilities.ConfigUtil;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -57,8 +56,9 @@ public class MyMapActivity extends MapActivity implements Runnable {
 	SitesOverlay centerOverlay = null;
 	SitesOverlay detailOverlay = null;
 	double curLAT, curLNG, fromLat, fromLng;
-	// LocationManager
+	// LocationManager, location
 	LocationManager locationManager;
+	Location location;
 	String provider;
 	// Prepare variable for request direction
 	PlaceModel respectLocation;
@@ -92,7 +92,40 @@ public class MyMapActivity extends MapActivity implements Runnable {
 		thread.start();
 	}
 
-	private void zoomToCurrentPlace() {
+	// methods of MapActivity
+	@Override
+	public void onResume() {
+		super.onResume();
+		me.enableCompass();
+		locationManager.requestLocationUpdates(provider, 2000, 10,
+				locationListener);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		me.disableCompass();
+		locationManager.removeUpdates(locationListener);
+	}
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		return (true);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) { // click zoom key
+		if (keyCode == KeyEvent.KEYCODE_S) {
+			map.setSatellite(!map.isSatellite());
+			return (true);
+		} else if (keyCode == KeyEvent.KEYCODE_Z) {
+			map.displayZoomControls(true);
+			return (true);
+		}
+		return (super.onKeyDown(keyCode, event));
+	}
+	
+	public void zoomToCurrentPlace() {
 		// zoom to Place location
 		GeoPoint point = getPoint(respectLocation.getLat(),
 				respectLocation.getLng());
@@ -100,7 +133,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 		mc.setCenter(point);
 	}
 
-	private void drawPlace() {
+	public void drawPlace() {
 		// Prepare overlays: Center overlay and Details overlay
 		Drawable marker = getResources().getDrawable(R.drawable.marker);
 		Drawable centermarker = getResources().getDrawable(
@@ -161,7 +194,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 		}
 	}
 
-	private void setButtonClick() {
+	public void setButtonClick() {
 		btnBackMap.setOnClickListener(new android.view.View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -195,38 +228,10 @@ public class MyMapActivity extends MapActivity implements Runnable {
 				});
 	}
 
-	// methods of MapActivity
-	@Override
-	public void onResume() {
-		super.onResume();
-		me.enableCompass();
-	}
-
-	@Override
-	public void onPause() {
-		super.onPause();
-		me.disableCompass();
-	}
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		return (true);
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) { // click zoom key
-		if (keyCode == KeyEvent.KEYCODE_S) {
-			map.setSatellite(!map.isSatellite());
-			return (true);
-		} else if (keyCode == KeyEvent.KEYCODE_Z) {
-			map.displayZoomControls(true);
-			return (true);
-		}
-		return (super.onKeyDown(keyCode, event));
-	}
+	
 
 	// class overlay to show map and draw place
-	private class SitesOverlay extends ItemizedOverlay<OverlayItem> {
+	public class SitesOverlay extends ItemizedOverlay<OverlayItem> {
 		private List<OverlayItem> items = new ArrayList<OverlayItem>();
 		private Drawable marker = null;
 		private Paint paint;
@@ -337,7 +342,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 		}
 	}
 
-	private final LocationListener locationListener = new LocationListener() {
+	public final LocationListener locationListener = new LocationListener() {
 		public void onLocationChanged(Location location) {
 			curLAT = location.getLatitude();
 			curLAT = location.getLongitude();
@@ -360,38 +365,48 @@ public class MyMapActivity extends MapActivity implements Runnable {
 	};
 
 	// Get current location
-	private void getLatitudeLongitude() {
+	public void getLatitudeLongitude() {
 		// Get the location manager
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		// Provider is GPS
 		provider = LocationManager.GPS_PROVIDER;
 		//provider = LocationManager.NETWORK_PROVIDER;
-		locationManager.requestLocationUpdates(provider, 0, 0,
+		locationManager.requestLocationUpdates(provider, 2000, 10,
 				locationListener);
-		Location location = locationManager.getLastKnownLocation(provider);
+		location = locationManager.getLastKnownLocation(provider);
 		// Initialize the location fields
 		if (location != null) {
 			this.curLAT = location.getLatitude();
 			this.curLNG = location.getLongitude();
+			// stop receive GPS signal
+			//locationManager.removeUpdates(locationListener); 
 		} else {
 			this.curLAT = ConfigUtil.LATITUDE;
 			this.curLNG = ConfigUtil.LONGITUDE;
+		}
+	}
+
+	// alert GPS signal
+	public void alertGPSsignal() {
+		if (location == null) {
 			TextView myView = new TextView(getApplicationContext());
-			myView.setText("Phone can't get the GPS signal! Your current location will be set to the default: at Reunification Place (Dinh Doc Lap), district 1, HCMC."
-					+ "\n\n" + "Please check the GPS service on your phone!"
-					+ "\n\n" + "(If you're inside your house, you can't get the GPS signal!)");
+			myView.setText("Phone can't get the GPS signal! Your current location will be set to default value: at Reunification Place (Dinh Doc Lap), district 1, HCMC."
+					+ "\n\n"
+					+ "Please check the GPS service on your phone!"
+					+ "\n\n"
+					+ "(If you're inside your house, you can't get the GPS signal!)");
 			myView.setTextSize(15);
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					MyMapActivity.this);
 			alertDialog.setTitle("Alert");
 			alertDialog.setView(myView);
-			alertDialog.setPositiveButton("OK",null);
+			alertDialog.setPositiveButton("OK", null);
 			alertDialog.show();
 		}
 	}
-
+	
 	// convert Point to GeoPoint for drawing place on map
-	private GeoPoint getPoint(double lat, double lon) {
+	public GeoPoint getPoint(double lat, double lon) {
 		return (new GeoPoint((int) (lat * 1000000.0), (int) (lon * 1000000.0)));
 	}
 
@@ -429,7 +444,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 	}
 
 	/** Handler for handling message from method run() */
-	private Handler handler = new Handler() {
+	public Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message message) {
 			if (!statusDirection.equals("OK")) { // not find direction
@@ -438,6 +453,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 			}
 			// dismiss dialog
 			progressDialog.dismiss();
+			alertGPSsignal();
 		}
 	};
 }
