@@ -1,0 +1,14 @@
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\MvcApplication1\MvcApplication1\bin\MvcApplication1.dll
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\MvcApplication1\MvcApplication1\bin\MvcApplication1.pdb
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\MvcApplication1\MvcApplication1\bin\EntityFramework.dll
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\MvcApplication1\MvcApplication1\bin\EntityFramework.xml
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\MvcApplication1\MvcApplication1\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\MvcApplication1\MvcApplication1\obj\Debug\MvcApplication1.dll
+C:\Users\LEHIEU\documents\visual studio 2010\Projects\MvcApplication1\MvcApplication1\obj\Debug\MvcApplication1.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\MvcApplication1\MvcApplication1\bin\MvcApplication1.dll
+D:\thesisproj\travelh2v\RecommenderSystem\MvcApplication1\MvcApplication1\bin\MvcApplication1.pdb
+D:\thesisproj\travelh2v\RecommenderSystem\MvcApplication1\MvcApplication1\bin\EntityFramework.dll
+D:\thesisproj\travelh2v\RecommenderSystem\MvcApplication1\MvcApplication1\bin\EntityFramework.xml
+D:\thesisproj\travelh2v\RecommenderSystem\MvcApplication1\MvcApplication1\obj\Debug\ResolveAssemblyReference.cache
+D:\thesisproj\travelh2v\RecommenderSystem\MvcApplication1\MvcApplication1\obj\Debug\MvcApplication1.dll
+D:\thesisproj\travelh2v\RecommenderSystem\MvcApplication1\MvcApplication1\obj\Debug\MvcApplication1.pdb

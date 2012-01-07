@@ -1,0 +1,87 @@
+﻿@model MvcApplication1.Models.HomeModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<h2>@ViewBag.Message</h2>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script type="text/javascript">
+    date_obj = new Date();
+    date_obj_hours = date_obj.getHours();
+    date_obj_mins = date_obj.getMinutes();
+    date_obj_time = "' " + date_obj_hours + ":" + date_obj_mins + ":00'";
+
+    $(function () {
+        $("#TravelTime").datepicker(
+        {
+            dateFormat: 'yy-mm-dd' + date_obj_time,
+            showStatus: true,
+            changeYear: true,
+            yearRange: "-20:+0",
+            numberOfMonths: 1,
+            showWeeks: true,
+            highlightWeek: true,
+            showAnim: "scale"
+        });
+    });
+</script>
+@using (Html.BeginForm())
+{
+    <div>
+        <fieldset>
+            <legend>Rating Information
+                <br />
+                (Thông tin đánh giá)</legend>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.EmailUser)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.EmailUser)
+                @Html.ValidationMessageFor(m => m.EmailUser)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.PlaceId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ListPlace", (List<SelectListItem>)ViewData["ListPlace"])
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.BudgetId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ListBudget", (List<SelectListItem>)ViewData["ListBudget"])
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.WeatherId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ListWeather", (List<SelectListItem>)ViewData["ListWeather"])
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.CompanionId)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ListCompanion", (List<SelectListItem>)ViewData["ListCompanion"])
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.TravelTime)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.TravelTime)
+                @Html.ValidationMessageFor(m => m.TravelTime)
+            </div>
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Rating)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("ListRating", (List<SelectListItem>)ViewData["ListRating"])
+            </div>
+            <p>
+                <input type="submit" value="Rate (Đánh giá)" />
+            </p>
+        </fieldset>
+    </div>
+}
+
