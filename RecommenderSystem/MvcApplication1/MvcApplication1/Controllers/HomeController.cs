@@ -175,7 +175,79 @@ namespace MvcApplication1.Controllers
 
         public ActionResult About()
         {
-             return View();
+            return View();
+        }
+
+        public string UpdateForm(string idPlace)
+        {
+            string details;
+            switch (Convert.ToInt32(idPlace))
+            {
+                case 1:
+                    details = "Address: 57A Tháp Mười P.2 Q.6 <br />Tel: (08)38556130 <br />Website: <a href=\"http://www.chobinhtay.gov.vn\" target=\"_blank\">http://www.chobinhtay.gov.vn</a>";
+                    break;
+                case 2:
+                    details = "Address: 1 Lê Lợi P.Bến Nghé Q.1 <br />Tel: (08)38292096 <br />Website: <a href=\"http://www.skydoor.net/place/Ch%E1%BB%A3_B%E1%BA%BFn_Th%C3%A0nh\" target=\"_blank\">http://www.skydoor.net/place/cho-ben-thanh</a>";
+                    break;
+                case 3:
+                    details = "Address: 34 An Dương Vương P.9 Q.5 <br />Tel: (08)38356609 <br />";
+                    break;
+                case 4:
+                    details = "Address: 135 Nam Kỳ Khởi Nghĩa P.Bến Thành Q1 <br />Tel: (08)38223652 <br />Website: <a href=\"http://www.dinhdoclap.gov.vn\" target=\"_blank\">http://www.dinhdoclap.gov.vn</a>";
+                    break;
+                case 5:
+                    details = "Address: 339 Nam Kỳ Khởi Nghĩa P.7 Q.3 <br />Tel: (04)38455435 <br />Website: <a href=\"http://vinhnghiemvn.com\" target=\"_blank\">http://vinhnghiemvn.com</a>";
+                    break;
+                case 6:
+                    details = "Address: 1 Nguyễn Tất Thành P.12 Q.4 <br />Tel: (08)38483153 <br />Website: <a href=\"http://www.baotanghochiminh.vn\" target=\"_blank\">http://www.baotanghochiminh.vn/</a>";
+                    break;
+                case 7:
+                    details = "Address: 120 Trần Bình Trọng P.2 Q.5 <br />Tel: (08)39235067 <br />Website: <a href=\"http://giothanhle.com/MassMap.php?Church=13\" target=\"_blank\">http://giothanhle.com/nha-tho-cho-quan</a>";
+                    break;
+                case 8:
+                    details = "Address: 89B Bà Huyện Thanh Quan P.7 Q.3 <br />Website: <a href=\"http://www.phatgiao.vn/tuvien/trongnuoc/734619.aspx\" target=\"_blank\">http://www.phatgiao.vn/chua-xa-loi</a>";
+                    break;
+                case 9:
+                    details = "Address: 28 Võ Văn Tần P.6 Q.3 <br />Tel: (08)39305587 <br />Website: <a href=\"http://www.baotangchungtichchientranh.vn\" target=\"_blank\">http://www.baotangchungtichchientranh.vn</a>";
+                    break;
+                case 10:
+                    details = "Address: 18 An Dương Vương P.9 Q.5 <br />Tel: (08)38336688 <br />Website: <a href=\"http://www.windsorplazahotel.com\" target=\"_blank\">http://www.windsorplazahotel.com</a>";
+                    break;
+                case 11:
+                    details = "Address: 34 Lê Duẩn P.Bến Nghé Q.1 <br />Tel: (08)38257750 <br />Website: <a href=\"http://www.diamondplaza.com.vn\" target=\"_blank\">http://www.diamondplaza.com.vn</a>";
+                    break;
+                case 12:
+                    details = "Address: 126 Hùng Vương P.2 Q.10 <br />Tel: (08)22220388 <br />Website: <a href=\"http://www.megastar.vn\" target=\"_blank\">http://www.megastar.vn/</a>";
+                    break;
+                case 13:
+                    details = "Address: 230 Nguyễn Trãi P.Nguyễn Cư Trinh Q.1 <br />Tel: (08)39206688 <br />Website: <a href=\"http://www.galaxycine.vn\" target=\"_blank\">http://www.galaxycine.vn/</a>";
+                    break;
+                case 14:
+                    details = "Address: 12, 3 Tháng 2 P.12 Q.10 <br />Tel: (08)62909059 <br />Website: <a href=\"http://thodia.vn/nha-hang-mon-hue-ho-chi-minh-5.html\" target=\"_blank\">http://thodia.vn/nha-hang-mon-hue</a>";
+                    break;
+                case 15:
+                    details = "Address: 71 - 73, Đồng Khởi P.Bến Nghé Q.1 <br />Tel: (08)39142424 <br />Website: <a href=\"http://pho24.com.vn\" target=\"_blank\">http://pho24.com.vn</a>";
+                    break;
+                case 16:
+                    details = "Address: 1 Công Xã Paris P.Bến Nghé Q.1 <br />Tel: (08)39142424 <br />Website: <a href=\"http://giothanhle.com/MassMap.php?Church=23\" target=\"_blank\">http://giothanhle.com/nha-tho-duc-ba</a>";
+                    break;
+                case 17:
+                    details = "Address: 3 Hòa Bình P.3 Q.11 <br />Tel: (08)38588418 <br />Website: <a href=\"http://www.damsenwaterpark.com.vn\" target=\"_blank\">http://www.damsenwaterpark.com.vn</a>";
+                    break;
+                case 18:
+                    details = "Address: 1147 Bình Quới P.28 Q.Bình Thạnh <br />Tel: (08)35565891 <br />Website: <a href=\"http://www.binhquoiresort.com.vn\" target=\"_blank\">http://www.binhquoiresort.com.vn</a>";
+                    break;
+                case 19:
+                    details = "Address: 141 Nguyễn Huệ P.Bến Nghé, Q.1 <br />Tel: (08)38292185 <br />Website: <a href=\"http://www.rexhotelvietnam.com\" target=\"_blank\">http://www.rexhotelvietnam.com</a>";
+                    break;
+                case 20:
+                    details = "Address: 48/10 Điện Biên Phủ P.22 Q.Bình Thạnh <br />Tel: (08)35123026 <br />Website: <a href=\"http://www.zing.vn/news/choi-vui/oc-dao-xanh-van-thanh-giua-thanh-pho/a102444.html\" target=\"_blank\">http://www.zing.vn/news/choi-vui/van-thanh-resort</a>";
+                    break;
+                default:
+                    details = "default";
+                    break;
+            }
+            return details;
         }
 
     }

@@ -323,3 +323,18 @@ div#title {
     width: 6em;
 }
 
+#left{
+float: left;
+width:  450px;
+max-width: 450px;
+min-width: 450px;
+padding: 10px;
+}
+
+#right{
+float: right;
+width: 450px;
+max-width: 450px;
+min-width: 450px;
+padding: 10px;
+}

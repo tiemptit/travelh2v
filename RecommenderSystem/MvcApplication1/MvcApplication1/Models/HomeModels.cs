@@ -36,12 +36,12 @@ namespace MvcApplication1.Models
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "Time (Thời gian đi): (*)")]
+        [Display(Name = "Travel time (Thời gian đi): (*)")]
         public string TravelTime { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "Rating (Điểm đánh giá): (*)")]
+        [Display(Name = "Rating point (Điểm đánh giá): (*)")]
         public string Rating { get; set; }
     }
 }
