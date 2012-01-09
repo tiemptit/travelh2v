@@ -8,7 +8,7 @@ using RecommenderSystem.Core.RS_Core;
 
 namespace RecommenderSystem.Core.Model
 {
-    public class Item : IEquatable<Item>
+    public class Item// : IEquatable<Item>
     {
         /*
          * Properties
@@ -46,7 +46,7 @@ namespace RecommenderSystem.Core.Model
         /*
          * IEquatable
          */
-        public bool Equals(Item other)
+        /*public bool Equals(Item other)
         {
             //Check whether the compared object is null.
             if (Object.ReferenceEquals(other, null)) return false;
@@ -62,7 +62,7 @@ namespace RecommenderSystem.Core.Model
             int hashRatingId = id == null ? 0 : id.GetHashCode();
 
             return hashRatingId; // ^
-        }
+        }*/
 
         /*
          * Method
@@ -101,7 +101,7 @@ namespace RecommenderSystem.Core.Model
         /*
          * Static Method
          */
-        public static List<Item> GetItemRatedByUser(User user)
+        /*public static List<Item> GetItemRatedByUser(User user)
         {
             DataTable data = DbHelper.RunScriptsWithTable(string.Format("select * from real_ratings where id_user = " + user.id), "Connection String");
 
@@ -150,7 +150,7 @@ namespace RecommenderSystem.Core.Model
                 }
             }
             return result;
-        }
+        }*/
 
     }
 }

@@ -88,6 +88,85 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
         }
+        public static void Test()
+        {
+            Segment segment = Segment.GetRoot();
+            //Resampling
+            Matrix[] Evaluation_Matrix = new Matrix[10];
+            Matrix[] Training_Segment_Matrix = new Matrix[10];
+
+            for (int i = 0; i < 10; i++)
+            {
+                Evaluation_Matrix[i] = new Matrix(segment.data.rows, segment.data.cols);
+                Training_Segment_Matrix[i] = segment.data.Duplicate();
+            }
+
+            int count_segment = 0;
+
+            int need = segment.data.CountCells() / 10;
+            Random rand = new Random();
+
+            for (int i = 0; i < segment.data.rows; i++)
+            {
+                for (int j = 0; j < segment.data.cols; j++)
+                {
+                    if (segment.data[i, j] != 0)
+                    {
+                        bool isUsed = false;
+                        while (!isUsed)
+                        {
+                            int k = rand.Next(0, 10);
+                            if (Evaluation_Matrix[k].CountCells() < need + 1)
+                            {
+                                isUsed = true;
+                                Evaluation_Matrix[k][i, j] = segment.data[i, j];
+                                Training_Segment_Matrix[k][i, j] = 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+            double performamce_segment = 0;
+
+            double correlation_avg_segment = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                //Get strong segment
+                Segment Evaluation_Segment = new Segment(segment, Evaluation_Matrix[i]);
+                Segment Training_Segment = new Segment(segment, Training_Segment_Matrix[i]);
+
+                performamce_segment += MAE(ref Training_Segment, Evaluation_Segment);
+                correlation_avg_segment += Training_Segment.Correlation_Avg;
+            }
+
+            
+            /*DbHelper.RunScripts(string.Format("pr_insertSegment " + 0 //time
+                + ", " + segment.budget.id
+                + ", " + segment.companion.id
+                + ", " + segment.weather.id
+                + ", " + performamce_segment / 10
+                + ", " + correlation_avg_segment / 10), "Data Warehouse");
+            
+
+            //Remove segment "child" and have performance less than its parents
+
+            
+            Segment[] candidates = Segment.GetCandidates();
+
+            for (int i = 0; i < candidates.Length - 1; i++)
+            {
+                for (int j = i + 1; j < candidates.Length; j++)
+                {
+                    if (candidates[j].IsChildOf(candidates[i]))
+                    {
+                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[j].id), "Data Warehouse");
+                    }
+                }
+            }
+             */
+        }
+
         public static bool GetStrongSegments()
         {
             /*
@@ -109,57 +188,85 @@ namespace RecommenderSystem.Core.RS_Core
 
             foreach (Segment segment in AllSegment)
             {
-                Matrix Evaluation_Matrix = new Matrix(segment.data.rows, segment.data.cols);
-                Matrix Training_Segment_Matrix = segment.data.Duplicate();
-                Matrix Training_root_Matrix = root.data.Duplicate();
-                GetRandomEvaluationSet(segment.data, ref Evaluation_Matrix, ref Training_Segment_Matrix, ref Training_root_Matrix);
+                //Resampling
+                Matrix[] Evaluation_Matrix = new Matrix[10];
+                Matrix[] Training_Segment_Matrix = new Matrix[10];
+                Matrix[] Training_root_Matrix = new Matrix[10];
 
-                //Get strong segment
-                Segment Evaluation_Segment = new Segment(segment, Evaluation_Matrix);
-                Segment Training_Segment = new Segment(segment, Training_Segment_Matrix);
-                Segment Training_Root = new Segment(root, Training_root_Matrix);
+                for (int i = 0; i < 10; i++)
+                {
+                    Evaluation_Matrix[i] = new Matrix(segment.data.rows, segment.data.cols);
+                    Training_Segment_Matrix[i] = segment.data.Duplicate();
+                    Training_root_Matrix[i] = root.data.Duplicate();
+                }
 
-                double performamce_segment = MAE(ref Training_Segment, Evaluation_Segment);
-                double performance_root = MAE(ref Training_Root, Evaluation_Segment);
+                int count_segment = 0;
 
-                sum_Correlation_Avg_root += Training_Root.Correlation_Avg;
-                count_Correlation_Avg_root += 1;
+                int need = segment.data.CountCells() / 10;
+                Random rand = new Random();
 
-                /*DbHelper.RunScripts(string.Format("pr_insertSegment " + 0
-                        + ", " + segment.companion.id + ", " + segment.familiarity.id
-                        + ", " + segment.mood.id + ", " + 0
-                        + ", " + 0 + ", " + 0
-                        + ", " + performamce_segment
-                        + ", " + performance_root));*/
+                for (int i = 0; i < segment.data.rows; i++)
+                {
+                    for (int j = 0; j < segment.data.cols; j++)
+                    {
+                        if (segment.data[i, j] != 0)
+                        {
+                            bool isUsed = false;
+                            while (!isUsed)
+                            {
+                                int k = rand.Next(0, 10);
+                                if (Evaluation_Matrix[k].CountCells() < need)
+                                {
+                                    isUsed = true;
+                                    Evaluation_Matrix[k][i, j] = segment.data[i, j];
+                                    Training_Segment_Matrix[k][i, j] = 0;
+                                    Training_root_Matrix[k][i, j] = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                double performamce_segment = 0;
+                double performance_root = 0;
+                double correlation_avg_segment = 0;
+                for (int i = 0; i < 10; i++)
+                {
+                    //Get strong segment
+                    Segment Evaluation_Segment = new Segment(segment, Evaluation_Matrix[i]);
+                    Segment Training_Segment = new Segment(segment, Training_Segment_Matrix[i]);
+                    Segment Training_Root = new Segment(root, Training_root_Matrix[i]);
+
+                    performamce_segment += MAE(ref Training_Segment, Evaluation_Segment);
+                    performance_root += MAE(ref Training_Root, Evaluation_Segment);
+                    correlation_avg_segment += Training_Segment.Correlation_Avg;
+
+                    sum_Correlation_Avg_root += Training_Root.Correlation_Avg;
+                    count_Correlation_Avg_root += 1;
+                }
 
                 if (performamce_segment <= performance_root)
                 {
-                    //DbHelper.RunScripts(string.Format("pr_insertSegment " + segment.budget.id 
-                    //    + ", " + segment.companion.id + ", " + segment.familiarity.id
-                    //    + ", " + segment.mood.id + ", " + segment.temperature.id
-                    //    + ", " + segment.travelLength.id + ", " + segment.weather.id
-                    //    + ", " + performamce_segment));
-
                     DbHelper.RunScripts(string.Format("pr_insertSegment " + 0 //time
                         + ", " + segment.budget.id
                         + ", " + segment.companion.id
                         + ", " + segment.weather.id
-                        + ", " + performamce_segment
-                        + ", " + Training_Segment.Correlation_Avg), "Data Warehouse");
+                        + ", " + performamce_segment / 10
+                        + ", " + correlation_avg_segment / 10), "Data Warehouse");
                 }
-            }
+                
+                //Remove segment "child" and have performance less than its parents
 
-            //Remove segment "child" and have performance less than its parents
+                Segment[] candidates = Segment.GetCandidates();
 
-            Segment[] candidates = Segment.GetCandidates();
-
-            for (int i = 0; i < candidates.Length - 1; i++)
-            {
-                for (int j = i + 1; j < candidates.Length; j++)
+                for (int i = 0; i < candidates.Length - 1; i++)
                 {
-                    if (candidates[j].IsChildOf(candidates[i]))
+                    for (int j = i + 1; j < candidates.Length; j++)
                     {
-                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[j].id), "Data Warehouse");
+                        if (candidates[j].IsChildOf(candidates[i]))
+                        {
+                            DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[j].id), "Data Warehouse");
+                        }
                     }
                 }
             }
