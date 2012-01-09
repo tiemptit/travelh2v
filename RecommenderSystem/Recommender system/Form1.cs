@@ -76,7 +76,12 @@ namespace Recommender_system
             Recommendation.Recommend("10008", 1, 0, 3, "2");
         }
 
-        private void btnTestMatrix_Click(object sender, EventArgs e)
+        private void btnEvaluate_Click(object sender, EventArgs e)
+        {
+            Reduction.Test();
+        }
+
+        /*private void btnTestMatrix_Click(object sender, EventArgs e)
         {
 
             double[,] test = new double[5, 4] { { 5, 3, 0, 1 }, { 4, 0, 0, 1 }, { 1, 1, 0, 5 }, { 1, 0, 0, 4 }, { 0, 1, 5, 4 } };
@@ -88,7 +93,7 @@ namespace Recommender_system
             Matrix Q = Matrix.RandomMatrix(4, 2, 5);
 
             MatrixFactorization.testc(R, P, Q, 10);
-        }
+        }*/
 
     }
 }

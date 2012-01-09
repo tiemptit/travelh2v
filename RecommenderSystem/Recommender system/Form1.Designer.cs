@@ -45,6 +45,7 @@
             this.cboMood = new System.Windows.Forms.ComboBox();
             this.btnEstimate_Context = new System.Windows.Forms.Button();
             this.btnTestMatrix = new System.Windows.Forms.Button();
+            this.btnEvaluate = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnTest
@@ -216,13 +217,23 @@
             this.btnTestMatrix.TabIndex = 16;
             this.btnTestMatrix.Text = "Test Matrix";
             this.btnTestMatrix.UseVisualStyleBackColor = true;
-            this.btnTestMatrix.Click += new System.EventHandler(this.btnTestMatrix_Click);
+            // 
+            // btnEvaluate
+            // 
+            this.btnEvaluate.Location = new System.Drawing.Point(457, 203);
+            this.btnEvaluate.Name = "btnEvaluate";
+            this.btnEvaluate.Size = new System.Drawing.Size(94, 47);
+            this.btnEvaluate.TabIndex = 17;
+            this.btnEvaluate.Text = "Test Evaluate";
+            this.btnEvaluate.UseVisualStyleBackColor = true;
+            this.btnEvaluate.Click += new System.EventHandler(this.btnEvaluate_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 262);
+            this.Controls.Add(this.btnEvaluate);
             this.Controls.Add(this.btnTestMatrix);
             this.Controls.Add(this.btnEstimate_Context);
             this.Controls.Add(this.label5);
@@ -266,6 +277,7 @@
         private System.Windows.Forms.ComboBox cboMood;
         private System.Windows.Forms.Button btnEstimate_Context;
         private System.Windows.Forms.Button btnTestMatrix;
+        private System.Windows.Forms.Button btnEvaluate;
     }
 }
 

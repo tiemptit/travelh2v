@@ -43,7 +43,7 @@ namespace RecommenderSystem.Core.Model
             this.birthday = Convert.ToDateTime(data[2]);
             this.gender = Convert.ToInt32(data[3]);
         }
-        public double GetAverageRating(DataTable segment)
+        /*public double GetAverageRating(DataTable segment)
         {
             List<Rating> ratings = Rating.GetRatingListByUser(this, segment);
             double sum = 0;
@@ -52,11 +52,11 @@ namespace RecommenderSystem.Core.Model
                 sum += rating.rating;
             }
             return sum / ratings.Count;
-        }
+        }*/
         /*
          * Static Methods
          */
-        public static List<User> GetUsersRateItem(Item item, DataTable segment)
+        /*public static List<User> GetUsersRateItem(Item item, DataTable segment)
         {
             List<User> result = new List<User>();
             for (int i = 0; i < segment.Rows.Count; i++)
@@ -76,6 +76,6 @@ namespace RecommenderSystem.Core.Model
                 if (segment.data[i, item_id] != 0)
                     result.Add(i);
             return result;
-        }
+        }*/
     }
 }
