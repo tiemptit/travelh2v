@@ -124,14 +124,11 @@ namespace RecommenderSystem.Core.RS_Core
         {
             double sum = 0;
             int count = 0;
+            /*
             for (int i = 0; i < segment.item_id.Length - 3; i++)
                 for (int j = i + 1; j < segment.item_id.Length - 2; j++)
                     for (int k = j + 1; k < segment.item_id.Length - 1; k++)
                     {
-                        //int item_i_id = Convert.ToInt32(segment.item_id[i].Trim());
-                        //int item_j_id = Convert.ToInt32(segment.item_id[j].Trim());
-                        //int item_k_id = Convert.ToInt32(segment.item_id[k].Trim());
-                        //sum += Correlation(item_i_id, item_j_id, item_k_id, segment);
                         double temp = Correlation(i, j, k, segment);
                         if (Double.IsInfinity(temp))
                             temp = Correlation(i, j, k, segment);
@@ -140,7 +137,28 @@ namespace RecommenderSystem.Core.RS_Core
                             sum += temp;
                             count++;
                         }
-                    }
+                    }*/
+            for (int s = 0; s < segment.item_id.Length; s++)
+            {
+                Random rand = new Random();
+                int i = 1, j = 2, k = 3;
+                while (i != j && i != k && j != k)
+                {
+                    i = rand.Next(0, segment.item_id.Length - 1);
+                    j = rand.Next(0, segment.item_id.Length - 1);
+                    k = rand.Next(0, segment.item_id.Length - 1);
+                }
+
+                double temp = Correlation(i, j, k, segment);
+                if (Double.IsInfinity(temp))
+                    temp = Correlation(i, j, k, segment);
+                if (!Double.IsNaN(temp) && !Double.IsInfinity(temp))
+                {
+                    sum += temp;
+                    count++;
+                }
+            }
+
             return sum / count;
         }
 
