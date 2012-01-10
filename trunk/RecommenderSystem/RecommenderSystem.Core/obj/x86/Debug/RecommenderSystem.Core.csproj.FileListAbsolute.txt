@@ -62,3 +62,24 @@ D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Micro
 D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
 D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.pdb
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
+D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb

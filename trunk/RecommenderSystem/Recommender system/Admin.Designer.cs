@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnTrain = new System.Windows.Forms.Button();
+            this.btnTestML = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnTrain
+            // btnTestML
             // 
-            this.btnTrain.Location = new System.Drawing.Point(107, 12);
-            this.btnTrain.Name = "btnTrain";
-            this.btnTrain.Size = new System.Drawing.Size(68, 31);
-            this.btnTrain.TabIndex = 0;
-            this.btnTrain.Text = "Train";
-            this.btnTrain.UseVisualStyleBackColor = true;
-            this.btnTrain.Click += new System.EventHandler(this.btnTrain_Click);
+            this.btnTestML.Location = new System.Drawing.Point(12, 12);
+            this.btnTestML.Name = "btnTestML";
+            this.btnTestML.Size = new System.Drawing.Size(97, 34);
+            this.btnTestML.TabIndex = 0;
+            this.btnTestML.Text = "Test MovieLens";
+            this.btnTestML.UseVisualStyleBackColor = true;
+            this.btnTestML.Click += new System.EventHandler(this.btnTestML_Click);
             // 
             // Admin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.btnTrain);
+            this.ClientSize = new System.Drawing.Size(284, 243);
+            this.Controls.Add(this.btnTestML);
             this.Name = "Admin";
             this.Text = "Admin";
             this.ResumeLayout(false);
@@ -55,6 +55,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnTrain;
+        private System.Windows.Forms.Button btnTestML;
+
     }
 }

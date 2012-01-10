@@ -21,5 +21,10 @@ namespace Recommender_system
         {
 
         }
+
+        private void btnTestML_Click(object sender, EventArgs e)
+        {
+            Reduction.Test();
+        }
     }
 }
