@@ -67,8 +67,8 @@ namespace Recommender_system
 
         private void btnTemp_Click(object sender, EventArgs e)
         {
-            if (Reduction.temp())
-                MessageBox.Show("Done");
+            //if (Reduction.temp())
+                //MessageBox.Show("Done");
         }
 
         private void btnEstimate_Context_Click(object sender, EventArgs e)

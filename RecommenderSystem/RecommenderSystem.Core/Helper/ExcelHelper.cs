@@ -182,7 +182,7 @@ namespace RecommenderSystem.Core.Helper
                 if (!System.IO.File.Exists(pathToExcelFile))
                 {
                     //15/03/2011 Template ?
-                    System.IO.File.Copy(SystemHelper.GetConfigValue("appStartupPath") + "\\template\\newWorkbook.xlsx", pathToExcelFile);
+                    System.IO.File.Copy(System.Windows.Forms.Application.StartupPath + "\\template\\newWorkbook.xlsx", pathToExcelFile);
                 }
 
 
