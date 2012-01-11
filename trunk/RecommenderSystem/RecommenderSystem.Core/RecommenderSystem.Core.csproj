@@ -52,7 +52,7 @@
     <Compile Include="RS Core\Recommendation.cs" />
     <Compile Include="RS Core\Reduction.cs" />
     <Compile Include="RS Core\Regression.cs" />
-    <Compile Include="RS Core\Resampling.cs" />
+    <Compile Include="RS Core\Sample.cs" />
     <Compile Include="RS Core\Segment.cs" />
   </ItemGroup>
   <ItemGroup>

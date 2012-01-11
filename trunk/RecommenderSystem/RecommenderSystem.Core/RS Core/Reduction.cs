@@ -45,23 +45,8 @@ namespace RecommenderSystem.Core.RS_Core
                     }
             return sum / count;
         }
-        /*private static double MAE(Matrix Training, Matrix Evaluation)//Mean absolute error
-        {
-            int k = Recommendation.k;
-            Matrix P = Matrix.RandomMatrix(Training.rows, k, 5);
-            Matrix Q = Matrix.RandomMatrix(Training.cols, k, 5);
-            Matrix R = MatrixFactorization.MatrixFactorize(Training, ref P, ref Q, k);
-
-            double formular = 0;
-            for (int i = 0; i < Evaluation.rows; i++)
-                for (int j = 0; j < Evaluation.cols; j++)
-                    if (Evaluation[i, j] != 0)
-                        formular += Math.Abs(R[i, j] - Evaluation[i, j]);
-
-
-            return formular / (Evaluation.CountCells());
-        }*/
-        private static void GetRandomEvaluationSet(Matrix root, ref Matrix Eval, ref Matrix Training, ref Matrix Training_root)
+        
+        /*private static void GetRandomEvaluationSet(Matrix root, ref Matrix Eval, ref Matrix Training, ref Matrix Training_root)
         {
             Random rand = new Random();
             int need = root.CountCells() / 10;
@@ -88,7 +73,8 @@ namespace RecommenderSystem.Core.RS_Core
                         break;
                 }
             }
-        }
+        }*/
+         
         public static void Test()
         {
             //Segment segment = Segment.GetRoot();
@@ -202,17 +188,7 @@ namespace RecommenderSystem.Core.RS_Core
         }
 
         public static bool GetStrongSegments()
-        {
-            /*
-            Segment segment = Segment.GetRoot();
-            Matrix Evaluation_Matrix = new Matrix(segment.data.rows, segment.data.cols);
-            Matrix Training_Segment_Matrix = segment.data.Duplicate();
-            Matrix Training_root_Matrix = segment.data.Duplicate();
-            GetRandomEvaluationSet(segment.data, ref Evaluation_Matrix, ref Training_Segment_Matrix, ref Training_root_Matrix);
-            double performamce_segment = Performance(new Segment(segment, Training_Segment_Matrix), new Segment(segment, Evaluation_Matrix));
-            */
-
-            
+        {            
             List<Segment> AllSegment = Segment.GetAllSegment();
             Segment root = Segment.GetRoot();
             double sum_Correlation_Avg_root = 0;
@@ -222,61 +198,22 @@ namespace RecommenderSystem.Core.RS_Core
 
             foreach (Segment segment in AllSegment)
             {
-                //Resampling
-                Matrix[] Evaluation_Matrix = new Matrix[10];
-                Matrix[] Training_Segment_Matrix = new Matrix[10];
-                Matrix[] Training_root_Matrix = new Matrix[10];
-
-                for (int i = 0; i < 10; i++)
-                {
-                    Evaluation_Matrix[i] = new Matrix(segment.data.rows, segment.data.cols);
-                    Training_Segment_Matrix[i] = segment.data.Duplicate();
-                    Training_root_Matrix[i] = root.data.Duplicate();
-                }
-
-                int count_segment = 0;
-
-                int need = segment.data.CountCells() / 10;
-                Random rand = new Random();
-
-                for (int i = 0; i < segment.data.rows; i++)
-                {
-                    for (int j = 0; j < segment.data.cols; j++)
-                    {
-                        if (segment.data[i, j] != 0)
-                        {
-                            bool isUsed = false;
-                            while (!isUsed)
-                            {
-                                int k = rand.Next(0, 10);
-                                if (Evaluation_Matrix[k].CountCells() < need)
-                                {
-                                    isUsed = true;
-                                    Evaluation_Matrix[k][i, j] = segment.data[i, j];
-                                    Training_Segment_Matrix[k][i, j] = 0;
-                                    Training_root_Matrix[k][i, j] = 0;
-                                }
-                            }
-                        }
-                    }
-                }
-
+                //Resample segment
                 double performamce_segment = 0;
                 double performance_root = 0;
                 double correlation_avg_segment = 0;
-                for (int i = 0; i < 10; i++)
+                
+                List<Sample> resamples = Sample.Resampling(segment);
+                foreach (Sample sample in resamples)
                 {
-                    //Get strong segment
-                    Segment Evaluation_Segment = new Segment(segment, Evaluation_Matrix[i]);
-                    Segment Training_Segment = new Segment(segment, Training_Segment_Matrix[i]);
-                    Segment Training_Root = new Segment(root, Training_root_Matrix[i]);
+                    double temp_corr_avg_segment = sample.Train();
+                    correlation_avg_segment += temp_corr_avg_segment;
+                    performamce_segment += sample.Test(temp_corr_avg_segment);
 
-                    performamce_segment += MAE(ref Training_Segment, Evaluation_Segment);
-                    performance_root += MAE(ref Training_Root, Evaluation_Segment);
-                    correlation_avg_segment += Training_Segment.Correlation_Avg;
-
-                    sum_Correlation_Avg_root += Training_Root.Correlation_Avg;
+                    Sample sample_root = new Sample(sample.Evaluation, sample.Training_root);
+                    sum_Correlation_Avg_root += sample_root.Train();
                     count_Correlation_Avg_root += 1;
+                    performance_root += sample_root.Test(sum_Correlation_Avg_root/count_Correlation_Avg_root);
                 }
 
                 if (performamce_segment <= performance_root)
@@ -313,26 +250,6 @@ namespace RecommenderSystem.Core.RS_Core
 
             return true;
             
-        }
-
-        public static bool temp()
-        {
-            //Remove segment "child" and have performance less than its parents
-
-            Segment[] candidates = Segment.GetCandidates();
-
-            for (int i = 0; i < candidates.Length - 1; i++)
-            {
-                for (int j = i + 1; j < candidates.Length; j++)
-                {
-                    if (candidates[i].IsChildOf(candidates[j]))
-                    {
-                        DbHelper.RunScripts(string.Format("delete from segments where id = " + candidates[i].id), "Data Warehouse");
-                    }
-                }
-            }
-
-            return true;
         }
     }
 }
