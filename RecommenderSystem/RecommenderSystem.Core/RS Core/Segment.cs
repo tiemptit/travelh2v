@@ -106,7 +106,7 @@ namespace RecommenderSystem.Core.RS_Core
             for (int i = 0; i < data.rows; i++)
             {
                 user_id[i] = Convert.ToInt32(result.Rows[i + 1][0]);
-                avgRatingByUser[i] = Convert.ToDouble(result.Rows[i][1] == "" ? 0 : result.Rows[i][1]);
+                avgRatingByUser[i] = Convert.ToDouble(result.Rows[i + 1][1] == "" ? 0 : result.Rows[i + 1][1]);
                 for (int j = 0; j < data.cols; j++)
                     data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
             }
@@ -152,7 +152,7 @@ namespace RecommenderSystem.Core.RS_Core
             for (int i = 0; i < root.data.rows; i++)
             {
                 root.user_id[i] = Convert.ToInt32(result.Rows[i + 1][0]);
-                root.avgRatingByUser[i] = Convert.ToDouble(result.Rows[i][1] == "" ? 0 : result.Rows[i][1]);
+                root.avgRatingByUser[i] = Convert.ToDouble(result.Rows[i + 1][1] == "" ? 0 : result.Rows[i + 1][1]);
                 for (int j = 0; j < root.data.cols; j++)
                     root.data[i, j] = Convert.ToDouble(result.Rows[i + 1][j + 2] == "" ? 0 : result.Rows[i + 1][j + 2]);
             }

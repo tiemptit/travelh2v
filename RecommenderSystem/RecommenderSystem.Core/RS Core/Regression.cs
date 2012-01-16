@@ -138,6 +138,7 @@ namespace RecommenderSystem.Core.RS_Core
                             count++;
                         }
                     }*/
+            
             for (int s = 0; s < segment.item_id.Length; s++)
             {
                 Random rand = new Random();
