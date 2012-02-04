@@ -29,6 +29,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
@@ -97,15 +98,33 @@ public class MyMapActivity extends MapActivity implements Runnable {
 	public void onResume() {
 		super.onResume();
 		me.enableCompass();
-		locationManager.requestLocationUpdates(provider, 2000, 10,
-				locationListener);
+		if (locationManager != null) {
+			locationManager.requestLocationUpdates(provider, 1000, 10,
+					locationListener);
+			// stop update GPS after 6s
+			CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+				public void onTick(long millisUntilFinished) {
+				}
+
+				public void onFinish() {
+					if (locationManager != null) {
+						location = locationManager
+								.getLastKnownLocation(provider);
+						//locationManager.removeUpdates(locationListener);
+					}
+				}
+			};
+			aCounter.start();
+		}
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		me.disableCompass();
-		locationManager.removeUpdates(locationListener);
+		if (locationManager != null) {
+			locationManager.removeUpdates(locationListener);
+		}
 	}
 
 	@Override
@@ -124,7 +143,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 		}
 		return (super.onKeyDown(keyCode, event));
 	}
-	
+
 	public void zoomToCurrentPlace() {
 		// zoom to Place location
 		GeoPoint point = getPoint(respectLocation.getLat(),
@@ -199,7 +218,9 @@ public class MyMapActivity extends MapActivity implements Runnable {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				locationManager.removeUpdates(locationListener);
+				if (locationManager != null) {
+					locationManager.removeUpdates(locationListener);
+				}
 				finish();
 			}
 		});
@@ -209,10 +230,11 @@ public class MyMapActivity extends MapActivity implements Runnable {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						if (directionEN != null) { //show dialog box
-							TextView myView = new TextView(getApplicationContext()); 
-							myView.setText(directionEN); 
-							myView.setTextSize(15); 
+						if (directionEN != null) { // show dialog box
+							TextView myView = new TextView(
+									getApplicationContext());
+							myView.setText(directionEN);
+							myView.setTextSize(15);
 							AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 									MyMapActivity.this);
 							alertDialog.setTitle("Driving directions");
@@ -227,8 +249,6 @@ public class MyMapActivity extends MapActivity implements Runnable {
 					}
 				});
 	}
-
-	
 
 	// class overlay to show map and draw place
 	public class SitesOverlay extends ItemizedOverlay<OverlayItem> {
@@ -368,18 +388,32 @@ public class MyMapActivity extends MapActivity implements Runnable {
 	public void getLatitudeLongitude() {
 		// Get the location manager
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		// Provider is GPS
-		provider = LocationManager.GPS_PROVIDER;
-		//provider = LocationManager.NETWORK_PROVIDER;
-		locationManager.requestLocationUpdates(provider, 2000, 10,
-				locationListener);
-		location = locationManager.getLastKnownLocation(provider);
+		if (locationManager != null) {
+			// Provider is GPS
+			provider = LocationManager.GPS_PROVIDER;
+			locationManager.requestLocationUpdates(provider, 1000, 10,
+					locationListener);
+			// stop update GPS after 6s
+			CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+				public void onTick(long millisUntilFinished) {
+				}
+
+				public void onFinish() {
+					if (locationManager != null) {
+						location = locationManager
+								.getLastKnownLocation(provider);
+						//locationManager.removeUpdates(locationListener);
+					}
+				}
+			};
+			aCounter.start();
+		}
 		// Initialize the location fields
 		if (location != null) {
 			this.curLAT = location.getLatitude();
 			this.curLNG = location.getLongitude();
 			// stop receive GPS signal
-			//locationManager.removeUpdates(locationListener); 
+			// locationManager.removeUpdates(locationListener);
 		} else {
 			this.curLAT = ConfigUtil.LATITUDE;
 			this.curLNG = ConfigUtil.LONGITUDE;
@@ -404,7 +438,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 			alertDialog.show();
 		}
 	}
-	
+
 	// convert Point to GeoPoint for drawing place on map
 	public GeoPoint getPoint(double lat, double lon) {
 		return (new GeoPoint((int) (lat * 1000000.0), (int) (lon * 1000000.0)));
@@ -453,7 +487,7 @@ public class MyMapActivity extends MapActivity implements Runnable {
 			}
 			// dismiss dialog
 			progressDialog.dismiss();
-			alertGPSsignal();
+			// alertGPSsignal();
 		}
 	};
 }

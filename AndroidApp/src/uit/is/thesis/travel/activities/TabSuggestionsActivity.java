@@ -26,12 +26,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -78,7 +80,7 @@ public class TabSuggestionsActivity extends Activity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tab_suggestions);
-		
+
 		// button onclick listener
 		btnAz = (Button) findViewById(R.id.btnAzS);
 		btnAz.setOnClickListener(this);
@@ -101,17 +103,16 @@ public class TabSuggestionsActivity extends Activity implements
 		place_cates = new String[c.getCount()];
 		for (int i = 0; i < c.getCount(); i++) {
 			c.moveToPosition(i);
-			place_cates[i] = c
-					.getString(c.getColumnIndex("place_category"));
+			place_cates[i] = c.getString(c.getColumnIndex("place_category"));
 		}
 		c.close();
-		
+
 		adapter_type = new ArrayAdapter<String>(getApplicationContext(),
 				R.layout.my_spinner_item, place_cates);
 		adapter_type
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerType.setAdapter(adapter_type);
-		
+
 		if (!isConnectToInternet()) { // no Internet connection, quit
 			TextView myView = new TextView(getApplicationContext());
 			myView.setText("There is no Internet Connection!" + "\n\n"
@@ -124,12 +125,12 @@ public class TabSuggestionsActivity extends Activity implements
 			alertDialog.setPositiveButton("OK",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface arg0, int arg1) {
-							startActivity
-							(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+							startActivity(new Intent(
+									android.provider.Settings.ACTION_WIRELESS_SETTINGS));
 						}
 					});
 			alertDialog.show();
-			alertGPSsignal();
+			// alertGPSsignal();
 		} else {
 			// get current location of user
 			getLatitudeLongitude();
@@ -147,15 +148,29 @@ public class TabSuggestionsActivity extends Activity implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(locationManager!=null)
-			locationManager.requestLocationUpdates(provider, 2000, 10,
-				locationListener);
+		if (locationManager != null) {
+			locationManager.requestLocationUpdates(provider, 1000, 10,
+					locationListener);
+			// stop update GPS after 6s
+			CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+				public void onTick(long millisUntilFinished) {
+				}
+
+				public void onFinish() {
+					if (locationManager != null) {
+						location = locationManager.getLastKnownLocation(provider);
+						locationManager.removeUpdates(locationListener);
+					}
+				}
+			};
+			aCounter.start();
+		}
 	}
-	
+
 	@Override
 	public void onPause() {
 		super.onPause();
-		if(locationManager!=null)
+		if (locationManager != null)
 			locationManager.removeUpdates(locationListener);
 	}
 
@@ -267,9 +282,9 @@ public class TabSuggestionsActivity extends Activity implements
 	public void getSearchResultList() {
 		try {
 			// URL for web services
-			String url_test = "http://"
+			/*String url_test = "http://"
 					+ ConfigUtil.SERVER
-					+ "/wcf4webservices/Service/Suggestions?username=10008&weather=1&companion=1&budget=1&time=2011-12-25and14:16";
+					+ "/wcf4webservices/Service/Suggestions?username=10008&weather=1&companion=1&budget=1&time=2011-12-25and14:16";*/
 			String url = "http://" + ConfigUtil.SERVER
 					+ "/wcf4webservices/Service/Suggestions?";
 			// get google account on the android phone
@@ -283,8 +298,8 @@ public class TabSuggestionsActivity extends Activity implements
 				}
 			}
 			if (username != null) {
-				//test user 10008
-				username="10008";
+				// test user 10008
+				// username = "10008";
 				url += "username=" + username;
 				// get current context from SQLite
 				Cursor c = mDBAdapter.getContextConfig();
@@ -343,7 +358,7 @@ public class TabSuggestionsActivity extends Activity implements
 						TabSuggestionsActivity.this);
 				alertDialog.setTitle("Alert");
 				alertDialog.setView(myView);
-				alertDialog.setPositiveButton("OK",null);
+				alertDialog.setPositiveButton("OK", null);
 				alertDialog.show();
 			}
 		} catch (Exception e) {
@@ -378,17 +393,42 @@ public class TabSuggestionsActivity extends Activity implements
 		try {
 			// Get the location manager
 			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			// Provider is GPS
-			provider = LocationManager.GPS_PROVIDER;
-			locationManager.requestLocationUpdates(provider, 2000, 10,
-					locationListener);
-			location = locationManager.getLastKnownLocation(provider);
+			/*Criteria criteria = new Criteria();
+			criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+			criteria.setAltitudeRequired(false);
+			criteria.setBearingRequired(false);
+			criteria.setCostAllowed(true);
+			criteria.setPowerRequirement(Criteria.POWER_LOW);
+			criteria.setSpeedRequired(true);*/
+			if (locationManager != null) {
+				// get best provider
+				//provider = locationManager.getBestProvider(criteria, true);
+				provider = LocationManager.GPS_PROVIDER;
+				locationManager.requestLocationUpdates(provider, 1000, 10,
+						locationListener);
+				
+				// stop update GPS after 6s
+				CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+					public void onTick(long millisUntilFinished) {
+					}
+
+					public void onFinish() {
+						if (locationManager != null) {
+							location = locationManager.getLastKnownLocation(provider);
+							locationManager.removeUpdates(locationListener);
+						}
+					}
+				};
+				aCounter.start();
+			}
 			// Initialize the location fields
 			if (location != null) {
 				this.latitude = location.getLatitude();
 				this.longitude = location.getLongitude();
 				// stop receive GPS signal
-				locationManager.removeUpdates(locationListener); 	
+				if (locationManager != null) {
+					locationManager.removeUpdates(locationListener);
+				}
 			} else {
 				this.latitude = ConfigUtil.LATITUDE;
 				this.longitude = ConfigUtil.LONGITUDE;
@@ -415,14 +455,14 @@ public class TabSuggestionsActivity extends Activity implements
 			alertDialog.setPositiveButton("OK",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface arg0, int arg1) {
-							startActivity
-							(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+							startActivity(new Intent(
+									android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 						}
 					});
 			alertDialog.show();
 		}
 	}
-	
+
 	// Display ListView with parameters
 	public void displayListView(final List<PlaceModel> list) {
 		try {
@@ -521,9 +561,9 @@ public class TabSuggestionsActivity extends Activity implements
 				alertDialog.setPositiveButton("OK", null);
 				alertDialog.show();
 			}
-			
+
 			// if can't get GPS signal
-			alertGPSsignal();
+			// alertGPSsignal();
 		}
 	};
 }
