@@ -25,15 +25,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -44,6 +45,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TabAllActivity extends Activity implements OnClickListener,
 		Runnable {
@@ -58,7 +60,6 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	Location location;
 	// provider string (GPS provider)
 	String provider;
-	List<String> providers1, providers2;
 	// current Latitude - Longitude of user
 	double latitude, longitude;
 	// buttons on screen
@@ -100,18 +101,17 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		place_cates = new String[c.getCount()];
 		for (int i = 0; i < c.getCount(); i++) {
 			c.moveToPosition(i);
-			place_cates[i] = c
-					.getString(c.getColumnIndex("place_category"));
+			place_cates[i] = c.getString(c.getColumnIndex("place_category"));
 		}
 		c.close();
 		mDBAdapter.close();
-		
+
 		adapter_type = new ArrayAdapter<String>(getApplicationContext(),
 				R.layout.my_spinner_item, place_cates);
 		adapter_type
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerType.setAdapter(adapter_type);
-		
+
 		if (!isConnectToInternet()) { // no Internet connection, quit
 			TextView myView = new TextView(getApplicationContext());
 			myView.setText("There is no Internet Connection!" + "\n\n"
@@ -124,8 +124,8 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			alertDialog.setPositiveButton("OK",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface arg0, int arg1) {
-							startActivity
-							(new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS));
+							startActivity(new Intent(
+									android.provider.Settings.ACTION_WIRELESS_SETTINGS));
 						}
 					});
 			alertDialog.show();
@@ -147,14 +147,29 @@ public class TabAllActivity extends Activity implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
-		if(locationManager!=null)
-			locationManager.requestLocationUpdates(provider, 2000, 10,locationListener);
+		if (locationManager != null) {
+			locationManager.requestLocationUpdates(provider, 1000, 10,
+					locationListener);
+			// stop update GPS after 6s
+			CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+				public void onTick(long millisUntilFinished) {
+				}
+
+				public void onFinish() {
+					if (locationManager != null) {
+						location = locationManager.getLastKnownLocation(provider);
+						locationManager.removeUpdates(locationListener);
+					}
+				}
+			};
+			aCounter.start();
+		}
 	}
-	
+
 	@Override
 	public void onPause() {
 		super.onPause();
-		if(locationManager!=null)
+		if (locationManager != null)
 			locationManager.removeUpdates(locationListener);
 	}
 
@@ -300,18 +315,46 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		try {
 			// Get the location manager
 			locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-			// Provider is GPS
-			provider = LocationManager.GPS_PROVIDER;
-			//provider = LocationManager.NETWORK_PROVIDER;
-			locationManager.requestLocationUpdates(provider, 2000, 10,
-					locationListener);
-			location = locationManager.getLastKnownLocation(provider);
+			/*Criteria criteria = new Criteria();
+			criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+			criteria.setAltitudeRequired(false);
+			criteria.setBearingRequired(false);
+			criteria.setCostAllowed(true);
+			criteria.setPowerRequirement(Criteria.POWER_LOW);
+			criteria.setSpeedRequired(true);*/
+			if (locationManager != null) {
+				// get best provider
+				//provider = locationManager.getBestProvider(criteria, true);
+
+				// Provider is GPS
+				provider = LocationManager.GPS_PROVIDER;
+				// provider = LocationManager.NETWORK_PROVIDER;
+				// if (locationManager.isProviderEnabled(provider)) {
+				locationManager.requestLocationUpdates(provider, 1000, 10,
+						locationListener);
+				// }
+				// stop update GPS after 6s
+				CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+					public void onTick(long millisUntilFinished) {
+					}
+
+					public void onFinish() {
+						if (locationManager != null) {
+							location = locationManager.getLastKnownLocation(provider);
+							locationManager.removeUpdates(locationListener);
+						}
+					}
+				};
+				aCounter.start();
+			}
 			// Initialize the location fields
 			if (location != null) {
 				this.latitude = location.getLatitude();
 				this.longitude = location.getLongitude();
 				// stop receive GPS signal
-				locationManager.removeUpdates(locationListener); 																	
+				if (locationManager != null) {
+					locationManager.removeUpdates(locationListener);
+				}
 			} else { // can't get GPS
 				this.latitude = ConfigUtil.LATITUDE;
 				this.longitude = ConfigUtil.LONGITUDE;
@@ -337,8 +380,8 @@ public class TabAllActivity extends Activity implements OnClickListener,
 			alertDialog.setPositiveButton("OK",
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface arg0, int arg1) {
-							startActivity
-							(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+							startActivity(new Intent(
+									android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 						}
 					});
 			alertDialog.show();
@@ -424,7 +467,7 @@ public class TabAllActivity extends Activity implements OnClickListener,
 		@Override
 		public void handleMessage(Message message) {
 			// dismiss dialog
-			
+
 			btnAz.performClick();
 			progressDialog.dismiss();
 			alertGPSsignal();

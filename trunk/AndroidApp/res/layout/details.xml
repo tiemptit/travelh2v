@@ -140,9 +140,9 @@
 	</ScrollView>
 	<Button android:id="@+id/btnShowOnMap" android:layout_width="160dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_show_on_map"
-		android:layout_alignParentLeft="true" android:layout_below="@+id/ScrollViewDetails" />
+		android:layout_alignParentLeft="true" android:layout_alignParentBottom="true"/>
 	<Button android:id="@+id/btnAddFavorite" android:layout_width="160dip"
 		android:layout_height="33dip" android:background="@drawable/btn_selector_add_favorite"
 		android:layout_alignParentRight="true" android:layout_toRightOf="@+id/btnShowOnMap"
-		android:layout_below="@+id/ScrollViewDetails" />
+		android:layout_alignParentBottom="true"/>
 </RelativeLayout>
