@@ -47,6 +47,7 @@
     <Compile Include="Model\Companion.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\PlaceCategoryModel.cs" />
+    <Compile Include="Model\Time.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Weather.cs" />
     <Compile Include="RS Core\Recommendation.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="RS Core\Regression.cs" />
     <Compile Include="RS Core\Sample.cs" />
     <Compile Include="RS Core\Segment.cs" />
+    <Compile Include="RS Core\Statistic.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

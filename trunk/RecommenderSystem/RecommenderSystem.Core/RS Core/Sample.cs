@@ -157,7 +157,7 @@ namespace RecommenderSystem.Core.RS_Core
                             continue;
                         sum += Math.Abs(Evaluation.data[i, j] - predict_scrore);
                         count++;
-                    }
+                     }
             return sum / count;
         }
 

@@ -15,6 +15,7 @@ namespace RecommenderSystem.Core.RS_Core
          * Properties
          */
         public int id { get; set; }
+        public Time time { get; set; }
         public Budget budget { get; set; }
         public Companion companion { get; set; }
         //public Familiarity familiarity { get; set; }
@@ -37,6 +38,7 @@ namespace RecommenderSystem.Core.RS_Core
         public Segment (Segment segment, Matrix data)
         {
             this.id = segment.id;
+            this.time = segment.time;
             this.budget = segment.budget;
             this.companion = segment.companion;
             //this.familiarity = segment.familiarity;
@@ -52,18 +54,6 @@ namespace RecommenderSystem.Core.RS_Core
         }
         public void GetData()
         {
-            /*string sql = "pr_getSegment " + budget.id
-                    + ", " + companion.id + ", " + familiarity.id + ", " + mood.id + ", " + temperature.id
-                    + ", " + travelLength.id + ", " + weather.id;*/
-
-            /*string sql = "pr_getSegment " + 0
-                    + ", " + companion.id + ", " + familiarity.id + ", " + mood.id + ", " + 0
-                    + ", " + 0 + ", " + 0;
-            DataTable result = DbHelper.RunScriptsWithTable(string.Format(sql));*/
-
-            /*
-             * OLAP CUBE
-             */
 
             string mdx = "with member Measures.[Avg_Ratings] as "
                         + "([Measures].[Sum_Ratings]/[Measures].[Count_Ratings]) "
@@ -72,6 +62,12 @@ namespace RecommenderSystem.Core.RS_Core
                         + "[Dim User].[User Key].Members on rows "
                         + "from [Travel H2V DW]"
                         + "where (Measures.[Avg_Ratings]";
+            if (time.period_of_day != Time.Period_Of_Day.All)
+                mdx += ", [Dim Datetime].[Period Of Day].&[" + time.period_of_day + "]";
+            if (time.period_of_week != Time.Period_Of_Week.All)
+                mdx += ", [Dim Datetime].[Period Of Week].&[" + time.period_of_week + "]";
+            if (time.season != Time.Season.All)
+                mdx += ", [Dim Datetime].[Season].&[" + time.season + "]";
             if (budget.id != 0)
                 mdx += ", [Dim Budget].[Budget Key].&[" + budget.id + "]";
             if (companion.id != 0)
@@ -163,31 +159,33 @@ namespace RecommenderSystem.Core.RS_Core
         public static List<Segment> GetAllSegment()
         {
             List<Segment> result = new List<Segment>();
-            foreach(Budget budget in Budget.GetAllData())
-                foreach(Companion companion in Companion.GetAllData())
-                    //foreach(Familiarity familiarity in Familiarity.GetAllData())
-                        //foreach(Mood mood in Mood.GetAllData())
-                            //foreach(Temperature temperature in Temperature.GetAllData())
-                                //foreach(TravelLength travelLength in TravelLength.GetAllData())
-                                    foreach(Weather weather in Weather.GetAllData())
-                                    {
-                                        if (budget.id == 0 && companion.id == 0 && weather.id == 0)
-                                            continue;
-                                        else
+            foreach(Time time in Time.GetAll())
+                foreach(Budget budget in Budget.GetAllData())
+                    foreach(Companion companion in Companion.GetAllData())
+                        //foreach(Familiarity familiarity in Familiarity.GetAllData())
+                            //foreach(Mood mood in Mood.GetAllData())
+                                //foreach(Temperature temperature in Temperature.GetAllData())
+                                    //foreach(TravelLength travelLength in TravelLength.GetAllData())
+                                        foreach(Weather weather in Weather.GetAllData())
                                         {
-                                            Segment segment = new Segment();
-                                            segment.budget = budget;
-                                            segment.companion = companion;
-                                            //segment.familiarity = familiarity;
-                                            //segment.mood = mood;
-                                            //segment.temperature = temperature;
-                                            //segment.travelLength = travelLength;
-                                            segment.weather = weather;
-                                            segment.GetData();
-                                            if (segment.data.CountCells() > 10)
-                                                result.Add(segment);
+                                            if (time.period_of_day == Time.Period_Of_Day.All && time.period_of_week == Time.Period_Of_Week.All && time.season == Time.Season.All && budget.id == 0 && companion.id == 0 && weather.id == 0)
+                                                continue;
+                                            else
+                                            {
+                                                Segment segment = new Segment();
+                                                segment.time = time;
+                                                segment.budget = budget;
+                                                segment.companion = companion;
+                                                //segment.familiarity = familiarity;
+                                                //segment.mood = mood;
+                                                //segment.temperature = temperature;
+                                                //segment.travelLength = travelLength;
+                                                segment.weather = weather;
+                                                segment.GetData();
+                                                if (segment.data.CountCells() > 100)
+                                                    result.Add(segment);
+                                            }
                                         }
-                                    }
             return result;
         }
 
@@ -200,15 +198,16 @@ namespace RecommenderSystem.Core.RS_Core
                 Segment obj = new Segment();
                 obj.id = Convert.ToInt32(data.Rows[i][0]);
                 //Time
-                obj.budget = new Budget(Convert.ToInt32(data.Rows[i][2]));
-                obj.companion = new Companion(Convert.ToInt32(data.Rows[i][3]));
-                //obj.familiarity = new Familiarity(Convert.ToInt32(data.Rows[i][3]));
-                //obj.mood = new Mood(Convert.ToInt32(data.Rows[i][4]));
-                //obj.temperature = new Temperature(Convert.ToInt32(data.Rows[i][5]));
-                //obj.travelLength = new TravelLength(Convert.ToInt32(data.Rows[i][6]));
-                obj.weather = new Weather(Convert.ToInt32(data.Rows[i][4]));
-                obj.Performance = Convert.ToDouble(data.Rows[i][5]);
-                obj.Correlation_Avg = Convert.ToDouble(data.Rows[i][6]);
+                string period_of_day = Convert.ToString(data.Rows[i][1]);
+                string period_of_week = Convert.ToString(data.Rows[i][2]);
+                string season = Convert.ToString(data.Rows[i][3]);
+
+                obj.time = new Time(period_of_day, period_of_week, season);
+                obj.budget = new Budget(Convert.ToInt32(data.Rows[i][4]));
+                obj.companion = new Companion(Convert.ToInt32(data.Rows[i][5]));
+                obj.weather = new Weather(Convert.ToInt32(data.Rows[i][6]));
+                obj.Performance = Convert.ToDouble(data.Rows[i][7]);
+                obj.Correlation_Avg = Convert.ToDouble(data.Rows[i][8]);
                 candidates[i] = obj;
             }
 

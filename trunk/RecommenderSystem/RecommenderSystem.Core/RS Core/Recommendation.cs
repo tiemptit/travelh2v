@@ -7,7 +7,7 @@ using RecommenderSystem.Core.Model;
 
 namespace RecommenderSystem.Core.RS_Core
 {
-    public class Recommendation
+    public class Recommendation : IComparable<Recommendation>
     {
         public Item item;
         public double ratingEstimated;
@@ -22,6 +22,8 @@ namespace RecommenderSystem.Core.RS_Core
 
         public static List<Recommendation> Recommend(string user_email, int weather, int companion, int budget, string datetime)
         {
+            Time time = new Time(Convert.ToDateTime(datetime));
+
             User user = new User(user_email);
             List<Recommendation> result = new List<Recommendation>();
             Segment[] candidates = Segment.GetCandidates();
@@ -31,10 +33,10 @@ namespace RecommenderSystem.Core.RS_Core
                 if (
                     (candidates[i].budget.id == budget || candidates[i].budget.id ==0)
                     && (candidates[i].companion.id == companion || candidates[i].companion.id == 0)
-                    //&& (candidates[i].familiarity.id == familiarity || candidates[i].familiarity.id == 0)
-                    //&& (candidates[i].mood.id == mood || candidates[i].mood.id == 0)
-                    //&& (candidates[i].temperature.id == mood || candidates[i].temperature.id == 0)
                     && (candidates[i].weather.id == weather || candidates[i].weather.id == 0)
+                    && (candidates[i].time.period_of_day == time.period_of_day || candidates[i].time.period_of_day == Time.Period_Of_Day.All)
+                    && (candidates[i].time.period_of_week == time.period_of_week || candidates[i].time.period_of_week == Time.Period_Of_Week.All)
+                    && (candidates[i].time.season == time.season || candidates[i].time.season == Time.Season.All)
                     )
                 {
                     candidates[i].GetData();
@@ -44,7 +46,7 @@ namespace RecommenderSystem.Core.RS_Core
             }
 
 
-            int min = 100;
+            int min = 5;
             List<Item> ItemFails = new List<Item>();
 
             for (int i = 0; i < chosenOne.item_id.Length - 1; i++) // Bo unknown
@@ -63,7 +65,7 @@ namespace RecommenderSystem.Core.RS_Core
                 }
             }
 
-            if (result.Count < min && (chosenOne.budget.id != 0 || chosenOne.companion.id != 0 || chosenOne.weather.id != 0))
+            /*if (result.Count < min && (chosenOne.budget.id != 0 || chosenOne.companion.id != 0 || chosenOne.weather.id != 0))
             {
                 Segment Full = Segment.GetRoot();
                 foreach (Item item in ItemFails)
@@ -77,8 +79,21 @@ namespace RecommenderSystem.Core.RS_Core
                     if (result.Count == min)
                         break;
                 }
-            }
-                return result;
+            }*/
+
+            //Comparison<Recommendation> cp_Name = new Comparison<Recommendation>(Recommendation.CompareItemName);
+            result.Sort();
+            return result;
+        }
+
+        //public static int CompareItemName(Item i1, Item i2)
+        //{
+        //    return i1.name.CompareTo(i2.name);
+        //}
+
+        public int CompareTo(Recommendation other)
+        {
+            return this.item.name.CompareTo(other.item.name);
         }
     }
 }

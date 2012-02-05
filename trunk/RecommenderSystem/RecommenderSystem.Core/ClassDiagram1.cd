@@ -81,31 +81,46 @@
     </TypeIdentifier>
   </Class>
   <Class Name="RecommenderSystem.Core.RS_Core.Recommendation">
-    <Position X="11.75" Y="7" Width="1.5" />
+    <Position X="11.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAABAAAAQAAAAAAAAAAAAIgAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAABQAAAQAAAAAAAAAAAAIgAAAAAAAAAA=</HashCode>
       <FileName>RS Core\Recommendation.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="RecommenderSystem.Core.RS_Core.Reduction">
-    <Position X="10" Y="7" Width="1.5" />
+    <Position X="10" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAACABCAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAACAAAAAA=</HashCode>
       <FileName>RS Core\Reduction.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RecommenderSystem.Core.RS_Core.Regression">
-    <Position X="10" Y="9" Width="1.5" />
+    <Position X="10" Y="8" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAQAAAAABAAAABAAAAAAACAAAAIAIAEAAAAAQAA=</HashCode>
       <FileName>RS Core\Regression.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RecommenderSystem.Core.RS_Core.Segment">
-    <Position X="7.75" Y="7" Width="2" />
+    <Position X="7.75" Y="6.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AIAAAAAgEAAABAAAgCAAAAAAABAgAJEAAEqQAAgAAgA=</HashCode>
+      <HashCode>AIABAAAgEAAABAAAgCAAAAAAABAgAJEAAEqQAAgAAgA=</HashCode>
       <FileName>RS Core\Segment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RecommenderSystem.Core.RS_Core.Sample">
+    <Position X="11.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAggAAAAAAAAAAAAAAABACAEAAgAAAAAAAACAAAAAA=</HashCode>
+      <FileName>RS Core\Sample.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MException" Collapsed="true">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helper\Matrix.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

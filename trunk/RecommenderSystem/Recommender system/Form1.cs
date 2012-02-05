@@ -78,7 +78,7 @@ namespace Recommender_system
 
         private void btnEvaluate_Click(object sender, EventArgs e)
         {
-            Reduction.Test();
+            //Reduction.Test();
         }
 
         /*private void btnTestMatrix_Click(object sender, EventArgs e)

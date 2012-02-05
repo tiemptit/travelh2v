@@ -158,7 +158,7 @@ namespace Recommender_system
             txtLogML.AppendText("\r\nDone evaluate sample:");
             txtLogML.AppendText("\r\nMAE: " + performamce_segment);
             txtLogML.AppendText("\r\nCorreation average: " + correlation_avg_segment);
-            txtLogML.AppendText("Process finishs: " + DateTime.Now);
+            txtLogML.AppendText("\r\nProcess finishs: " + DateTime.Now);
             txtLogML.AppendText("\r\nStarting export predict ... ");
             swtemp.Start();
             ExcelHelper.SetDataToExcel(txtInput.Text, "Prediction", result);
@@ -176,6 +176,48 @@ namespace Recommender_system
             sample.Export("D:\\haizz.xlsx");
 
         }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            if (Reduction.GetStrongSegments())
+                MessageBox.Show("Done!");
+        }
+
+        private void btnCV_Click(object sender, EventArgs e)
+        {
+            DataTable data = DbHelper.RunScriptsWithTable(txtSQL.Text, "Data Warehouse");
+
+            Statistic statistic = new Statistic(data);
+
+            double cv = statistic.Coefficient_Of_Variation();
+
+            txtCV.Text = cv.ToString();
+
+            txtMutual_avg.Text = statistic.Mutual_Avg().ToString();
+
+            txtStatisticCount.Text = statistic.Count().ToString();
+
+            MessageBox.Show("Done");
+        }
+
+        private void btnRecommend_Click(object sender, EventArgs e)
+        {
+            string email = txtEmail.Text;
+            string time = dtpTime.Value.ToString();
+            int budget = cbBudget.SelectedIndex;
+            int companion = cbCompanion.SelectedIndex;
+            int weather = cbWeather.SelectedIndex;
+
+            List<Recommendation> l_rs = Recommendation.Recommend(email, weather, companion, budget, time);
+
+            foreach (Recommendation rs in l_rs)
+            {
+                txtRecommend.AppendText("\r\n" + rs.item.name + "----" + rs.ratingEstimated.ToString());
+            }
+
+            MessageBox.Show("Done");
+        }
+
 
     }
 }
