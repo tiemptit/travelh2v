@@ -34,6 +34,7 @@ import android.widget.ToggleButton;
  */
 public class DetailsActivity extends Activity implements OnClickListener, Runnable {
 	PlaceModel place;
+	double currentLat, currentLng;
 	SQLiteDBAdapter mDbAdapter = null;
 	// buttons on screen
 	ToggleButton ToggleBtnBasicInfo, ToggleBtnHistory, ToggleBtnMoreDetails,
@@ -146,6 +147,8 @@ public class DetailsActivity extends Activity implements OnClickListener, Runnab
 			try {
 				Bundle bundle = new Bundle();
 				bundle.putSerializable("currentplace", place);
+				bundle.putDouble("currentLatitude", currentLat);
+				bundle.putDouble("currentLongitude", currentLng);
 				Intent intent = new Intent(DetailsActivity.this,
 						MyMapActivity.class);
 				intent.putExtras(bundle);
@@ -284,6 +287,8 @@ public class DetailsActivity extends Activity implements OnClickListener, Runnab
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
 		place = (PlaceModel) bundle.getSerializable("currentplace");
+		currentLat = bundle.getDouble("currentLatitude");
+		currentLng = bundle.getDouble("currentLongitude");
 		// get layouts id
 		ToggleBtnBasicInfo = (ToggleButton) findViewById(R.id.ToggleBtnBasicInfo);
 		ToggleBtnBasicInfo.setOnClickListener(this);

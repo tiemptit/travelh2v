@@ -13,7 +13,7 @@ public class ConfigUtil {
 	public static double LONGITUDE = 106.6962;
 	
 	//LEHIEU 
-	public static String SERVER = "192.168.0.222";
+	//public static String SERVER = "192.168.0.222";
 	
 	//HUNG
 	//public static String SERVER = "egobile.com:7777";
@@ -22,5 +22,5 @@ public class ConfigUtil {
 	//public static String SERVER = "10.0.0.103";
 	
 	//MINSU
-	//public static String SERVER = "192.168.1.103";
+	public static String SERVER = "192.168.2.101";
 }

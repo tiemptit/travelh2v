@@ -80,8 +80,8 @@ public class MyMapActivity extends MapActivity implements Runnable {
 		progressDialog.setMessage("Loading ... Please wait!");
 		progressDialog.show();
 
-		// get current location of user
-		getLatitudeLongitude();
+		// get current location of user (get from Details Activities)
+		//getLatitudeLongitude();
 
 		// get map controller
 		map = (MapView) findViewById(R.id.map);
@@ -98,11 +98,13 @@ public class MyMapActivity extends MapActivity implements Runnable {
 	public void onResume() {
 		super.onResume();
 		me.enableCompass();
+		/*// Provider is GPS
+		provider = LocationManager.GPS_PROVIDER;
 		if (locationManager != null) {
-			locationManager.requestLocationUpdates(provider, 1000, 10,
+			locationManager.requestLocationUpdates(provider, 500, 10,
 					locationListener);
 			// stop update GPS after 6s
-			CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+			CountDownTimer aCounter = new CountDownTimer(10000, 1000) {
 				public void onTick(long millisUntilFinished) {
 				}
 
@@ -116,15 +118,25 @@ public class MyMapActivity extends MapActivity implements Runnable {
 			};
 			aCounter.start();
 		}
+		// Initialize the location fields
+		if (location != null) {
+			this.curLAT = location.getLatitude();
+			this.curLNG = location.getLongitude();
+			// stop receive GPS signal
+			// locationManager.removeUpdates(locationListener);
+		} else {
+			this.curLAT = ConfigUtil.LATITUDE;
+			this.curLNG = ConfigUtil.LONGITUDE;
+		}*/
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		me.disableCompass();
-		if (locationManager != null) {
+		/*if (locationManager != null) {
 			locationManager.removeUpdates(locationListener);
-		}
+		}*/
 	}
 
 	@Override
@@ -218,9 +230,9 @@ public class MyMapActivity extends MapActivity implements Runnable {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (locationManager != null) {
+				/*if (locationManager != null) {
 					locationManager.removeUpdates(locationListener);
-				}
+				}*/
 				finish();
 			}
 		});
@@ -388,13 +400,13 @@ public class MyMapActivity extends MapActivity implements Runnable {
 	public void getLatitudeLongitude() {
 		// Get the location manager
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		// Provider is GPS
+		provider = LocationManager.GPS_PROVIDER;
 		if (locationManager != null) {
-			// Provider is GPS
-			provider = LocationManager.GPS_PROVIDER;
-			locationManager.requestLocationUpdates(provider, 1000, 10,
+			locationManager.requestLocationUpdates(provider, 500, 10,
 					locationListener);
 			// stop update GPS after 6s
-			CountDownTimer aCounter = new CountDownTimer(6000, 1000) {
+			CountDownTimer aCounter = new CountDownTimer(10000, 1000) {
 				public void onTick(long millisUntilFinished) {
 				}
 
@@ -455,6 +467,8 @@ public class MyMapActivity extends MapActivity implements Runnable {
 			Bundle bundle = intent.getExtras();
 			respectLocation = (PlaceModel) bundle
 					.getSerializable("currentplace");
+			curLAT = bundle.getDouble("currentLatitude");
+			curLNG = bundle.getDouble("currentLongitude");
 
 			// Set the coordinate for from-point
 			if (fromLocation == null) {
