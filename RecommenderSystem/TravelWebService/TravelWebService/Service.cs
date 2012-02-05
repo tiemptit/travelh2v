@@ -61,6 +61,7 @@ namespace TravelWebService
         {
             // TODO: Add the new instance of SampleItem to the collection
             //throw new NotImplementedException();
+            time = time.Replace("and", " ");
             List<Recommendation> recommendation = Recommendation.Recommend(username, weather, companion, budget, time);
             var javaScriptSerializer = new JavaScriptSerializer();
             string jsonStringMultiple = "{\"responseData\":" + javaScriptSerializer.Serialize(recommendation.Select(x => new { x.item, x.ratingEstimated})) + "}";
