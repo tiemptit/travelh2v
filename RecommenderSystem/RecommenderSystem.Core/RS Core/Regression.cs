@@ -124,7 +124,7 @@ namespace RecommenderSystem.Core.RS_Core
         {
             double sum = 0;
             int count = 0;
-            /*
+            
             for (int i = 0; i < segment.item_id.Length - 3; i++)
                 for (int j = i + 1; j < segment.item_id.Length - 2; j++)
                     for (int k = j + 1; k < segment.item_id.Length - 1; k++)
@@ -137,8 +137,8 @@ namespace RecommenderSystem.Core.RS_Core
                             sum += temp;
                             count++;
                         }
-                    }*/
-            
+                    }
+            /*
             for (int s = 0; s < segment.item_id.Length; s++)
             {
                 Random rand = new Random();
@@ -158,7 +158,7 @@ namespace RecommenderSystem.Core.RS_Core
                     sum += temp;
                     count++;
                 }
-            }
+            }*/
 
             return sum / count;
         }
