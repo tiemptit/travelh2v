@@ -39,6 +39,13 @@ namespace RecommenderSystem.Core.Model
         public Period_Of_Week period_of_week { get; set; }
         public Season season { get; set; }
 
+        public Time()
+        {
+            period_of_day = Period_Of_Day.All;
+            period_of_week = Period_Of_Week.All;
+            season = Season.All;
+        }
+
         public Time(string pod, string pow, string ss)
         {
             if (pod == "Morning")
