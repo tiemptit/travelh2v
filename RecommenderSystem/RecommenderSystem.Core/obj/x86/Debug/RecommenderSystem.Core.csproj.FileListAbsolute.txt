@@ -19,27 +19,6 @@ D:\Learning\Luan van TN\In process\Recommender system\RecommenderSystem.Core\bin
 D:\Learning\Luan van TN\In process\Recommender system\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\Learning\Luan van TN\In process\Recommender system\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
 D:\Learning\Luan van TN\In process\Recommender system\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.pdb
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Interception.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
-D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb
 D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.dll
 D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.pdb
 D:\thesisproj\travelh2v\RecommenderSystem\RecommenderSystem.Core\bin\Debug\DocumentFormat.OpenXml.dll
@@ -83,3 +62,24 @@ D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Micr
 D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
 D:\NMH\Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\RecommenderSystem.Core.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.Logging.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.Database.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WCF.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.Integration.WinForms.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.pdb
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Validation.xml
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.dll
+D:\Learning\My Thesis\In process\RecommenderSystem\RecommenderSystem.Core\obj\x86\Debug\RecommenderSystem.Core.pdb

@@ -26,7 +26,9 @@ namespace TravelWebService
             {
                 DbHelper.RunScripts(string.Format("insert into users values ('" + username + "','1989-03-01',1)"), "Connection String");
                 id_user = checkIfUserExisted();
-                return DbHelper.RunScripts(string.Format("insert into real_ratings values (" + id_user + "," + id_place + "," + id_companion + "," + id_budget + "," + id_weather + ",'" + time + "'," + rating + ")"), "Connection String");
+                string sql = "insert into real_ratings values (" + id_user + "," + id_place + "," + (id_companion == 0 ? "NULL" : id_companion.ToString()) + "," + (id_budget == 0 ? "NULL" : id_companion.ToString()) + "," + (id_weather == 0 ? "NULL" : id_weather.ToString()) + ",'" + (time == "0" ? "NULL" : time) + "'," + rating + ")";
+
+                return DbHelper.RunScripts(string.Format("insert into real_ratings values (" + id_user + "," + id_place + "," + (id_companion == 0 ? "NULL" : id_companion.ToString()) + "," + (id_budget == 0 ? "NULL" : id_budget.ToString()) + "," + (id_weather == 0 ? "NULL" : id_weather.ToString()) + "," + (time == "0" ? "NULL" : "'" + time + "'") + "," + rating + ")"), "Connection String");
             }
             else 
             { 
@@ -38,7 +40,9 @@ namespace TravelWebService
                 } // else, insert new rating
                 else 
                 {
-                    return DbHelper.RunScripts(string.Format("insert into real_ratings values (" + id_user + "," + id_place + "," + id_companion + "," + id_budget + "," + id_weather + ",'" + time + "'," + rating + ")"), "Connection String");
+                    //return DbHelper.RunScripts(string.Format("insert into real_ratings values (" + id_user + "," + id_place + "," + id_companion + "," + id_budget + "," + id_weather + ",'" + time + "'," + rating + ")"), "Connection String");
+                    string sql = "insert into real_ratings values (" + id_user + "," + id_place + "," + (id_companion == 0 ? "NULL" : id_companion.ToString()) + "," + (id_budget == 0 ? "NULL" : id_companion.ToString()) + "," + (id_weather == 0 ? "NULL" : id_weather.ToString()) + ",'" + (time == "0" ? "NULL" : time) + "'," + rating + ")";
+                    return DbHelper.RunScripts(string.Format("insert into real_ratings values (" + id_user + "," + id_place + "," + (id_companion == 0 ? "NULL" : id_companion.ToString()) + "," + (id_budget == 0 ? "NULL" : id_budget.ToString()) + "," + (id_weather == 0 ? "NULL" : id_weather.ToString()) + "," + (time == "0" ? "NULL" : "'" + time + "'") + "," + rating + ")"), "Connection String");
                 } 
             }        
         }
@@ -57,8 +61,8 @@ namespace TravelWebService
         public int checkIfRatingExisted()
         {
             int id_user = checkIfUserExisted();
-
-            DataTable dt = DbHelper.RunScriptsWithTable(string.Format("select id from real_ratings where id_user=" + id_user + " and id_place = " + id_place + " and id_companion = " + id_companion +  " and id_budget = " + id_budget + " and id_weather = " + id_weather + " and time = '" + time +"'"), "Connection String");
+            string sql = "select id from real_ratings where id_user=" + id_user + " and id_place = " + id_place + " and id_companion " + (id_companion == 0 ? "is null" : " = " + id_companion.ToString()) +  " and id_budget " + (id_budget == 0 ? " is null" : " = " + id_budget.ToString()) + " and id_weather" + (id_weather == 0 ? " is null" : " = " + id_weather.ToString()) + " and time " + (time == "0" ? " is null" : "= '" + time + "'");
+            DataTable dt = DbHelper.RunScriptsWithTable(string.Format("select id from real_ratings where id_user=" + id_user + " and id_place = " + id_place + " and id_companion " + (id_companion == 0 ? "is null" : " = " + id_companion.ToString()) +  " and id_budget " + (id_budget == 0 ? " is null" : " = " + id_budget.ToString()) + " and id_weather" + (id_weather == 0 ? " is null" : " = " + id_weather.ToString()) + " and time " + (time == "0" ? " is null" : " = '" + time + "'")), "Connection String");
             if (dt.Rows.Count != 0)
             {
                 return Convert.ToInt32(dt.Rows[0][0]);
