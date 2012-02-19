@@ -22,7 +22,9 @@ namespace RecommenderSystem.Core.RS_Core
 
         public static List<Recommendation> Recommend(string user_email, int weather, int companion, int budget, string datetime)
         {
-            Time time = new Time(Convert.ToDateTime(datetime));
+            Time time = new Time();
+            if (datetime != "0")
+                time = new Time(Convert.ToDateTime(datetime));
 
             User user = new User(user_email);
             List<Recommendation> result = new List<Recommendation>();
